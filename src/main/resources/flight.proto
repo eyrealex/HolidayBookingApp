@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.alexeyre.grpc";
+option java_outer_classname = "FlightServiceImpl";
+
+package com.alexeyre.grpc.flight;
+
+service FlightService {
+
+	rpc flightLocation(LocationRequest) returns (LocationResponse) {}
+	rpc flightDate(stream DateRequest) returns (DateResponse) {}
+
+}
+
+message LocationRequest{
+	string destination = 1;
+}
+
+message LocationResponse{
+	string destination = 1;
+
+}
+
+message DateRequest{
+	string date = 1;
+	
+}
+
+message DateResponse{
+	string date = 1;
+	
+}
