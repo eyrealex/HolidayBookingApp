@@ -27,6 +27,38 @@ public final class FlightServiceGrpc {
   public static final String SERVICE_NAME = "com.alexeyre.grpc.flight.FlightService";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<com.alexeyre.grpc.ListRequest,
+      com.alexeyre.grpc.ListResponse> getFlightListMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "flightList",
+      requestType = com.alexeyre.grpc.ListRequest.class,
+      responseType = com.alexeyre.grpc.ListResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<com.alexeyre.grpc.ListRequest,
+      com.alexeyre.grpc.ListResponse> getFlightListMethod() {
+    io.grpc.MethodDescriptor<com.alexeyre.grpc.ListRequest, com.alexeyre.grpc.ListResponse> getFlightListMethod;
+    if ((getFlightListMethod = FlightServiceGrpc.getFlightListMethod) == null) {
+      synchronized (FlightServiceGrpc.class) {
+        if ((getFlightListMethod = FlightServiceGrpc.getFlightListMethod) == null) {
+          FlightServiceGrpc.getFlightListMethod = getFlightListMethod = 
+              io.grpc.MethodDescriptor.<com.alexeyre.grpc.ListRequest, com.alexeyre.grpc.ListResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "com.alexeyre.grpc.flight.FlightService", "flightList"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.alexeyre.grpc.ListRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.alexeyre.grpc.ListResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new FlightServiceMethodDescriptorSupplier("flightList"))
+                  .build();
+          }
+        }
+     }
+     return getFlightListMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.alexeyre.grpc.LocationRequest,
       com.alexeyre.grpc.LocationResponse> getFlightLocationMethod;
 
@@ -120,6 +152,13 @@ public final class FlightServiceGrpc {
 
     /**
      */
+    public void flightList(com.alexeyre.grpc.ListRequest request,
+        io.grpc.stub.StreamObserver<com.alexeyre.grpc.ListResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getFlightListMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void flightLocation(com.alexeyre.grpc.LocationRequest request,
         io.grpc.stub.StreamObserver<com.alexeyre.grpc.LocationResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getFlightLocationMethod(), responseObserver);
@@ -134,6 +173,13 @@ public final class FlightServiceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+          .addMethod(
+            getFlightListMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                com.alexeyre.grpc.ListRequest,
+                com.alexeyre.grpc.ListResponse>(
+                  this, METHODID_FLIGHT_LIST)))
           .addMethod(
             getFlightLocationMethod(),
             asyncUnaryCall(
@@ -168,6 +214,14 @@ public final class FlightServiceGrpc {
     protected FlightServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new FlightServiceStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public void flightList(com.alexeyre.grpc.ListRequest request,
+        io.grpc.stub.StreamObserver<com.alexeyre.grpc.ListResponse> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getFlightListMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -207,6 +261,14 @@ public final class FlightServiceGrpc {
 
     /**
      */
+    public java.util.Iterator<com.alexeyre.grpc.ListResponse> flightList(
+        com.alexeyre.grpc.ListRequest request) {
+      return blockingServerStreamingCall(
+          getChannel(), getFlightListMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public com.alexeyre.grpc.LocationResponse flightLocation(com.alexeyre.grpc.LocationRequest request) {
       return blockingUnaryCall(
           getChannel(), getFlightLocationMethod(), getCallOptions(), request);
@@ -240,8 +302,9 @@ public final class FlightServiceGrpc {
     }
   }
 
-  private static final int METHODID_FLIGHT_LOCATION = 0;
-  private static final int METHODID_FLIGHT_DATE = 1;
+  private static final int METHODID_FLIGHT_LIST = 0;
+  private static final int METHODID_FLIGHT_LOCATION = 1;
+  private static final int METHODID_FLIGHT_DATE = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -260,6 +323,10 @@ public final class FlightServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_FLIGHT_LIST:
+          serviceImpl.flightList((com.alexeyre.grpc.ListRequest) request,
+              (io.grpc.stub.StreamObserver<com.alexeyre.grpc.ListResponse>) responseObserver);
+          break;
         case METHODID_FLIGHT_LOCATION:
           serviceImpl.flightLocation((com.alexeyre.grpc.LocationRequest) request,
               (io.grpc.stub.StreamObserver<com.alexeyre.grpc.LocationResponse>) responseObserver);
@@ -328,6 +395,7 @@ public final class FlightServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new FlightServiceFileDescriptorSupplier())
+              .addMethod(getFlightListMethod())
               .addMethod(getFlightLocationMethod())
               .addMethod(getFlightDateMethod())
               .build();

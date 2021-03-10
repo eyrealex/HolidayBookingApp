@@ -1,6 +1,7 @@
 package com.alexeyre.grpc;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import com.alexeyre.grpc.FlightServiceGrpc.FlightServiceImplBase;
 import io.grpc.Server;
@@ -23,6 +24,30 @@ public class FlightServer extends FlightServiceImplBase {
 		server.awaitTermination();
 
 	}
+	
+	
+
+	@Override
+	public void flightList(ListRequest request, StreamObserver<ListResponse> responseObserver) {
+		
+		
+		ArrayList<String> list = new ArrayList();
+		list.add("Dublin");
+		list.add("London");
+		list.add("Paris");
+		list.add("Berlin");
+		
+		for(int i=0; i<list.size(); i++) {
+			String name = list.get(i);
+			ListResponse listresponse = ListResponse.newBuilder().setLocation(name).build();
+			responseObserver.onNext(listresponse);
+		}
+		
+		System.out.println("Receiving list of all possible flight destinations: " + list.get(0) + ", " + list.get(1) + ", " + list.get(2) + ", " + list.get(3));
+		responseObserver.onCompleted();
+	}
+
+
 
 	@Override
 	public void flightLocation(LocationRequest request, StreamObserver<LocationResponse> responseObserver) {
@@ -39,14 +64,26 @@ public class FlightServer extends FlightServiceImplBase {
 
 	@Override
 	public StreamObserver<DateRequest> flightDate(StreamObserver<DateResponse> responseObserver) {
-
 		return new StreamObserver<DateRequest>() {
 
+			ArrayList<String> list = new ArrayList();
 			String date = "";
 
 			@Override
 			public void onNext(DateRequest value) {
-				System.out.println("\nDeparture date request: " + value.getDate());
+
+				if (list.size() == 0) {
+					System.out.println("\nDeparture date request: " + value.getDate());
+					list.add(value.getDate());
+				} else if (list.size() == 1) {
+					System.out.println("\nArrival date request: " + value.getDate());
+					list.add(value.getDate());
+				}
+
+				if (list.size() > 1) {
+					onCompleted();
+				}
+
 				String date = value.getDate();
 
 			}
@@ -59,6 +96,7 @@ public class FlightServer extends FlightServiceImplBase {
 
 			@Override
 			public void onCompleted() {
+
 				DateResponse dateresponse = DateResponse.newBuilder().setDate(date).build();
 				responseObserver.onNext(dateresponse);
 				responseObserver.onCompleted();

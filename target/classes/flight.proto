@@ -8,9 +8,18 @@ package com.alexeyre.grpc.flight;
 
 service FlightService {
 
+	rpc flightList(ListRequest) returns (stream ListResponse) {}
 	rpc flightLocation(LocationRequest) returns (LocationResponse) {}
 	rpc flightDate(stream DateRequest) returns (DateResponse) {}
 
+}
+
+message ListRequest{
+	string location = 1;
+}
+
+message ListResponse{
+	string location = 2;
 }
 
 message LocationRequest{
