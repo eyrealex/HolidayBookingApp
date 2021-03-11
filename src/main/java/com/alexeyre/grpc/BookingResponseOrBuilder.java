@@ -8,22 +8,17 @@ public interface BookingResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string location = 1;</code>
+   * <code>string responseMessage = 1;</code>
    */
-  java.lang.String getLocation();
+  java.lang.String getResponseMessage();
   /**
-   * <code>string location = 1;</code>
+   * <code>string responseMessage = 1;</code>
    */
   com.google.protobuf.ByteString
-      getLocationBytes();
+      getResponseMessageBytes();
 
   /**
-   * <code>string date = 2;</code>
+   * <code>int32 responseCode = 2;</code>
    */
-  java.lang.String getDate();
-  /**
-   * <code>string date = 2;</code>
-   */
-  com.google.protobuf.ByteString
-      getDateBytes();
+  int getResponseCode();
 }

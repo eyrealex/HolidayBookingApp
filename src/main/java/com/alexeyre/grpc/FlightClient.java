@@ -29,7 +29,7 @@ public class FlightClient {
 
 			@Override
 			public void onNext(BookingResponse value) {
-				System.out.println("Receving date request: " + value.getDate());
+				//System.out.println("Receving date request: " + value.getDate());
 
 			}
 

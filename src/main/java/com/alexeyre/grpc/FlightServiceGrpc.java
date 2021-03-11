@@ -91,6 +91,38 @@ public final class FlightServiceGrpc {
      return getFlightBookingMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.alexeyre.grpc.PeopleRequest,
+      com.alexeyre.grpc.PeopleResponse> getFlightPeopleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "flightPeople",
+      requestType = com.alexeyre.grpc.PeopleRequest.class,
+      responseType = com.alexeyre.grpc.PeopleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.alexeyre.grpc.PeopleRequest,
+      com.alexeyre.grpc.PeopleResponse> getFlightPeopleMethod() {
+    io.grpc.MethodDescriptor<com.alexeyre.grpc.PeopleRequest, com.alexeyre.grpc.PeopleResponse> getFlightPeopleMethod;
+    if ((getFlightPeopleMethod = FlightServiceGrpc.getFlightPeopleMethod) == null) {
+      synchronized (FlightServiceGrpc.class) {
+        if ((getFlightPeopleMethod = FlightServiceGrpc.getFlightPeopleMethod) == null) {
+          FlightServiceGrpc.getFlightPeopleMethod = getFlightPeopleMethod = 
+              io.grpc.MethodDescriptor.<com.alexeyre.grpc.PeopleRequest, com.alexeyre.grpc.PeopleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "com.alexeyre.grpc.flight.FlightService", "flightPeople"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.alexeyre.grpc.PeopleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.alexeyre.grpc.PeopleResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new FlightServiceMethodDescriptorSupplier("flightPeople"))
+                  .build();
+          }
+        }
+     }
+     return getFlightPeopleMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.alexeyre.grpc.PassengerRequest,
       com.alexeyre.grpc.PassengerResponse> getFlightPassengerMethod;
 
@@ -166,6 +198,13 @@ public final class FlightServiceGrpc {
 
     /**
      */
+    public void flightPeople(com.alexeyre.grpc.PeopleRequest request,
+        io.grpc.stub.StreamObserver<com.alexeyre.grpc.PeopleResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getFlightPeopleMethod(), responseObserver);
+    }
+
+    /**
+     */
     public io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerRequest> flightPassenger(
         io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerResponse> responseObserver) {
       return asyncUnimplementedStreamingCall(getFlightPassengerMethod(), responseObserver);
@@ -187,6 +226,13 @@ public final class FlightServiceGrpc {
                 com.alexeyre.grpc.BookingRequest,
                 com.alexeyre.grpc.BookingResponse>(
                   this, METHODID_FLIGHT_BOOKING)))
+          .addMethod(
+            getFlightPeopleMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.alexeyre.grpc.PeopleRequest,
+                com.alexeyre.grpc.PeopleResponse>(
+                  this, METHODID_FLIGHT_PEOPLE)))
           .addMethod(
             getFlightPassengerMethod(),
             asyncBidiStreamingCall(
@@ -234,6 +280,14 @@ public final class FlightServiceGrpc {
 
     /**
      */
+    public void flightPeople(com.alexeyre.grpc.PeopleRequest request,
+        io.grpc.stub.StreamObserver<com.alexeyre.grpc.PeopleResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getFlightPeopleMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerRequest> flightPassenger(
         io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerResponse> responseObserver) {
       return asyncBidiStreamingCall(
@@ -266,6 +320,13 @@ public final class FlightServiceGrpc {
       return blockingServerStreamingCall(
           getChannel(), getFlightListMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public com.alexeyre.grpc.PeopleResponse flightPeople(com.alexeyre.grpc.PeopleRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getFlightPeopleMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -285,11 +346,20 @@ public final class FlightServiceGrpc {
         io.grpc.CallOptions callOptions) {
       return new FlightServiceFutureStub(channel, callOptions);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.alexeyre.grpc.PeopleResponse> flightPeople(
+        com.alexeyre.grpc.PeopleRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getFlightPeopleMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_FLIGHT_LIST = 0;
-  private static final int METHODID_FLIGHT_BOOKING = 1;
-  private static final int METHODID_FLIGHT_PASSENGER = 2;
+  private static final int METHODID_FLIGHT_PEOPLE = 1;
+  private static final int METHODID_FLIGHT_BOOKING = 2;
+  private static final int METHODID_FLIGHT_PASSENGER = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -311,6 +381,10 @@ public final class FlightServiceGrpc {
         case METHODID_FLIGHT_LIST:
           serviceImpl.flightList((com.alexeyre.grpc.ListRequest) request,
               (io.grpc.stub.StreamObserver<com.alexeyre.grpc.ListResponse>) responseObserver);
+          break;
+        case METHODID_FLIGHT_PEOPLE:
+          serviceImpl.flightPeople((com.alexeyre.grpc.PeopleRequest) request,
+              (io.grpc.stub.StreamObserver<com.alexeyre.grpc.PeopleResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -381,6 +455,7 @@ public final class FlightServiceGrpc {
               .setSchemaDescriptor(new FlightServiceFileDescriptorSupplier())
               .addMethod(getFlightListMethod())
               .addMethod(getFlightBookingMethod())
+              .addMethod(getFlightPeopleMethod())
               .addMethod(getFlightPassengerMethod())
               .build();
         }
