@@ -50,37 +50,28 @@ public class FlightServer extends FlightServiceImplBase {
 
 
 	@Override
-	public void flightLocation(LocationRequest request, StreamObserver<LocationResponse> responseObserver) {
-		StringBuilder stb = new StringBuilder(request.getDestination());
-
-		String output = stb.toString();
-
-		LocationResponse reply = LocationResponse.newBuilder().setDestination(output).build();
-		System.out.print("Holiday destination request: " + request.getDestination());
-
-		responseObserver.onNext(reply);
-		responseObserver.onCompleted();
-	}
-
-	@Override
-	public StreamObserver<DateRequest> flightDate(StreamObserver<DateResponse> responseObserver) {
-		return new StreamObserver<DateRequest>() {
+	public StreamObserver<BookingRequest> flightBooking(StreamObserver<BookingResponse> responseObserver) {
+		return new StreamObserver<BookingRequest>() {
 
 			ArrayList<String> list = new ArrayList();
 			String date = "";
 
 			@Override
-			public void onNext(DateRequest value) {
+			public void onNext(BookingRequest value) {
 
 				if (list.size() == 0) {
-					System.out.println("\nDeparture date request: " + value.getDate());
+					System.out.println("\nHoliday destination departure request: " + value.getLocation());
+					list.add(value.getLocation());
+					System.out.println("Holiday date departure request : " + value.getDate());
 					list.add(value.getDate());
-				} else if (list.size() == 1) {
-					System.out.println("\nArrival date request: " + value.getDate());
+				}else if (list.size() == 2) {
+					System.out.println("\nArrival destination return request: " + value.getLocation());
+					list.add(value.getLocation());
+					System.out.println("Arrival date return request : " + value.getDate());
 					list.add(value.getDate());
 				}
 
-				if (list.size() > 1) {
+				if (list.size() > 3) {
 					onCompleted();
 				}
 
@@ -97,8 +88,8 @@ public class FlightServer extends FlightServiceImplBase {
 			@Override
 			public void onCompleted() {
 
-				DateResponse dateresponse = DateResponse.newBuilder().setDate(date).build();
-				responseObserver.onNext(dateresponse);
+				BookingResponse bookingresponse = BookingResponse.newBuilder().setDate(date).build();
+				responseObserver.onNext(bookingresponse);
 				responseObserver.onCompleted();
 
 			}

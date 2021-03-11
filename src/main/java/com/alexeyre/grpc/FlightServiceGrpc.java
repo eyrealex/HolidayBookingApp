@@ -59,68 +59,36 @@ public final class FlightServiceGrpc {
      return getFlightListMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.alexeyre.grpc.LocationRequest,
-      com.alexeyre.grpc.LocationResponse> getFlightLocationMethod;
+  private static volatile io.grpc.MethodDescriptor<com.alexeyre.grpc.BookingRequest,
+      com.alexeyre.grpc.BookingResponse> getFlightBookingMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "flightLocation",
-      requestType = com.alexeyre.grpc.LocationRequest.class,
-      responseType = com.alexeyre.grpc.LocationResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.alexeyre.grpc.LocationRequest,
-      com.alexeyre.grpc.LocationResponse> getFlightLocationMethod() {
-    io.grpc.MethodDescriptor<com.alexeyre.grpc.LocationRequest, com.alexeyre.grpc.LocationResponse> getFlightLocationMethod;
-    if ((getFlightLocationMethod = FlightServiceGrpc.getFlightLocationMethod) == null) {
-      synchronized (FlightServiceGrpc.class) {
-        if ((getFlightLocationMethod = FlightServiceGrpc.getFlightLocationMethod) == null) {
-          FlightServiceGrpc.getFlightLocationMethod = getFlightLocationMethod = 
-              io.grpc.MethodDescriptor.<com.alexeyre.grpc.LocationRequest, com.alexeyre.grpc.LocationResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(
-                  "com.alexeyre.grpc.flight.FlightService", "flightLocation"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.alexeyre.grpc.LocationRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.alexeyre.grpc.LocationResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new FlightServiceMethodDescriptorSupplier("flightLocation"))
-                  .build();
-          }
-        }
-     }
-     return getFlightLocationMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<com.alexeyre.grpc.DateRequest,
-      com.alexeyre.grpc.DateResponse> getFlightDateMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "flightDate",
-      requestType = com.alexeyre.grpc.DateRequest.class,
-      responseType = com.alexeyre.grpc.DateResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "flightBooking",
+      requestType = com.alexeyre.grpc.BookingRequest.class,
+      responseType = com.alexeyre.grpc.BookingResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
-  public static io.grpc.MethodDescriptor<com.alexeyre.grpc.DateRequest,
-      com.alexeyre.grpc.DateResponse> getFlightDateMethod() {
-    io.grpc.MethodDescriptor<com.alexeyre.grpc.DateRequest, com.alexeyre.grpc.DateResponse> getFlightDateMethod;
-    if ((getFlightDateMethod = FlightServiceGrpc.getFlightDateMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.alexeyre.grpc.BookingRequest,
+      com.alexeyre.grpc.BookingResponse> getFlightBookingMethod() {
+    io.grpc.MethodDescriptor<com.alexeyre.grpc.BookingRequest, com.alexeyre.grpc.BookingResponse> getFlightBookingMethod;
+    if ((getFlightBookingMethod = FlightServiceGrpc.getFlightBookingMethod) == null) {
       synchronized (FlightServiceGrpc.class) {
-        if ((getFlightDateMethod = FlightServiceGrpc.getFlightDateMethod) == null) {
-          FlightServiceGrpc.getFlightDateMethod = getFlightDateMethod = 
-              io.grpc.MethodDescriptor.<com.alexeyre.grpc.DateRequest, com.alexeyre.grpc.DateResponse>newBuilder()
+        if ((getFlightBookingMethod = FlightServiceGrpc.getFlightBookingMethod) == null) {
+          FlightServiceGrpc.getFlightBookingMethod = getFlightBookingMethod = 
+              io.grpc.MethodDescriptor.<com.alexeyre.grpc.BookingRequest, com.alexeyre.grpc.BookingResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
               .setFullMethodName(generateFullMethodName(
-                  "com.alexeyre.grpc.flight.FlightService", "flightDate"))
+                  "com.alexeyre.grpc.flight.FlightService", "flightBooking"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.alexeyre.grpc.DateRequest.getDefaultInstance()))
+                  com.alexeyre.grpc.BookingRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.alexeyre.grpc.DateResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new FlightServiceMethodDescriptorSupplier("flightDate"))
+                  com.alexeyre.grpc.BookingResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new FlightServiceMethodDescriptorSupplier("flightBooking"))
                   .build();
           }
         }
      }
-     return getFlightDateMethod;
+     return getFlightBookingMethod;
   }
 
   /**
@@ -159,16 +127,9 @@ public final class FlightServiceGrpc {
 
     /**
      */
-    public void flightLocation(com.alexeyre.grpc.LocationRequest request,
-        io.grpc.stub.StreamObserver<com.alexeyre.grpc.LocationResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getFlightLocationMethod(), responseObserver);
-    }
-
-    /**
-     */
-    public io.grpc.stub.StreamObserver<com.alexeyre.grpc.DateRequest> flightDate(
-        io.grpc.stub.StreamObserver<com.alexeyre.grpc.DateResponse> responseObserver) {
-      return asyncUnimplementedStreamingCall(getFlightDateMethod(), responseObserver);
+    public io.grpc.stub.StreamObserver<com.alexeyre.grpc.BookingRequest> flightBooking(
+        io.grpc.stub.StreamObserver<com.alexeyre.grpc.BookingResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getFlightBookingMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -181,19 +142,12 @@ public final class FlightServiceGrpc {
                 com.alexeyre.grpc.ListResponse>(
                   this, METHODID_FLIGHT_LIST)))
           .addMethod(
-            getFlightLocationMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                com.alexeyre.grpc.LocationRequest,
-                com.alexeyre.grpc.LocationResponse>(
-                  this, METHODID_FLIGHT_LOCATION)))
-          .addMethod(
-            getFlightDateMethod(),
+            getFlightBookingMethod(),
             asyncClientStreamingCall(
               new MethodHandlers<
-                com.alexeyre.grpc.DateRequest,
-                com.alexeyre.grpc.DateResponse>(
-                  this, METHODID_FLIGHT_DATE)))
+                com.alexeyre.grpc.BookingRequest,
+                com.alexeyre.grpc.BookingResponse>(
+                  this, METHODID_FLIGHT_BOOKING)))
           .build();
     }
   }
@@ -226,18 +180,10 @@ public final class FlightServiceGrpc {
 
     /**
      */
-    public void flightLocation(com.alexeyre.grpc.LocationRequest request,
-        io.grpc.stub.StreamObserver<com.alexeyre.grpc.LocationResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getFlightLocationMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public io.grpc.stub.StreamObserver<com.alexeyre.grpc.DateRequest> flightDate(
-        io.grpc.stub.StreamObserver<com.alexeyre.grpc.DateResponse> responseObserver) {
+    public io.grpc.stub.StreamObserver<com.alexeyre.grpc.BookingRequest> flightBooking(
+        io.grpc.stub.StreamObserver<com.alexeyre.grpc.BookingResponse> responseObserver) {
       return asyncClientStreamingCall(
-          getChannel().newCall(getFlightDateMethod(), getCallOptions()), responseObserver);
+          getChannel().newCall(getFlightBookingMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -266,13 +212,6 @@ public final class FlightServiceGrpc {
       return blockingServerStreamingCall(
           getChannel(), getFlightListMethod(), getCallOptions(), request);
     }
-
-    /**
-     */
-    public com.alexeyre.grpc.LocationResponse flightLocation(com.alexeyre.grpc.LocationRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getFlightLocationMethod(), getCallOptions(), request);
-    }
   }
 
   /**
@@ -292,19 +231,10 @@ public final class FlightServiceGrpc {
         io.grpc.CallOptions callOptions) {
       return new FlightServiceFutureStub(channel, callOptions);
     }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.alexeyre.grpc.LocationResponse> flightLocation(
-        com.alexeyre.grpc.LocationRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getFlightLocationMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_FLIGHT_LIST = 0;
-  private static final int METHODID_FLIGHT_LOCATION = 1;
-  private static final int METHODID_FLIGHT_DATE = 2;
+  private static final int METHODID_FLIGHT_BOOKING = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -327,10 +257,6 @@ public final class FlightServiceGrpc {
           serviceImpl.flightList((com.alexeyre.grpc.ListRequest) request,
               (io.grpc.stub.StreamObserver<com.alexeyre.grpc.ListResponse>) responseObserver);
           break;
-        case METHODID_FLIGHT_LOCATION:
-          serviceImpl.flightLocation((com.alexeyre.grpc.LocationRequest) request,
-              (io.grpc.stub.StreamObserver<com.alexeyre.grpc.LocationResponse>) responseObserver);
-          break;
         default:
           throw new AssertionError();
       }
@@ -341,9 +267,9 @@ public final class FlightServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_FLIGHT_DATE:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.flightDate(
-              (io.grpc.stub.StreamObserver<com.alexeyre.grpc.DateResponse>) responseObserver);
+        case METHODID_FLIGHT_BOOKING:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.flightBooking(
+              (io.grpc.stub.StreamObserver<com.alexeyre.grpc.BookingResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -396,8 +322,7 @@ public final class FlightServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new FlightServiceFileDescriptorSupplier())
               .addMethod(getFlightListMethod())
-              .addMethod(getFlightLocationMethod())
-              .addMethod(getFlightDateMethod())
+              .addMethod(getFlightBookingMethod())
               .build();
         }
       }

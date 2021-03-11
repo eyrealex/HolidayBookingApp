@@ -4,18 +4,19 @@
 package com.alexeyre.grpc;
 
 /**
- * Protobuf type {@code com.alexeyre.grpc.flight.DateResponse}
+ * Protobuf type {@code com.alexeyre.grpc.flight.BookingResponse}
  */
-public  final class DateResponse extends
+public  final class BookingResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:com.alexeyre.grpc.flight.DateResponse)
-    DateResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:com.alexeyre.grpc.flight.BookingResponse)
+    BookingResponseOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use DateResponse.newBuilder() to construct.
-  private DateResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use BookingResponse.newBuilder() to construct.
+  private BookingResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private DateResponse() {
+  private BookingResponse() {
+    location_ = "";
     date_ = "";
   }
 
@@ -24,7 +25,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private DateResponse(
+  private BookingResponse(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -44,6 +45,12 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            location_ = s;
+            break;
+          }
+          case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
             date_ = s;
@@ -70,21 +77,55 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DateResponse_descriptor;
+    return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DateResponse_fieldAccessorTable
+    return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_BookingResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.alexeyre.grpc.DateResponse.class, com.alexeyre.grpc.DateResponse.Builder.class);
+            com.alexeyre.grpc.BookingResponse.class, com.alexeyre.grpc.BookingResponse.Builder.class);
   }
 
-  public static final int DATE_FIELD_NUMBER = 1;
+  public static final int LOCATION_FIELD_NUMBER = 1;
+  private volatile java.lang.Object location_;
+  /**
+   * <code>string location = 1;</code>
+   */
+  public java.lang.String getLocation() {
+    java.lang.Object ref = location_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      location_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string location = 1;</code>
+   */
+  public com.google.protobuf.ByteString
+      getLocationBytes() {
+    java.lang.Object ref = location_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      location_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int DATE_FIELD_NUMBER = 2;
   private volatile java.lang.Object date_;
   /**
-   * <code>string date = 1;</code>
+   * <code>string date = 2;</code>
    */
   public java.lang.String getDate() {
     java.lang.Object ref = date_;
@@ -99,7 +140,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string date = 1;</code>
+   * <code>string date = 2;</code>
    */
   public com.google.protobuf.ByteString
       getDateBytes() {
@@ -129,8 +170,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (!getLocationBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, location_);
+    }
     if (!getDateBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, date_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, date_);
     }
     unknownFields.writeTo(output);
   }
@@ -141,8 +185,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (!getLocationBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, location_);
+    }
     if (!getDateBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, date_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, date_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -154,12 +201,14 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.alexeyre.grpc.DateResponse)) {
+    if (!(obj instanceof com.alexeyre.grpc.BookingResponse)) {
       return super.equals(obj);
     }
-    com.alexeyre.grpc.DateResponse other = (com.alexeyre.grpc.DateResponse) obj;
+    com.alexeyre.grpc.BookingResponse other = (com.alexeyre.grpc.BookingResponse) obj;
 
     boolean result = true;
+    result = result && getLocation()
+        .equals(other.getLocation());
     result = result && getDate()
         .equals(other.getDate());
     result = result && unknownFields.equals(other.unknownFields);
@@ -173,6 +222,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + LOCATION_FIELD_NUMBER;
+    hash = (53 * hash) + getLocation().hashCode();
     hash = (37 * hash) + DATE_FIELD_NUMBER;
     hash = (53 * hash) + getDate().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -180,69 +231,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static com.alexeyre.grpc.DateResponse parseFrom(
+  public static com.alexeyre.grpc.BookingResponse parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(
+  public static com.alexeyre.grpc.BookingResponse parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(
+  public static com.alexeyre.grpc.BookingResponse parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(
+  public static com.alexeyre.grpc.BookingResponse parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(byte[] data)
+  public static com.alexeyre.grpc.BookingResponse parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(
+  public static com.alexeyre.grpc.BookingResponse parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(java.io.InputStream input)
+  public static com.alexeyre.grpc.BookingResponse parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(
+  public static com.alexeyre.grpc.BookingResponse parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.alexeyre.grpc.DateResponse parseDelimitedFrom(java.io.InputStream input)
+  public static com.alexeyre.grpc.BookingResponse parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.DateResponse parseDelimitedFrom(
+  public static com.alexeyre.grpc.BookingResponse parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(
+  public static com.alexeyre.grpc.BookingResponse parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.DateResponse parseFrom(
+  public static com.alexeyre.grpc.BookingResponse parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -255,7 +306,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.alexeyre.grpc.DateResponse prototype) {
+  public static Builder newBuilder(com.alexeyre.grpc.BookingResponse prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -271,26 +322,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code com.alexeyre.grpc.flight.DateResponse}
+   * Protobuf type {@code com.alexeyre.grpc.flight.BookingResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:com.alexeyre.grpc.flight.DateResponse)
-      com.alexeyre.grpc.DateResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:com.alexeyre.grpc.flight.BookingResponse)
+      com.alexeyre.grpc.BookingResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DateResponse_descriptor;
+      return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DateResponse_fieldAccessorTable
+      return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_BookingResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.alexeyre.grpc.DateResponse.class, com.alexeyre.grpc.DateResponse.Builder.class);
+              com.alexeyre.grpc.BookingResponse.class, com.alexeyre.grpc.BookingResponse.Builder.class);
     }
 
-    // Construct using com.alexeyre.grpc.DateResponse.newBuilder()
+    // Construct using com.alexeyre.grpc.BookingResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -308,6 +359,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      location_ = "";
+
       date_ = "";
 
       return this;
@@ -316,17 +369,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DateResponse_descriptor;
+      return com.alexeyre.grpc.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor;
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.DateResponse getDefaultInstanceForType() {
-      return com.alexeyre.grpc.DateResponse.getDefaultInstance();
+    public com.alexeyre.grpc.BookingResponse getDefaultInstanceForType() {
+      return com.alexeyre.grpc.BookingResponse.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.DateResponse build() {
-      com.alexeyre.grpc.DateResponse result = buildPartial();
+    public com.alexeyre.grpc.BookingResponse build() {
+      com.alexeyre.grpc.BookingResponse result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -334,8 +387,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.DateResponse buildPartial() {
-      com.alexeyre.grpc.DateResponse result = new com.alexeyre.grpc.DateResponse(this);
+    public com.alexeyre.grpc.BookingResponse buildPartial() {
+      com.alexeyre.grpc.BookingResponse result = new com.alexeyre.grpc.BookingResponse(this);
+      result.location_ = location_;
       result.date_ = date_;
       onBuilt();
       return result;
@@ -375,16 +429,20 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.alexeyre.grpc.DateResponse) {
-        return mergeFrom((com.alexeyre.grpc.DateResponse)other);
+      if (other instanceof com.alexeyre.grpc.BookingResponse) {
+        return mergeFrom((com.alexeyre.grpc.BookingResponse)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.alexeyre.grpc.DateResponse other) {
-      if (other == com.alexeyre.grpc.DateResponse.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.alexeyre.grpc.BookingResponse other) {
+      if (other == com.alexeyre.grpc.BookingResponse.getDefaultInstance()) return this;
+      if (!other.getLocation().isEmpty()) {
+        location_ = other.location_;
+        onChanged();
+      }
       if (!other.getDate().isEmpty()) {
         date_ = other.date_;
         onChanged();
@@ -404,11 +462,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.alexeyre.grpc.DateResponse parsedMessage = null;
+      com.alexeyre.grpc.BookingResponse parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.alexeyre.grpc.DateResponse) e.getUnfinishedMessage();
+        parsedMessage = (com.alexeyre.grpc.BookingResponse) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -418,9 +476,78 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.lang.Object location_ = "";
+    /**
+     * <code>string location = 1;</code>
+     */
+    public java.lang.String getLocation() {
+      java.lang.Object ref = location_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        location_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string location = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLocationBytes() {
+      java.lang.Object ref = location_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        location_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string location = 1;</code>
+     */
+    public Builder setLocation(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      location_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string location = 1;</code>
+     */
+    public Builder clearLocation() {
+      
+      location_ = getDefaultInstance().getLocation();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string location = 1;</code>
+     */
+    public Builder setLocationBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      location_ = value;
+      onChanged();
+      return this;
+    }
+
     private java.lang.Object date_ = "";
     /**
-     * <code>string date = 1;</code>
+     * <code>string date = 2;</code>
      */
     public java.lang.String getDate() {
       java.lang.Object ref = date_;
@@ -435,7 +562,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string date = 1;</code>
+     * <code>string date = 2;</code>
      */
     public com.google.protobuf.ByteString
         getDateBytes() {
@@ -451,7 +578,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string date = 1;</code>
+     * <code>string date = 2;</code>
      */
     public Builder setDate(
         java.lang.String value) {
@@ -464,7 +591,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string date = 1;</code>
+     * <code>string date = 2;</code>
      */
     public Builder clearDate() {
       
@@ -473,7 +600,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string date = 1;</code>
+     * <code>string date = 2;</code>
      */
     public Builder setDateBytes(
         com.google.protobuf.ByteString value) {
@@ -499,41 +626,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:com.alexeyre.grpc.flight.DateResponse)
+    // @@protoc_insertion_point(builder_scope:com.alexeyre.grpc.flight.BookingResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:com.alexeyre.grpc.flight.DateResponse)
-  private static final com.alexeyre.grpc.DateResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:com.alexeyre.grpc.flight.BookingResponse)
+  private static final com.alexeyre.grpc.BookingResponse DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.alexeyre.grpc.DateResponse();
+    DEFAULT_INSTANCE = new com.alexeyre.grpc.BookingResponse();
   }
 
-  public static com.alexeyre.grpc.DateResponse getDefaultInstance() {
+  public static com.alexeyre.grpc.BookingResponse getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<DateResponse>
-      PARSER = new com.google.protobuf.AbstractParser<DateResponse>() {
+  private static final com.google.protobuf.Parser<BookingResponse>
+      PARSER = new com.google.protobuf.AbstractParser<BookingResponse>() {
     @java.lang.Override
-    public DateResponse parsePartialFrom(
+    public BookingResponse parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new DateResponse(input, extensionRegistry);
+      return new BookingResponse(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<DateResponse> parser() {
+  public static com.google.protobuf.Parser<BookingResponse> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<DateResponse> getParserForType() {
+  public com.google.protobuf.Parser<BookingResponse> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.alexeyre.grpc.DateResponse getDefaultInstanceForType() {
+  public com.alexeyre.grpc.BookingResponse getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

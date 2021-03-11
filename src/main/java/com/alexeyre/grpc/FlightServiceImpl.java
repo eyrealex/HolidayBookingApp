@@ -25,25 +25,15 @@ public final class FlightServiceImpl {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_alexeyre_grpc_flight_ListResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_alexeyre_grpc_flight_LocationRequest_descriptor;
+    internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_alexeyre_grpc_flight_LocationRequest_fieldAccessorTable;
+      internal_static_com_alexeyre_grpc_flight_BookingRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_alexeyre_grpc_flight_LocationResponse_descriptor;
+    internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_alexeyre_grpc_flight_LocationResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_alexeyre_grpc_flight_DateRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_alexeyre_grpc_flight_DateRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_alexeyre_grpc_flight_DateResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_alexeyre_grpc_flight_DateResponse_fieldAccessorTable;
+      internal_static_com_alexeyre_grpc_flight_BookingResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -55,20 +45,16 @@ public final class FlightServiceImpl {
     java.lang.String[] descriptorData = {
       "\n\014flight.proto\022\030com.alexeyre.grpc.flight" +
       "\"\037\n\013ListRequest\022\020\n\010location\030\001 \001(\t\" \n\014Lis" +
-      "tResponse\022\020\n\010location\030\002 \001(\t\"&\n\017LocationR" +
-      "equest\022\023\n\013destination\030\001 \001(\t\"\'\n\020LocationR" +
-      "esponse\022\023\n\013destination\030\001 \001(\t\"\033\n\013DateRequ" +
-      "est\022\014\n\004date\030\001 \001(\t\"\034\n\014DateResponse\022\014\n\004dat" +
-      "e\030\001 \001(\t2\274\002\n\rFlightService\022_\n\nflightList\022" +
-      "%.com.alexeyre.grpc.flight.ListRequest\032&" +
-      ".com.alexeyre.grpc.flight.ListResponse\"\000" +
-      "0\001\022i\n\016flightLocation\022).com.alexeyre.grpc" +
-      ".flight.LocationRequest\032*.com.alexeyre.g" +
-      "rpc.flight.LocationResponse\"\000\022_\n\nflightD" +
-      "ate\022%.com.alexeyre.grpc.flight.DateReque" +
-      "st\032&.com.alexeyre.grpc.flight.DateRespon" +
-      "se\"\000(\001B(\n\021com.alexeyre.grpcB\021FlightServi" +
-      "ceImplP\001b\006proto3"
+      "tResponse\022\020\n\010location\030\002 \001(\t\"0\n\016BookingRe" +
+      "quest\022\020\n\010location\030\001 \001(\t\022\014\n\004date\030\002 \001(\t\"1\n" +
+      "\017BookingResponse\022\020\n\010location\030\001 \001(\t\022\014\n\004da" +
+      "te\030\002 \001(\t2\332\001\n\rFlightService\022_\n\nflightList" +
+      "\022%.com.alexeyre.grpc.flight.ListRequest\032" +
+      "&.com.alexeyre.grpc.flight.ListResponse\"" +
+      "\0000\001\022h\n\rflightBooking\022(.com.alexeyre.grpc" +
+      ".flight.BookingRequest\032).com.alexeyre.gr" +
+      "pc.flight.BookingResponse\"\000(\001B(\n\021com.ale" +
+      "xeyre.grpcB\021FlightServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -94,30 +80,18 @@ public final class FlightServiceImpl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_ListResponse_descriptor,
         new java.lang.String[] { "Location", });
-    internal_static_com_alexeyre_grpc_flight_LocationRequest_descriptor =
+    internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_com_alexeyre_grpc_flight_LocationRequest_fieldAccessorTable = new
+    internal_static_com_alexeyre_grpc_flight_BookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_alexeyre_grpc_flight_LocationRequest_descriptor,
-        new java.lang.String[] { "Destination", });
-    internal_static_com_alexeyre_grpc_flight_LocationResponse_descriptor =
+        internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor,
+        new java.lang.String[] { "Location", "Date", });
+    internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_com_alexeyre_grpc_flight_LocationResponse_fieldAccessorTable = new
+    internal_static_com_alexeyre_grpc_flight_BookingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_alexeyre_grpc_flight_LocationResponse_descriptor,
-        new java.lang.String[] { "Destination", });
-    internal_static_com_alexeyre_grpc_flight_DateRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_com_alexeyre_grpc_flight_DateRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_alexeyre_grpc_flight_DateRequest_descriptor,
-        new java.lang.String[] { "Date", });
-    internal_static_com_alexeyre_grpc_flight_DateResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_com_alexeyre_grpc_flight_DateResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_alexeyre_grpc_flight_DateResponse_descriptor,
-        new java.lang.String[] { "Date", });
+        internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor,
+        new java.lang.String[] { "Location", "Date", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

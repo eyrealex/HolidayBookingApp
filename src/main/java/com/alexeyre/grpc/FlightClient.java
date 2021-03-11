@@ -25,10 +25,10 @@ public class FlightClient {
 	// Async client side streaming
 	public static void flightDate() {
 
-		StreamObserver<DateResponse> responseObserver = new StreamObserver<DateResponse>() {
+		StreamObserver<BookingResponse> responseObserver = new StreamObserver<BookingResponse>() {
 
 			@Override
-			public void onNext(DateResponse value) {
+			public void onNext(BookingResponse value) {
 				System.out.println("Receving date request: " + value.getDate());
 
 			}
@@ -47,14 +47,14 @@ public class FlightClient {
 		};
 		
 		//
-		StreamObserver<DateRequest> requestObserver = asyncStub.flightDate(responseObserver);
+		StreamObserver<BookingRequest> requestObserver = asyncStub.flightBooking(responseObserver);
 		
 		try {
 
-			requestObserver.onNext(DateRequest.newBuilder().setDate("01/01/2021").build());
-			requestObserver.onNext(DateRequest.newBuilder().setDate("02/02/2022").build());
-			requestObserver.onNext(DateRequest.newBuilder().setDate("03/03/2023").build());
-			requestObserver.onNext(DateRequest.newBuilder().setDate("04/04/2024").build());
+			requestObserver.onNext(BookingRequest.newBuilder().setDate("01/01/2021").build());
+			requestObserver.onNext(BookingRequest.newBuilder().setDate("02/02/2022").build());
+			requestObserver.onNext(BookingRequest.newBuilder().setDate("03/03/2023").build());
+			requestObserver.onNext(BookingRequest.newBuilder().setDate("04/04/2024").build());
 
 			System.out.println("SENDING EMSSAGES");
 
