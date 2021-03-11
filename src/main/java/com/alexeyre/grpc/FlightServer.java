@@ -1,8 +1,15 @@
 package com.alexeyre.grpc;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.logging.Logger;
+import java.util.Properties;
+
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
+
 import com.alexeyre.grpc.FlightServiceGrpc.FlightServiceImplBase;
 
 import io.grpc.Server;
@@ -11,19 +18,87 @@ import io.grpc.stub.StreamObserver;
 
 public class FlightServer extends FlightServiceImplBase {
 
-	private static int port = 50051;
-	private static final Logger logger = Logger.getLogger(FlightServer.class.getName());
-	private int position = 0;
+	private static int position = 0;
 
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args) {
 
 		FlightServer flightserver = new FlightServer();
+		Properties prop = flightserver.getProperties();
+	
 
-		Server server = ServerBuilder.forPort(port).addService(flightserver).build().start();
+		flightserver.registerService(prop);
 
-		logger.info("Server started, listening on " + port);
+		int port = Integer.valueOf(prop.getProperty("service_port"));
 
-		server.awaitTermination();
+		try {
+			Server server = ServerBuilder.forPort(port).addService(flightserver).build().start();
+			System.out.println("Flight server started, listening on " + port);
+			server.awaitTermination();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private Properties getProperties() {
+
+		Properties prop = null;
+
+		try (InputStream input = new FileInputStream("src/main/resources/flight.properties")) {
+
+			prop = new Properties();
+
+			// load a properties file
+			prop.load(input);
+
+			// get the property value and print it out
+			System.out.println("Flight Service properies ...");
+			System.out.println("\t service_type: " + prop.getProperty("service_type"));
+			System.out.println("\t service_name: " + prop.getProperty("service_name"));
+			System.out.println("\t service_description: " + prop.getProperty("service_description"));
+			System.out.println("\t service_port: " + prop.getProperty("service_port"));
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+
+		return prop;
+	}
+
+	private void registerService(Properties prop) {
+
+		try {
+			// Create a JmDNS instance
+			JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+
+			String service_type = prop.getProperty("service_type");
+			String service_name = prop.getProperty("service_name");
+			// int service_port = 1234;
+			int service_port = Integer.valueOf(prop.getProperty("service_port"));
+
+			String service_description_properties = prop.getProperty("service_description");
+
+			// Register a service
+			ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port,
+					service_description_properties);
+			jmdns.registerService(serviceInfo);
+
+			System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
+
+			// Wait a bit
+			Thread.sleep(1000);
+
+			// Unregister all services
+			// jmdns.unregisterAllServices();
+
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -78,13 +153,14 @@ public class FlightServer extends FlightServiceImplBase {
 								.setResponseMessage("INVALID, Arrival location cannot be the same as Departure");
 					}
 					if (response.getResponseCode() == 100) {
+						System.out.println("Arrival date return request : " + response.getResponseMessage());
 						responseObserver.onNext(response.build());
 						responseObserver.onCompleted();
+
 					} else {
 						System.out.println("Arrival date return request : " + value.getDate());
 						arrival_date = value.getDate();
 						list.add(arrival_date);
-
 					}
 
 				}
@@ -115,15 +191,16 @@ public class FlightServer extends FlightServiceImplBase {
 
 	@Override
 	public void flightPeople(PeopleRequest request, StreamObserver<PeopleResponse> responseObserver) {
-		System.out.println("Receiving amount of passengers per booking ... ");
 
 		int passenger = request.getPassengers();
 		position = passenger;
+
+		System.out.println("Receiving amount of passengers per booking: " + passenger);
 		PeopleResponse response = PeopleResponse.newBuilder().setPassengers(passenger).build();
 
 		responseObserver.onNext(response);
-
 		responseObserver.onCompleted();
+
 	}
 
 	@Override
@@ -138,7 +215,7 @@ public class FlightServer extends FlightServiceImplBase {
 				System.out.println("\nReceving passenger information...\n" + "Seat preference: " + value.getSeat()
 						+ "\nAmount of luggage bags taken: " + value.getLuggage());
 
-				if (list.size() < position) {
+				if (list.size() < position - 1) {
 					seat = value.getSeat();
 					list.add(seat);
 
@@ -146,6 +223,8 @@ public class FlightServer extends FlightServiceImplBase {
 							.setLuggage(value.getLuggage()).build();
 
 					responseObserver.onNext(reply);
+				} else {
+					onCompleted();
 				}
 
 			}
@@ -158,9 +237,7 @@ public class FlightServer extends FlightServiceImplBase {
 
 			@Override
 			public void onCompleted() {
-				System.out.println("receiving convertBase completed ");
 
-				// completed too
 				responseObserver.onCompleted();
 
 			}

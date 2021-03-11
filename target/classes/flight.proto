@@ -17,6 +17,7 @@ service FlightService {
 
 message ListRequest{
 	string location = 1;
+	
 }
 
 message ListResponse{
