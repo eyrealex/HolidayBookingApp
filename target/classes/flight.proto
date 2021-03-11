@@ -10,6 +10,7 @@ service FlightService {
 
 	rpc flightList(ListRequest) returns (stream ListResponse) {}
 	rpc flightBooking(stream BookingRequest) returns (BookingResponse) {}
+	rpc flightPassenger(stream PassengerRequest) returns (stream PassengerResponse) {}
 
 }
 
@@ -30,4 +31,14 @@ message BookingRequest{
 message BookingResponse{
 	string location = 1;
 	string date = 2;
+}
+
+message PassengerRequest{
+	string seat = 1;
+	int32 luggage = 2;
+}
+
+message PassengerResponse{
+	string seat = 1;
+	int32 luggage = 2;
 }

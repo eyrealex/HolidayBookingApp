@@ -24,72 +24,114 @@ public class FlightServer extends FlightServiceImplBase {
 		server.awaitTermination();
 
 	}
-	
-	
 
 	@Override
 	public void flightList(ListRequest request, StreamObserver<ListResponse> responseObserver) {
-		
-		
+
 		ArrayList<String> list = new ArrayList();
 		list.add("Dublin");
 		list.add("London");
 		list.add("Paris");
 		list.add("Berlin");
-		
-		for(int i=0; i<list.size(); i++) {
+
+		for (int i = 0; i < list.size(); i++) {
 			String name = list.get(i);
 			ListResponse listresponse = ListResponse.newBuilder().setLocation(name).build();
 			responseObserver.onNext(listresponse);
 		}
-		
-		System.out.println("Receiving list of all possible flight destinations: " + list.get(0) + ", " + list.get(1) + ", " + list.get(2) + ", " + list.get(3));
+
+		System.out.println("Receiving list of all possible flight destinations: " + list.get(0) + ", " + list.get(1)
+				+ ", " + list.get(2) + ", " + list.get(3));
 		responseObserver.onCompleted();
 	}
-
-
 
 	@Override
 	public StreamObserver<BookingRequest> flightBooking(StreamObserver<BookingResponse> responseObserver) {
 		return new StreamObserver<BookingRequest>() {
 
 			ArrayList<String> list = new ArrayList();
-			String date = "";
+			String depart, arrival;
+			String depart_date, arrival_date;
+			String message;
 
 			@Override
 			public void onNext(BookingRequest value) {
 
 				if (list.size() == 0) {
 					System.out.println("\nHoliday destination departure request: " + value.getLocation());
-					list.add(value.getLocation());
+					depart = value.getLocation();
+
+					list.add(depart);
+
 					System.out.println("Holiday date departure request : " + value.getDate());
-					list.add(value.getDate());
-				}else if (list.size() == 2) {
+					depart_date = value.getDate();
+					list.add(depart_date);
+				} else if (list.size() == 2) {
 					System.out.println("\nArrival destination return request: " + value.getLocation());
-					list.add(value.getLocation());
+					arrival = value.getLocation();
+
+					list.add(arrival);
+
 					System.out.println("Arrival date return request : " + value.getDate());
-					list.add(value.getDate());
+					arrival_date = value.getDate();
+					list.add(arrival_date);
 				}
 
 				if (list.size() > 3) {
 					onCompleted();
 				}
-
-				String date = value.getDate();
-
 			}
 
 			@Override
 			public void onError(Throwable t) {
-				// TODO Auto-generated method stub
+				t.printStackTrace();
 
 			}
 
 			@Override
 			public void onCompleted() {
 
-				BookingResponse bookingresponse = BookingResponse.newBuilder().setDate(date).build();
+				System.out.println("\nReceiving holiday booking completed ");
+				BookingResponse bookingresponse = BookingResponse.newBuilder().build();
 				responseObserver.onNext(bookingresponse);
+				responseObserver.onCompleted();
+
+			}
+
+		};
+	}
+
+	@Override
+	public StreamObserver<PassengerRequest> flightPassenger(StreamObserver<PassengerResponse> responseObserver) {
+		return new StreamObserver<PassengerRequest>() {
+
+			String seat, luggage;
+
+			@Override
+			public void onNext(PassengerRequest value) {
+				System.out.println("\nReceving passenger information...\n" + "Seat preference: " + value.getSeat()
+						+ "\nAmount of luggage bags taken: " + value.getLuggage());
+
+				seat = value.getSeat();
+				// luggage = value.getLuggage();
+
+				PassengerResponse reply = PassengerResponse.newBuilder().setSeat(seat).setLuggage(value.getLuggage())
+						.build();
+
+				responseObserver.onNext(reply);
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				t.printStackTrace();
+
+			}
+
+			@Override
+			public void onCompleted() {
+				System.out.println("receiving convertBase completed ");
+
+				// completed too
 				responseObserver.onCompleted();
 
 			}

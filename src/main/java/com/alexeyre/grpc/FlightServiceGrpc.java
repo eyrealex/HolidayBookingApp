@@ -91,6 +91,38 @@ public final class FlightServiceGrpc {
      return getFlightBookingMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.alexeyre.grpc.PassengerRequest,
+      com.alexeyre.grpc.PassengerResponse> getFlightPassengerMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "flightPassenger",
+      requestType = com.alexeyre.grpc.PassengerRequest.class,
+      responseType = com.alexeyre.grpc.PassengerResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<com.alexeyre.grpc.PassengerRequest,
+      com.alexeyre.grpc.PassengerResponse> getFlightPassengerMethod() {
+    io.grpc.MethodDescriptor<com.alexeyre.grpc.PassengerRequest, com.alexeyre.grpc.PassengerResponse> getFlightPassengerMethod;
+    if ((getFlightPassengerMethod = FlightServiceGrpc.getFlightPassengerMethod) == null) {
+      synchronized (FlightServiceGrpc.class) {
+        if ((getFlightPassengerMethod = FlightServiceGrpc.getFlightPassengerMethod) == null) {
+          FlightServiceGrpc.getFlightPassengerMethod = getFlightPassengerMethod = 
+              io.grpc.MethodDescriptor.<com.alexeyre.grpc.PassengerRequest, com.alexeyre.grpc.PassengerResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "com.alexeyre.grpc.flight.FlightService", "flightPassenger"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.alexeyre.grpc.PassengerRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.alexeyre.grpc.PassengerResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new FlightServiceMethodDescriptorSupplier("flightPassenger"))
+                  .build();
+          }
+        }
+     }
+     return getFlightPassengerMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -132,6 +164,13 @@ public final class FlightServiceGrpc {
       return asyncUnimplementedStreamingCall(getFlightBookingMethod(), responseObserver);
     }
 
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerRequest> flightPassenger(
+        io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getFlightPassengerMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -148,6 +187,13 @@ public final class FlightServiceGrpc {
                 com.alexeyre.grpc.BookingRequest,
                 com.alexeyre.grpc.BookingResponse>(
                   this, METHODID_FLIGHT_BOOKING)))
+          .addMethod(
+            getFlightPassengerMethod(),
+            asyncBidiStreamingCall(
+              new MethodHandlers<
+                com.alexeyre.grpc.PassengerRequest,
+                com.alexeyre.grpc.PassengerResponse>(
+                  this, METHODID_FLIGHT_PASSENGER)))
           .build();
     }
   }
@@ -184,6 +230,14 @@ public final class FlightServiceGrpc {
         io.grpc.stub.StreamObserver<com.alexeyre.grpc.BookingResponse> responseObserver) {
       return asyncClientStreamingCall(
           getChannel().newCall(getFlightBookingMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerRequest> flightPassenger(
+        io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerResponse> responseObserver) {
+      return asyncBidiStreamingCall(
+          getChannel().newCall(getFlightPassengerMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -235,6 +289,7 @@ public final class FlightServiceGrpc {
 
   private static final int METHODID_FLIGHT_LIST = 0;
   private static final int METHODID_FLIGHT_BOOKING = 1;
+  private static final int METHODID_FLIGHT_PASSENGER = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -270,6 +325,9 @@ public final class FlightServiceGrpc {
         case METHODID_FLIGHT_BOOKING:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.flightBooking(
               (io.grpc.stub.StreamObserver<com.alexeyre.grpc.BookingResponse>) responseObserver);
+        case METHODID_FLIGHT_PASSENGER:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.flightPassenger(
+              (io.grpc.stub.StreamObserver<com.alexeyre.grpc.PassengerResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -323,6 +381,7 @@ public final class FlightServiceGrpc {
               .setSchemaDescriptor(new FlightServiceFileDescriptorSupplier())
               .addMethod(getFlightListMethod())
               .addMethod(getFlightBookingMethod())
+              .addMethod(getFlightPassengerMethod())
               .build();
         }
       }
