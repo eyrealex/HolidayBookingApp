@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.alexeyre.grpc";
+option java_outer_classname = "RentalServiceImpl";
+
+package com.alexeyre.grpc.rental;
+
+service RentalService {
+
+	rpc rentalList(RentalListRequest) returns (stream RentalListResponse) {}
+	rpc rentalAvailability(RentalAvailabilityRequest) returns (stream RentalAvailabilityResponse) {}
+	rpc rentalBooking(stream RentalBookingDateRequest) returns (RentalBookingDateResponse) {}
+	rpc rentalDetails(stream RentalDetailsRequest) returns (stream RentalDetailsResponse) {}
+
+
+}
+
+message RentalListRequest{
+	string empty = 1;
+}
+
+message RentalListResponse{
+	string rentals = 1;
+}
+
+message RentalAvailabilityRequest{
+	string empty = 1;
+}
+
+message RentalAvailabilityResponse{
+	string carName = 1;
+	string carType = 2;
+	string carModel = 3;
+}
+
+message RentalBookingDateRequest{
+	string date = 1;
+}
+
+message RentalBookingDateResponse{
+	string date = 1;
+}
+
+message RentalDetailsRequest{
+	string carName = 1;
+	string carType = 2;
+	string carModel = 3;
+}
+
+message RentalDetailsResponse{
+	string carName = 1;
+	string carType = 2;
+	string carModel = 3;
+}

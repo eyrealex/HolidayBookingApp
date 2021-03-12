@@ -33,6 +33,8 @@ message BookingRequest{
 message BookingResponse{
 	string responseMessage = 1;
 	int32 responseCode = 2;
+	string location = 3;
+	string date = 4;
 }
 
 message PeopleRequest{

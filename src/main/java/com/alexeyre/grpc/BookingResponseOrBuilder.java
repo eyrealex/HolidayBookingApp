@@ -21,4 +21,24 @@ public interface BookingResponseOrBuilder extends
    * <code>int32 responseCode = 2;</code>
    */
   int getResponseCode();
+
+  /**
+   * <code>string location = 3;</code>
+   */
+  java.lang.String getLocation();
+  /**
+   * <code>string location = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getLocationBytes();
+
+  /**
+   * <code>string date = 4;</code>
+   */
+  java.lang.String getDate();
+  /**
+   * <code>string date = 4;</code>
+   */
+  com.google.protobuf.ByteString
+      getDateBytes();
 }

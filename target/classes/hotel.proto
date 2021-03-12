@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.alexeyre.grpc";
+option java_outer_classname = "HotelServiceImpl";
+
+package com.alexeyre.grpc.hotel;
+
+service HotelService {
+
+	rpc hotelList(HotelListRequest) returns (stream HotelListResponse) {}
+	rpc hotelBooking(stream HotelBookingRequest) returns(HotelBookingResponse) {}
+	rpc hotelAmenities(stream HotelAmenitiesRequest) returns (HotelAmenitiesResponse) {}
+
+}
+
+message HotelListRequest{
+	string hotels = 1;
+}
+
+message HotelListResponse{
+	string hotels = 1;
+}
+
+message HotelBookingRequest{
+	string date = 1;
+	string roomType = 2;
+}
+
+message HotelBookingResponse{
+	string date = 1;
+	string roomType = 2;
+}
+
+message HotelAmenitiesRequest{
+	bool breakfast = 1;
+	bool gym = 2;
+}
+
+message HotelAmenitiesResponse{
+	bool breakfast = 1;
+	bool gym = 2;
+}
