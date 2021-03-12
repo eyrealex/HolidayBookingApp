@@ -67,27 +67,28 @@ public final class FlightServiceImpl {
       "\"Y\n\013ListRequest\022\021\n\tlocation1\030\001 \001(\t\022\021\n\tlo" +
       "cation2\030\002 \001(\t\022\021\n\tlocation3\030\003 \001(\t\022\021\n\tloca" +
       "tion4\030\004 \001(\t\"\036\n\014ListResponse\022\016\n\006result\030\001 " +
-      "\001(\t\"0\n\016BookingRequest\022\020\n\010location\030\001 \001(\t\022" +
-      "\014\n\004date\030\002 \001(\t\"`\n\017BookingResponse\022\027\n\017resp" +
-      "onseMessage\030\001 \001(\t\022\024\n\014responseCode\030\002 \001(\005\022" +
-      "\020\n\010location\030\003 \001(\t\022\014\n\004date\030\004 \001(\t\"#\n\rPeopl" +
-      "eRequest\022\022\n\npassengers\030\001 \001(\005\"$\n\016PeopleRe" +
-      "sponse\022\022\n\npassengers\030\001 \001(\005\"1\n\020PassengerR" +
-      "equest\022\014\n\004seat\030\001 \001(\t\022\017\n\007luggage\030\002 \001(\005\"2\n" +
-      "\021PassengerResponse\022\014\n\004seat\030\001 \001(\t\022\017\n\007lugg" +
-      "age\030\002 \001(\0052\261\003\n\rFlightService\022_\n\nflightLis" +
-      "t\022%.com.alexeyre.grpc.flight.ListRequest" +
-      "\032&.com.alexeyre.grpc.flight.ListResponse" +
-      "\"\0000\001\022h\n\rflightBooking\022(.com.alexeyre.grp" +
-      "c.flight.BookingRequest\032).com.alexeyre.g" +
-      "rpc.flight.BookingResponse\"\000(\001\022c\n\014flight" +
-      "People\022\'.com.alexeyre.grpc.flight.People" +
-      "Request\032(.com.alexeyre.grpc.flight.Peopl" +
-      "eResponse\"\000\022p\n\017flightPassenger\022*.com.ale" +
-      "xeyre.grpc.flight.PassengerRequest\032+.com" +
-      ".alexeyre.grpc.flight.PassengerResponse\"" +
-      "\000(\0010\001B/\n\030com.alexeyre.grpc.flightB\021Fligh" +
-      "tServiceImplP\001b\006proto3"
+      "\001(\t\"\037\n\016BookingRequest\022\r\n\005value\030\001 \001(\t\"\212\001\n" +
+      "\017BookingResponse\022\024\n\014responseCode\030\001 \001(\005\022\027" +
+      "\n\017responseMessage\030\002 \001(\t\022\016\n\006depart\030\003 \001(\t\022" +
+      "\022\n\ndepartDate\030\004 \001(\t\022\017\n\007arrival\030\005 \001(\t\022\023\n\013" +
+      "arrivalDate\030\006 \001(\t\"#\n\rPeopleRequest\022\022\n\npa" +
+      "ssengers\030\001 \001(\005\"$\n\016PeopleResponse\022\022\n\npass" +
+      "engers\030\001 \001(\005\"1\n\020PassengerRequest\022\014\n\004seat" +
+      "\030\001 \001(\t\022\017\n\007luggage\030\002 \001(\005\"2\n\021PassengerResp" +
+      "onse\022\014\n\004seat\030\001 \001(\t\022\017\n\007luggage\030\002 \001(\0052\261\003\n\r" +
+      "FlightService\022_\n\nflightList\022%.com.alexey" +
+      "re.grpc.flight.ListRequest\032&.com.alexeyr" +
+      "e.grpc.flight.ListResponse\"\0000\001\022h\n\rflight" +
+      "Booking\022(.com.alexeyre.grpc.flight.Booki" +
+      "ngRequest\032).com.alexeyre.grpc.flight.Boo" +
+      "kingResponse\"\000(\001\022c\n\014flightPeople\022\'.com.a" +
+      "lexeyre.grpc.flight.PeopleRequest\032(.com." +
+      "alexeyre.grpc.flight.PeopleResponse\"\000\022p\n" +
+      "\017flightPassenger\022*.com.alexeyre.grpc.fli" +
+      "ght.PassengerRequest\032+.com.alexeyre.grpc" +
+      ".flight.PassengerResponse\"\000(\0010\001B/\n\030com.a" +
+      "lexeyre.grpc.flightB\021FlightServiceImplP\001" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -118,13 +119,13 @@ public final class FlightServiceImpl {
     internal_static_com_alexeyre_grpc_flight_BookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor,
-        new java.lang.String[] { "Location", "Date", });
+        new java.lang.String[] { "Value", });
     internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_com_alexeyre_grpc_flight_BookingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor,
-        new java.lang.String[] { "ResponseMessage", "ResponseCode", "Location", "Date", });
+        new java.lang.String[] { "ResponseCode", "ResponseMessage", "Depart", "DepartDate", "Arrival", "ArrivalDate", });
     internal_static_com_alexeyre_grpc_flight_PeopleRequest_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_com_alexeyre_grpc_flight_PeopleRequest_fieldAccessorTable = new

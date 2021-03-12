@@ -16,10 +16,12 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private BookingResponse() {
-    responseMessage_ = "";
     responseCode_ = 0;
-    location_ = "";
-    date_ = "";
+    responseMessage_ = "";
+    depart_ = "";
+    departDate_ = "";
+    arrival_ = "";
+    arrivalDate_ = "";
   }
 
   @java.lang.Override
@@ -46,27 +48,39 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 10: {
+          case 8: {
+
+            responseCode_ = input.readInt32();
+            break;
+          }
+          case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
             responseMessage_ = s;
             break;
           }
-          case 16: {
-
-            responseCode_ = input.readInt32();
-            break;
-          }
           case 26: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            location_ = s;
+            depart_ = s;
             break;
           }
           case 34: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            date_ = s;
+            departDate_ = s;
+            break;
+          }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            arrival_ = s;
+            break;
+          }
+          case 50: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            arrivalDate_ = s;
             break;
           }
           default: {
@@ -101,10 +115,19 @@ private static final long serialVersionUID = 0L;
             com.alexeyre.grpc.flight.BookingResponse.class, com.alexeyre.grpc.flight.BookingResponse.Builder.class);
   }
 
-  public static final int RESPONSEMESSAGE_FIELD_NUMBER = 1;
+  public static final int RESPONSECODE_FIELD_NUMBER = 1;
+  private int responseCode_;
+  /**
+   * <code>int32 responseCode = 1;</code>
+   */
+  public int getResponseCode() {
+    return responseCode_;
+  }
+
+  public static final int RESPONSEMESSAGE_FIELD_NUMBER = 2;
   private volatile java.lang.Object responseMessage_;
   /**
-   * <code>string responseMessage = 1;</code>
+   * <code>string responseMessage = 2;</code>
    */
   public java.lang.String getResponseMessage() {
     java.lang.Object ref = responseMessage_;
@@ -119,7 +142,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string responseMessage = 1;</code>
+   * <code>string responseMessage = 2;</code>
    */
   public com.google.protobuf.ByteString
       getResponseMessageBytes() {
@@ -135,77 +158,136 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int RESPONSECODE_FIELD_NUMBER = 2;
-  private int responseCode_;
+  public static final int DEPART_FIELD_NUMBER = 3;
+  private volatile java.lang.Object depart_;
   /**
-   * <code>int32 responseCode = 2;</code>
+   * <code>string depart = 3;</code>
    */
-  public int getResponseCode() {
-    return responseCode_;
-  }
-
-  public static final int LOCATION_FIELD_NUMBER = 3;
-  private volatile java.lang.Object location_;
-  /**
-   * <code>string location = 3;</code>
-   */
-  public java.lang.String getLocation() {
-    java.lang.Object ref = location_;
+  public java.lang.String getDepart() {
+    java.lang.Object ref = depart_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      location_ = s;
+      depart_ = s;
       return s;
     }
   }
   /**
-   * <code>string location = 3;</code>
+   * <code>string depart = 3;</code>
    */
   public com.google.protobuf.ByteString
-      getLocationBytes() {
-    java.lang.Object ref = location_;
+      getDepartBytes() {
+    java.lang.Object ref = depart_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      location_ = b;
+      depart_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int DATE_FIELD_NUMBER = 4;
-  private volatile java.lang.Object date_;
+  public static final int DEPARTDATE_FIELD_NUMBER = 4;
+  private volatile java.lang.Object departDate_;
   /**
-   * <code>string date = 4;</code>
+   * <code>string departDate = 4;</code>
    */
-  public java.lang.String getDate() {
-    java.lang.Object ref = date_;
+  public java.lang.String getDepartDate() {
+    java.lang.Object ref = departDate_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      date_ = s;
+      departDate_ = s;
       return s;
     }
   }
   /**
-   * <code>string date = 4;</code>
+   * <code>string departDate = 4;</code>
    */
   public com.google.protobuf.ByteString
-      getDateBytes() {
-    java.lang.Object ref = date_;
+      getDepartDateBytes() {
+    java.lang.Object ref = departDate_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      date_ = b;
+      departDate_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int ARRIVAL_FIELD_NUMBER = 5;
+  private volatile java.lang.Object arrival_;
+  /**
+   * <code>string arrival = 5;</code>
+   */
+  public java.lang.String getArrival() {
+    java.lang.Object ref = arrival_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      arrival_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string arrival = 5;</code>
+   */
+  public com.google.protobuf.ByteString
+      getArrivalBytes() {
+    java.lang.Object ref = arrival_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      arrival_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int ARRIVALDATE_FIELD_NUMBER = 6;
+  private volatile java.lang.Object arrivalDate_;
+  /**
+   * <code>string arrivalDate = 6;</code>
+   */
+  public java.lang.String getArrivalDate() {
+    java.lang.Object ref = arrivalDate_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      arrivalDate_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string arrivalDate = 6;</code>
+   */
+  public com.google.protobuf.ByteString
+      getArrivalDateBytes() {
+    java.lang.Object ref = arrivalDate_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      arrivalDate_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -226,17 +308,23 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getResponseMessageBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, responseMessage_);
-    }
     if (responseCode_ != 0) {
-      output.writeInt32(2, responseCode_);
+      output.writeInt32(1, responseCode_);
     }
-    if (!getLocationBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, location_);
+    if (!getResponseMessageBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, responseMessage_);
     }
-    if (!getDateBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, date_);
+    if (!getDepartBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, depart_);
+    }
+    if (!getDepartDateBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, departDate_);
+    }
+    if (!getArrivalBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, arrival_);
+    }
+    if (!getArrivalDateBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, arrivalDate_);
     }
     unknownFields.writeTo(output);
   }
@@ -247,18 +335,24 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getResponseMessageBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, responseMessage_);
-    }
     if (responseCode_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, responseCode_);
+        .computeInt32Size(1, responseCode_);
     }
-    if (!getLocationBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, location_);
+    if (!getResponseMessageBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, responseMessage_);
     }
-    if (!getDateBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, date_);
+    if (!getDepartBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, depart_);
+    }
+    if (!getDepartDateBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, departDate_);
+    }
+    if (!getArrivalBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, arrival_);
+    }
+    if (!getArrivalDateBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, arrivalDate_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -276,14 +370,18 @@ private static final long serialVersionUID = 0L;
     com.alexeyre.grpc.flight.BookingResponse other = (com.alexeyre.grpc.flight.BookingResponse) obj;
 
     boolean result = true;
-    result = result && getResponseMessage()
-        .equals(other.getResponseMessage());
     result = result && (getResponseCode()
         == other.getResponseCode());
-    result = result && getLocation()
-        .equals(other.getLocation());
-    result = result && getDate()
-        .equals(other.getDate());
+    result = result && getResponseMessage()
+        .equals(other.getResponseMessage());
+    result = result && getDepart()
+        .equals(other.getDepart());
+    result = result && getDepartDate()
+        .equals(other.getDepartDate());
+    result = result && getArrival()
+        .equals(other.getArrival());
+    result = result && getArrivalDate()
+        .equals(other.getArrivalDate());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -295,14 +393,18 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + RESPONSEMESSAGE_FIELD_NUMBER;
-    hash = (53 * hash) + getResponseMessage().hashCode();
     hash = (37 * hash) + RESPONSECODE_FIELD_NUMBER;
     hash = (53 * hash) + getResponseCode();
-    hash = (37 * hash) + LOCATION_FIELD_NUMBER;
-    hash = (53 * hash) + getLocation().hashCode();
-    hash = (37 * hash) + DATE_FIELD_NUMBER;
-    hash = (53 * hash) + getDate().hashCode();
+    hash = (37 * hash) + RESPONSEMESSAGE_FIELD_NUMBER;
+    hash = (53 * hash) + getResponseMessage().hashCode();
+    hash = (37 * hash) + DEPART_FIELD_NUMBER;
+    hash = (53 * hash) + getDepart().hashCode();
+    hash = (37 * hash) + DEPARTDATE_FIELD_NUMBER;
+    hash = (53 * hash) + getDepartDate().hashCode();
+    hash = (37 * hash) + ARRIVAL_FIELD_NUMBER;
+    hash = (53 * hash) + getArrival().hashCode();
+    hash = (37 * hash) + ARRIVALDATE_FIELD_NUMBER;
+    hash = (53 * hash) + getArrivalDate().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -436,13 +538,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      responseMessage_ = "";
-
       responseCode_ = 0;
 
-      location_ = "";
+      responseMessage_ = "";
 
-      date_ = "";
+      depart_ = "";
+
+      departDate_ = "";
+
+      arrival_ = "";
+
+      arrivalDate_ = "";
 
       return this;
     }
@@ -470,10 +576,12 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.alexeyre.grpc.flight.BookingResponse buildPartial() {
       com.alexeyre.grpc.flight.BookingResponse result = new com.alexeyre.grpc.flight.BookingResponse(this);
-      result.responseMessage_ = responseMessage_;
       result.responseCode_ = responseCode_;
-      result.location_ = location_;
-      result.date_ = date_;
+      result.responseMessage_ = responseMessage_;
+      result.depart_ = depart_;
+      result.departDate_ = departDate_;
+      result.arrival_ = arrival_;
+      result.arrivalDate_ = arrivalDate_;
       onBuilt();
       return result;
     }
@@ -522,19 +630,27 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.alexeyre.grpc.flight.BookingResponse other) {
       if (other == com.alexeyre.grpc.flight.BookingResponse.getDefaultInstance()) return this;
+      if (other.getResponseCode() != 0) {
+        setResponseCode(other.getResponseCode());
+      }
       if (!other.getResponseMessage().isEmpty()) {
         responseMessage_ = other.responseMessage_;
         onChanged();
       }
-      if (other.getResponseCode() != 0) {
-        setResponseCode(other.getResponseCode());
-      }
-      if (!other.getLocation().isEmpty()) {
-        location_ = other.location_;
+      if (!other.getDepart().isEmpty()) {
+        depart_ = other.depart_;
         onChanged();
       }
-      if (!other.getDate().isEmpty()) {
-        date_ = other.date_;
+      if (!other.getDepartDate().isEmpty()) {
+        departDate_ = other.departDate_;
+        onChanged();
+      }
+      if (!other.getArrival().isEmpty()) {
+        arrival_ = other.arrival_;
+        onChanged();
+      }
+      if (!other.getArrivalDate().isEmpty()) {
+        arrivalDate_ = other.arrivalDate_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -566,9 +682,35 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private int responseCode_ ;
+    /**
+     * <code>int32 responseCode = 1;</code>
+     */
+    public int getResponseCode() {
+      return responseCode_;
+    }
+    /**
+     * <code>int32 responseCode = 1;</code>
+     */
+    public Builder setResponseCode(int value) {
+      
+      responseCode_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 responseCode = 1;</code>
+     */
+    public Builder clearResponseCode() {
+      
+      responseCode_ = 0;
+      onChanged();
+      return this;
+    }
+
     private java.lang.Object responseMessage_ = "";
     /**
-     * <code>string responseMessage = 1;</code>
+     * <code>string responseMessage = 2;</code>
      */
     public java.lang.String getResponseMessage() {
       java.lang.Object ref = responseMessage_;
@@ -583,7 +725,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string responseMessage = 1;</code>
+     * <code>string responseMessage = 2;</code>
      */
     public com.google.protobuf.ByteString
         getResponseMessageBytes() {
@@ -599,7 +741,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string responseMessage = 1;</code>
+     * <code>string responseMessage = 2;</code>
      */
     public Builder setResponseMessage(
         java.lang.String value) {
@@ -612,7 +754,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string responseMessage = 1;</code>
+     * <code>string responseMessage = 2;</code>
      */
     public Builder clearResponseMessage() {
       
@@ -621,7 +763,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string responseMessage = 1;</code>
+     * <code>string responseMessage = 2;</code>
      */
     public Builder setResponseMessageBytes(
         com.google.protobuf.ByteString value) {
@@ -635,166 +777,278 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int responseCode_ ;
+    private java.lang.Object depart_ = "";
     /**
-     * <code>int32 responseCode = 2;</code>
+     * <code>string depart = 3;</code>
      */
-    public int getResponseCode() {
-      return responseCode_;
-    }
-    /**
-     * <code>int32 responseCode = 2;</code>
-     */
-    public Builder setResponseCode(int value) {
-      
-      responseCode_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 responseCode = 2;</code>
-     */
-    public Builder clearResponseCode() {
-      
-      responseCode_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object location_ = "";
-    /**
-     * <code>string location = 3;</code>
-     */
-    public java.lang.String getLocation() {
-      java.lang.Object ref = location_;
+    public java.lang.String getDepart() {
+      java.lang.Object ref = depart_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        location_ = s;
+        depart_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string location = 3;</code>
+     * <code>string depart = 3;</code>
      */
     public com.google.protobuf.ByteString
-        getLocationBytes() {
-      java.lang.Object ref = location_;
+        getDepartBytes() {
+      java.lang.Object ref = depart_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        location_ = b;
+        depart_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string location = 3;</code>
+     * <code>string depart = 3;</code>
      */
-    public Builder setLocation(
+    public Builder setDepart(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      location_ = value;
+      depart_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string location = 3;</code>
+     * <code>string depart = 3;</code>
      */
-    public Builder clearLocation() {
+    public Builder clearDepart() {
       
-      location_ = getDefaultInstance().getLocation();
+      depart_ = getDefaultInstance().getDepart();
       onChanged();
       return this;
     }
     /**
-     * <code>string location = 3;</code>
+     * <code>string depart = 3;</code>
      */
-    public Builder setLocationBytes(
+    public Builder setDepartBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      location_ = value;
+      depart_ = value;
       onChanged();
       return this;
     }
 
-    private java.lang.Object date_ = "";
+    private java.lang.Object departDate_ = "";
     /**
-     * <code>string date = 4;</code>
+     * <code>string departDate = 4;</code>
      */
-    public java.lang.String getDate() {
-      java.lang.Object ref = date_;
+    public java.lang.String getDepartDate() {
+      java.lang.Object ref = departDate_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        date_ = s;
+        departDate_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string date = 4;</code>
+     * <code>string departDate = 4;</code>
      */
     public com.google.protobuf.ByteString
-        getDateBytes() {
-      java.lang.Object ref = date_;
+        getDepartDateBytes() {
+      java.lang.Object ref = departDate_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        date_ = b;
+        departDate_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string date = 4;</code>
+     * <code>string departDate = 4;</code>
      */
-    public Builder setDate(
+    public Builder setDepartDate(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      date_ = value;
+      departDate_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string date = 4;</code>
+     * <code>string departDate = 4;</code>
      */
-    public Builder clearDate() {
+    public Builder clearDepartDate() {
       
-      date_ = getDefaultInstance().getDate();
+      departDate_ = getDefaultInstance().getDepartDate();
       onChanged();
       return this;
     }
     /**
-     * <code>string date = 4;</code>
+     * <code>string departDate = 4;</code>
      */
-    public Builder setDateBytes(
+    public Builder setDepartDateBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      date_ = value;
+      departDate_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object arrival_ = "";
+    /**
+     * <code>string arrival = 5;</code>
+     */
+    public java.lang.String getArrival() {
+      java.lang.Object ref = arrival_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        arrival_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string arrival = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getArrivalBytes() {
+      java.lang.Object ref = arrival_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        arrival_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string arrival = 5;</code>
+     */
+    public Builder setArrival(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      arrival_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string arrival = 5;</code>
+     */
+    public Builder clearArrival() {
+      
+      arrival_ = getDefaultInstance().getArrival();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string arrival = 5;</code>
+     */
+    public Builder setArrivalBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      arrival_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object arrivalDate_ = "";
+    /**
+     * <code>string arrivalDate = 6;</code>
+     */
+    public java.lang.String getArrivalDate() {
+      java.lang.Object ref = arrivalDate_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        arrivalDate_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string arrivalDate = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getArrivalDateBytes() {
+      java.lang.Object ref = arrivalDate_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        arrivalDate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string arrivalDate = 6;</code>
+     */
+    public Builder setArrivalDate(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      arrivalDate_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string arrivalDate = 6;</code>
+     */
+    public Builder clearArrivalDate() {
+      
+      arrivalDate_ = getDefaultInstance().getArrivalDate();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string arrivalDate = 6;</code>
+     */
+    public Builder setArrivalDateBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      arrivalDate_ = value;
       onChanged();
       return this;
     }

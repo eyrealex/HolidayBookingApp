@@ -28,16 +28,18 @@ message ListResponse{
 }
 
 message BookingRequest{
-	string location = 1;
-	string date = 2;
+	string value = 1;
 	
 }
 
 message BookingResponse{
-	string responseMessage = 1;
-	int32 responseCode = 2;
-	string location = 3;
-	string date = 4;
+	int32 responseCode = 1;
+	string responseMessage = 2;
+	string depart = 3;
+	string departDate = 4;
+	string arrival = 5;
+	string arrivalDate = 6;
+
 }
 
 message PeopleRequest{

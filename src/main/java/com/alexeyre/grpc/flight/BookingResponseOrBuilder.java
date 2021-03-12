@@ -8,37 +8,57 @@ public interface BookingResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string responseMessage = 1;</code>
+   * <code>int32 responseCode = 1;</code>
+   */
+  int getResponseCode();
+
+  /**
+   * <code>string responseMessage = 2;</code>
    */
   java.lang.String getResponseMessage();
   /**
-   * <code>string responseMessage = 1;</code>
+   * <code>string responseMessage = 2;</code>
    */
   com.google.protobuf.ByteString
       getResponseMessageBytes();
 
   /**
-   * <code>int32 responseCode = 2;</code>
+   * <code>string depart = 3;</code>
    */
-  int getResponseCode();
-
+  java.lang.String getDepart();
   /**
-   * <code>string location = 3;</code>
-   */
-  java.lang.String getLocation();
-  /**
-   * <code>string location = 3;</code>
+   * <code>string depart = 3;</code>
    */
   com.google.protobuf.ByteString
-      getLocationBytes();
+      getDepartBytes();
 
   /**
-   * <code>string date = 4;</code>
+   * <code>string departDate = 4;</code>
    */
-  java.lang.String getDate();
+  java.lang.String getDepartDate();
   /**
-   * <code>string date = 4;</code>
+   * <code>string departDate = 4;</code>
    */
   com.google.protobuf.ByteString
-      getDateBytes();
+      getDepartDateBytes();
+
+  /**
+   * <code>string arrival = 5;</code>
+   */
+  java.lang.String getArrival();
+  /**
+   * <code>string arrival = 5;</code>
+   */
+  com.google.protobuf.ByteString
+      getArrivalBytes();
+
+  /**
+   * <code>string arrivalDate = 6;</code>
+   */
+  java.lang.String getArrivalDate();
+  /**
+   * <code>string arrivalDate = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getArrivalDateBytes();
 }

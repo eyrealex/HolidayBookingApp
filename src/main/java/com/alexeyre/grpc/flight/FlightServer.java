@@ -134,34 +134,36 @@ public class FlightServer extends FlightServiceImplBase {
 			@Override
 			public void onNext(BookingRequest value) {
 
-				if (list.size() == 0) {
+				BookingResponse.Builder response = BookingResponse.newBuilder();
 
-					System.out.println("\nHoliday destination departure request: " + value.getLocation());
-					depart = value.getLocation();
+				if (list.size() == 0) {
+					System.out.println("\nHoliday departure destination  request: " + value.getValue());
+					depart = value.getValue();
 					list.add(depart);
-					System.out.println("Holiday date departure request : " + value.getDate());
-					depart_date = value.getDate();
+				} else if (list.size() == 1) {
+					System.out.println("Holiday departure date request : " + value.getValue());
+					depart_date = value.getValue();
 					list.add(depart_date);
 				} else if (list.size() == 2) {
-
-					System.out.println("\nArrival destination return request: " + value.getLocation());
-					arrival = value.getLocation();
+					System.out.println("Holiday return destination request : " + value.getValue());
+					arrival = value.getValue();
 					list.add(arrival);
-					BookingResponse.Builder response = BookingResponse.newBuilder();
+
 					if (arrival.matches(depart)) {
 						response.setResponseCode(100)
 								.setResponseMessage("INVALID, Arrival location cannot be the same as Departure");
 					}
 					if (response.getResponseCode() == 100) {
-						System.out.println("Arrival date return request : " + response.getResponseMessage());
+						System.out.println("Holiday return date request : " + response.getResponseMessage());
 						responseObserver.onNext(response.build());
 						responseObserver.onCompleted();
 
-					} else {
-						System.out.println("Arrival date return request : " + value.getDate());
-						arrival_date = value.getDate();
-						list.add(arrival_date);
 					}
+				} else if (list.size() == 3) {
+					System.out.println("Holiday date departure request : " + value.getValue());
+					arrival_date = value.getValue();
+					list.add(arrival_date);
+				} else {
 
 				}
 
@@ -180,7 +182,8 @@ public class FlightServer extends FlightServiceImplBase {
 			public void onCompleted() {
 
 				System.out.println("\nReceiving holiday booking completed ");
-				BookingResponse bookingresponse = BookingResponse.newBuilder().build();
+				BookingResponse bookingresponse = BookingResponse.newBuilder().setDepart(depart)
+						.setDepartDate(depart_date).setArrival(arrival).setArrivalDate(arrival_date).build();
 				responseObserver.onNext(bookingresponse);
 				responseObserver.onCompleted();
 
