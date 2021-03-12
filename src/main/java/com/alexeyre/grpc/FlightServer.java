@@ -24,11 +24,10 @@ public class FlightServer extends FlightServiceImplBase {
 
 		FlightServer flightserver = new FlightServer();
 		Properties prop = flightserver.getProperties();
-	
 
 		flightserver.registerService(prop);
 
-		int port = Integer.valueOf(prop.getProperty("service_port"));
+		int port = Integer.valueOf(prop.getProperty("flight_service_port"));
 
 		try {
 			Server server = ServerBuilder.forPort(port).addService(flightserver).build().start();
@@ -55,10 +54,10 @@ public class FlightServer extends FlightServiceImplBase {
 
 			// get the property value and print it out
 			System.out.println("Flight Service properies ...");
-			System.out.println("\t service_type: " + prop.getProperty("service_type"));
-			System.out.println("\t service_name: " + prop.getProperty("service_name"));
-			System.out.println("\t service_description: " + prop.getProperty("service_description"));
-			System.out.println("\t service_port: " + prop.getProperty("service_port"));
+			System.out.println("\t flight_service_type: " + prop.getProperty("flight_service_type"));
+			System.out.println("\t flight_service_name: " + prop.getProperty("flight_service_name"));
+			System.out.println("\t flight_service_description: " + prop.getProperty("flight_service_description"));
+			System.out.println("\t flight_service_port: " + prop.getProperty("flight_service_port"));
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -73,19 +72,20 @@ public class FlightServer extends FlightServiceImplBase {
 			// Create a JmDNS instance
 			JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
 
-			String service_type = prop.getProperty("service_type");
-			String service_name = prop.getProperty("service_name");
-			// int service_port = 1234;
-			int service_port = Integer.valueOf(prop.getProperty("service_port"));
+			String flight_service_type = prop.getProperty("flight_service_type");
+			String flight_service_name = prop.getProperty("flight_service_name");
+			// int flight_service_port = 1234;
+			int flight_service_port = Integer.valueOf(prop.getProperty("flight_service_port"));
 
-			String service_description_properties = prop.getProperty("service_description");
+			String flight_service_description_properties = prop.getProperty("flight_service_description");
 
 			// Register a service
-			ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port,
-					service_description_properties);
+			ServiceInfo serviceInfo = ServiceInfo.create(flight_service_type, flight_service_name, flight_service_port,
+					flight_service_description_properties);
 			jmdns.registerService(serviceInfo);
 
-			System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
+			System.out.printf("registrering service with type %s and name %s \n", flight_service_type,
+					flight_service_name);
 
 			// Wait a bit
 			Thread.sleep(1000);
@@ -217,12 +217,13 @@ public class FlightServer extends FlightServiceImplBase {
 
 				if (list.size() < position - 1) {
 					seat = value.getSeat();
+					int luggage = value.getLuggage();
 					list.add(seat);
 
 					PassengerResponse reply = PassengerResponse.newBuilder().setSeat(seat)
 							.setLuggage(value.getLuggage()).build();
-
 					responseObserver.onNext(reply);
+
 				} else {
 					onCompleted();
 				}

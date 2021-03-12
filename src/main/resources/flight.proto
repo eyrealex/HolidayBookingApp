@@ -16,12 +16,15 @@ service FlightService {
 }
 
 message ListRequest{
-	string location = 1;
+	string location1 = 1;
+	string location2 = 2;
+	string location3 = 3;
+	string location4 = 4;
 	
 }
 
 message ListResponse{
-	string location = 2;
+	string result = 1;
 }
 
 message BookingRequest{

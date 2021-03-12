@@ -8,12 +8,12 @@ public interface ListResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string location = 2;</code>
+   * <code>string result = 1;</code>
    */
-  java.lang.String getLocation();
+  java.lang.String getResult();
   /**
-   * <code>string location = 2;</code>
+   * <code>string result = 1;</code>
    */
   com.google.protobuf.ByteString
-      getLocationBytes();
+      getResultBytes();
 }

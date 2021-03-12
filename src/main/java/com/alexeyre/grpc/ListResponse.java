@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ListResponse() {
-    location_ = "";
+    result_ = "";
   }
 
   @java.lang.Override
@@ -43,10 +43,10 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 18: {
+          case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            location_ = s;
+            result_ = s;
             break;
           }
           default: {
@@ -81,34 +81,34 @@ private static final long serialVersionUID = 0L;
             com.alexeyre.grpc.ListResponse.class, com.alexeyre.grpc.ListResponse.Builder.class);
   }
 
-  public static final int LOCATION_FIELD_NUMBER = 2;
-  private volatile java.lang.Object location_;
+  public static final int RESULT_FIELD_NUMBER = 1;
+  private volatile java.lang.Object result_;
   /**
-   * <code>string location = 2;</code>
+   * <code>string result = 1;</code>
    */
-  public java.lang.String getLocation() {
-    java.lang.Object ref = location_;
+  public java.lang.String getResult() {
+    java.lang.Object ref = result_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      location_ = s;
+      result_ = s;
       return s;
     }
   }
   /**
-   * <code>string location = 2;</code>
+   * <code>string result = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getLocationBytes() {
-    java.lang.Object ref = location_;
+      getResultBytes() {
+    java.lang.Object ref = result_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      location_ = b;
+      result_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -129,8 +129,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getLocationBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, location_);
+    if (!getResultBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, result_);
     }
     unknownFields.writeTo(output);
   }
@@ -141,8 +141,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getLocationBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, location_);
+    if (!getResultBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, result_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -160,8 +160,8 @@ private static final long serialVersionUID = 0L;
     com.alexeyre.grpc.ListResponse other = (com.alexeyre.grpc.ListResponse) obj;
 
     boolean result = true;
-    result = result && getLocation()
-        .equals(other.getLocation());
+    result = result && getResult()
+        .equals(other.getResult());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -173,8 +173,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + LOCATION_FIELD_NUMBER;
-    hash = (53 * hash) + getLocation().hashCode();
+    hash = (37 * hash) + RESULT_FIELD_NUMBER;
+    hash = (53 * hash) + getResult().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -308,7 +308,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      location_ = "";
+      result_ = "";
 
       return this;
     }
@@ -336,7 +336,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.alexeyre.grpc.ListResponse buildPartial() {
       com.alexeyre.grpc.ListResponse result = new com.alexeyre.grpc.ListResponse(this);
-      result.location_ = location_;
+      result.result_ = result_;
       onBuilt();
       return result;
     }
@@ -385,8 +385,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.alexeyre.grpc.ListResponse other) {
       if (other == com.alexeyre.grpc.ListResponse.getDefaultInstance()) return this;
-      if (!other.getLocation().isEmpty()) {
-        location_ = other.location_;
+      if (!other.getResult().isEmpty()) {
+        result_ = other.result_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -418,71 +418,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object location_ = "";
+    private java.lang.Object result_ = "";
     /**
-     * <code>string location = 2;</code>
+     * <code>string result = 1;</code>
      */
-    public java.lang.String getLocation() {
-      java.lang.Object ref = location_;
+    public java.lang.String getResult() {
+      java.lang.Object ref = result_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        location_ = s;
+        result_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string location = 2;</code>
+     * <code>string result = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getLocationBytes() {
-      java.lang.Object ref = location_;
+        getResultBytes() {
+      java.lang.Object ref = result_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        location_ = b;
+        result_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string location = 2;</code>
+     * <code>string result = 1;</code>
      */
-    public Builder setLocation(
+    public Builder setResult(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      location_ = value;
+      result_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string location = 2;</code>
+     * <code>string result = 1;</code>
      */
-    public Builder clearLocation() {
+    public Builder clearResult() {
       
-      location_ = getDefaultInstance().getLocation();
+      result_ = getDefaultInstance().getResult();
       onChanged();
       return this;
     }
     /**
-     * <code>string location = 2;</code>
+     * <code>string result = 1;</code>
      */
-    public Builder setLocationBytes(
+    public Builder setResultBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      location_ = value;
+      result_ = value;
       onChanged();
       return this;
     }
