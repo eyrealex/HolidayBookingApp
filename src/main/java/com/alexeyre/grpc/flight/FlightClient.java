@@ -1,6 +1,7 @@
 package com.alexeyre.grpc.flight;
 
 import java.util.Iterator;
+import java.util.Random;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -57,8 +58,9 @@ public class FlightClient {
 
 			@Override
 			public void onNext(BookingResponse value) {
-				System.out.println("\n\nReceiving booking response ... \n" + "Departure destination: " + value.getDepart() + "\nDeparture date: " 
-			+ value.getDepartDate() + "\nReturn destination: " + value.getArrival() + "\nReturn date: " + value.getArrivalDate());
+				System.out.println("\n\nReceiving booking response ... \n" + "Departure destination: "
+						+ value.getDepart() + "\nDeparture date: " + value.getDepartDate() + "\nReturn destination: "
+						+ value.getArrival() + "\nReturn date: " + value.getArrivalDate());
 			}
 
 			@Override
@@ -75,7 +77,6 @@ public class FlightClient {
 			}
 
 		};
-		
 
 		StreamObserver<BookingRequest> requestObserver = asyncStub.flightBooking(responseObserver);
 		try {
@@ -111,14 +112,67 @@ public class FlightClient {
 
 		PeopleResponse response = blockingStub.flightPeople(req);
 
-		System.out
-				.println("\n\nRecieving number of people that were booked onto the flight: " + response.getPassengers());
+		System.out.println(
+				"\nRecieving number of people that were booked onto the flight: " + response.getPassengers());
 
 	}
 
 	private static void flightPassenger() {
-		// TODO Auto-generated method stub
 
+		StreamObserver<PassengerResponse> responseObserver = new StreamObserver<PassengerResponse>() {
+
+			int count = 0;
+			
+			@Override
+			public void onNext(PassengerResponse value) {
+				System.out.println("Passenger seat preference: " + value.getSeat() + " and luggage taken: " + value.getLuggage());
+				
+				count ++;
+
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				t.printStackTrace();
+
+			}
+
+			@Override
+			public void onCompleted() {
+				System.out.println("stream is completed ... " + count);
+
+			}
+
+		};
+
+		StreamObserver<PassengerRequest> requestObserver = asyncStub.flightPassenger(responseObserver);
+		
+		System.out.println("\nReceiving passengers booking preference ");
+
+		try {
+
+			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("C4").setLuggage(2).build());
+			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("D1").setLuggage(1).build());
+			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("D1").setLuggage(1).build());
+
+			// Mark the end of requests
+			requestObserver.onCompleted();
+
+			// Sleep for a bit before sending the next one.
+			Thread.sleep(new Random().nextInt(1000) + 500);
+
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

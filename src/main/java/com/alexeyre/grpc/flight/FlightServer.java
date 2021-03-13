@@ -163,6 +163,17 @@ public class FlightServer extends FlightServiceImplBase {
 					System.out.println("Holiday date departure request : " + value.getValue());
 					arrival_date = value.getValue();
 					list.add(arrival_date);
+
+					if (arrival_date.matches(depart_date)) {
+						response.setResponseCode(100)
+								.setResponseMessage("INVALID, Arrival date must be after the Departure date");
+					}
+					if (response.getResponseCode() == 100) {
+						System.out.println("Holiday return date request : " + response.getResponseMessage());
+						responseObserver.onNext(response.build());
+						responseObserver.onCompleted();
+
+					}
 				} else {
 
 				}
@@ -218,7 +229,7 @@ public class FlightServer extends FlightServiceImplBase {
 				System.out.println("\nReceving passenger information...\n" + "Seat preference: " + value.getSeat()
 						+ "\nAmount of luggage bags taken: " + value.getLuggage());
 
-				if (list.size() < position - 1) {
+				if (list.size() <= position - 1) {
 					seat = value.getSeat();
 					int luggage = value.getLuggage();
 					list.add(seat);
