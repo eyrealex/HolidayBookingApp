@@ -30,9 +30,14 @@ public class FlightServer extends FlightServiceImplBase {
 		int port = Integer.valueOf(prop.getProperty("flight_service_port"));
 
 		try {
-			Server server = ServerBuilder.forPort(port).addService(flightserver).build().start();
+			Server server = ServerBuilder.forPort(port)
+					.addService(flightserver)
+					.build()
+					.start();
+			
 			System.out.println("Flight server started, listening on " + port);
 			server.awaitTermination();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -74,7 +79,6 @@ public class FlightServer extends FlightServiceImplBase {
 
 			String flight_service_type = prop.getProperty("flight_service_type");
 			String flight_service_name = prop.getProperty("flight_service_name");
-			// int flight_service_port = 1234;
 			int flight_service_port = Integer.valueOf(prop.getProperty("flight_service_port"));
 
 			String flight_service_description_properties = prop.getProperty("flight_service_description");

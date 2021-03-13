@@ -13,7 +13,8 @@ public class FlightClient {
 	private static FlightServiceGrpc.FlightServiceBlockingStub blockingStub;
 	private static FlightServiceGrpc.FlightServiceStub asyncStub;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
+		
 		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
 
 		// stubs -- generate from proto
@@ -112,8 +113,8 @@ public class FlightClient {
 
 		PeopleResponse response = blockingStub.flightPeople(req);
 
-		System.out.println(
-				"\nRecieving number of people that were booked onto the flight: " + response.getPassengers());
+		System.out
+				.println("\nRecieving number of people that were booked onto the flight: " + response.getPassengers());
 
 	}
 
@@ -122,12 +123,13 @@ public class FlightClient {
 		StreamObserver<PassengerResponse> responseObserver = new StreamObserver<PassengerResponse>() {
 
 			int count = 0;
-			
+
 			@Override
 			public void onNext(PassengerResponse value) {
-				System.out.println("Passenger seat preference: " + value.getSeat() + " and luggage taken: " + value.getLuggage());
-				
-				count ++;
+				System.out.println(
+						"Passenger seat preference: " + value.getSeat() + " and luggage taken: " + value.getLuggage());
+
+				count++;
 
 			}
 
@@ -146,7 +148,7 @@ public class FlightClient {
 		};
 
 		StreamObserver<PassengerRequest> requestObserver = asyncStub.flightPassenger(responseObserver);
-		
+
 		System.out.println("\nReceiving passengers booking preference ");
 
 		try {
