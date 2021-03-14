@@ -68,7 +68,8 @@ public class FlightGUI {
 
 		asyncStub = FlightServiceGrpc.newStub(channel);
 
-		initialize();
+		getList();
+		flightBooking();
 
 	}
 
@@ -125,7 +126,7 @@ public class FlightGUI {
 
 	}
 
-	private void initialize() {
+	private void getList() {
 
 		jFrame = new JFrame();
 		jFrame.setTitle("Flight Client - Service Controller");
@@ -135,9 +136,6 @@ public class FlightGUI {
 		BoxLayout bl = new BoxLayout(jFrame.getContentPane(), BoxLayout.Y_AXIS);
 		jFrame.getContentPane().setLayout(bl);
 
-		// ******************************************
-		// SETTING THE JPANEL FOR THE FIRST SERVICE
-		// ******************************************
 
 		JPanel jPanel1 = new JPanel();
 		jFrame.getContentPane().add(jPanel1);
@@ -181,9 +179,9 @@ public class FlightGUI {
 		// textResponse.setSize(new Dimension(15, 30));
 		jPanel1.add(scrollPane);
 
-		// ******************************************
-		// SETTING THE JPANEL FOR THE SECOND SERVICE
-		// ******************************************
+	}
+
+	private void flightBooking() {
 
 		JPanel jPanel2 = new JPanel();
 		jFrame.getContentPane().add(jPanel2);
@@ -226,8 +224,10 @@ public class FlightGUI {
 
 					@Override
 					public void onNext(BookingResponse value) {
-						jTextArea2.append("TESTING" + value.getDepart() + value.getDepartDate() + value.getArrival() + value.getArrivalDate());
-						System.out.println("TESTING" + value.getDepart() + value.getDepartDate() + value.getArrival() + value.getArrivalDate());
+//						jTextArea2.append("TESTING" + value.getDepart() + value.getDepartDate() + value.getArrival()
+//								+ value.getArrivalDate());
+//						System.out.println("TESTING" + value.getDepart() + value.getDepartDate() + value.getArrival()
+//								+ value.getArrivalDate());
 
 					}
 
@@ -249,16 +249,16 @@ public class FlightGUI {
 				try {
 
 					request.onNext(BookingRequest.newBuilder().setValue(val1).build());
-					Thread.sleep(500);
+					Thread.sleep(1500);
 
 					request.onNext(BookingRequest.newBuilder().setValue(val2).build());
-					Thread.sleep(500);
+					Thread.sleep(1500);
 
 					request.onNext(BookingRequest.newBuilder().setValue(val3).build());
-					Thread.sleep(500);
+					Thread.sleep(1500);
 
 					request.onNext(BookingRequest.newBuilder().setValue(val4).build());
-					Thread.sleep(500);
+					Thread.sleep(1500);
 
 					// Mark the end of requests
 					request.onCompleted();

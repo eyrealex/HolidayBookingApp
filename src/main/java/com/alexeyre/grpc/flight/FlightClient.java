@@ -1,5 +1,6 @@
 package com.alexeyre.grpc.flight;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ public class FlightClient {
 	private static FlightServiceGrpc.FlightServiceStub asyncStub;
 
 	public static void main(String[] args) {
-		
+
 		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
 
 		// stubs -- generate from proto
@@ -46,7 +47,7 @@ public class FlightClient {
 				ListResponse temp = response.next();
 				System.out.print(temp.getResult() + ", ");
 			}
-			System.out.println("\nAll possible destinations ... Choose one to continue ...");
+			System.out.println("\n\nMaking a holiday booking for one of the countries listed: ");
 
 		} catch (StatusRuntimeException e) {
 			e.printStackTrace();
@@ -57,11 +58,44 @@ public class FlightClient {
 
 		StreamObserver<BookingResponse> responseObserver = new StreamObserver<BookingResponse>() {
 
+			int count = 0;
 			@Override
 			public void onNext(BookingResponse value) {
-				System.out.println("\n\nReceiving booking response ... \n" + "Departure destination: "
-						+ value.getDepart() + "\nDeparture date: " + value.getDepartDate() + "\nReturn destination: "
-						+ value.getArrival() + "\nReturn date: " + value.getArrivalDate());
+				System.out.println(value.getDepart());
+				count++;
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				System.out.println(value.getDepartDate());
+				count++;
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println(value.getArrival());
+				count++;
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println(value.getArrivalDate());
+				count++;
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+
 			}
 
 			@Override
@@ -72,8 +106,7 @@ public class FlightClient {
 
 			@Override
 			public void onCompleted() {
-				System.out.println(
-						"\nFlight destination and date have been booked ... Setting the amount of people to be booked ...");
+				System.out.println("Total number of entries made during booking: " + count);
 
 			}
 
@@ -82,16 +115,16 @@ public class FlightClient {
 		StreamObserver<BookingRequest> requestObserver = asyncStub.flightBooking(responseObserver);
 		try {
 			requestObserver.onNext(BookingRequest.newBuilder().setValue("Paris").build());
-			Thread.sleep(500);
+			Thread.sleep(1000);
 
 			requestObserver.onNext(BookingRequest.newBuilder().setValue("10/01/2022").build());
-			Thread.sleep(500);
+			Thread.sleep(1000);
 
 			requestObserver.onNext(BookingRequest.newBuilder().setValue("Dublin").build());
-			Thread.sleep(500);
+			Thread.sleep(1000);
 
 			requestObserver.onNext(BookingRequest.newBuilder().setValue("19/01/2022").build());
-			Thread.sleep(500);
+			Thread.sleep(1000);
 
 			// Mark the end of requests
 			requestObserver.onCompleted();
@@ -113,8 +146,8 @@ public class FlightClient {
 
 		PeopleResponse response = blockingStub.flightPeople(req);
 
-		System.out
-				.println("\nRecieving number of people that were booked onto the flight: " + response.getPassengers());
+		System.out.println("\nHow many people do you want to book onto the flight: ");
+		System.out.println("Recieving number of people: " + response.getPassengers());
 
 	}
 
@@ -141,7 +174,9 @@ public class FlightClient {
 
 			@Override
 			public void onCompleted() {
-				System.out.println("stream is completed ... " + count);
+				System.out.println("You have been successful in booking " + count + " people onto the flight.");
+				System.out.println("\nBooking has now been complete");
+
 
 			}
 
@@ -149,13 +184,16 @@ public class FlightClient {
 
 		StreamObserver<PassengerRequest> requestObserver = asyncStub.flightPassenger(responseObserver);
 
-		System.out.println("\nReceiving passengers booking preference ");
+		System.out.println("\nChoose preferences for each person that was booked onto the flight: ");
 
 		try {
 
 			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("C4").setLuggage(2).build());
+			Thread.sleep(1500);
 			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("D1").setLuggage(1).build());
-			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("D1").setLuggage(1).build());
+			Thread.sleep(1500);
+			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("E1").setLuggage(1).build());
+			Thread.sleep(1500);
 
 			// Mark the end of requests
 			requestObserver.onCompleted();
