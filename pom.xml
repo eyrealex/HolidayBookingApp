@@ -1,11 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.alexeyre.grpc</groupId>
-  <artifactId>HolidayBookingApp</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>HolidayBookingApp</name>
-  
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.alexeyre.grpc</groupId>
+	<artifactId>HolidayBookingApp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>HolidayBookingApp</name>
+
+	<dependencies>
 		<dependency>
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
@@ -43,10 +45,17 @@
 		</dependency>
 
 		<dependency>
-			<groupId>javax.jmdns</groupId>
+			<groupId>org.jmdns</groupId>
 			<artifactId>jmdns</artifactId>
-			<version>3.4.1</version>
+			<version>3.5.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.30</version>
+		</dependency>
+
 	</dependencies>
 
 	<properties>
@@ -103,5 +112,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

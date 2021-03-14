@@ -7,6 +7,7 @@ com\alexeyre\grpc\hotel\HotelBookingResponse.class
 com\alexeyre\grpc\flight\BookingRequestOrBuilder.class
 com\alexeyre\grpc\hotel\HotelListResponseOrBuilder.class
 com\alexeyre\grpc\rental\RentalBookingDateRequest$Builder.class
+com\alexeyre\grpc\flight\FlightGUI$3.class
 com\alexeyre\grpc\hotel\HotelServiceImpl$1.class
 com\alexeyre\grpc\flight\PeopleResponse$1.class
 com\alexeyre\grpc\flight\ListResponse$1.class
@@ -50,6 +51,7 @@ com\alexeyre\grpc\flight\FlightServer$1.class
 com\alexeyre\grpc\flight\PassengerResponseOrBuilder.class
 com\alexeyre\grpc\rental\RentalServiceGrpc$RentalServiceFileDescriptorSupplier.class
 com\alexeyre\grpc\rental\RentalServiceGrpc$RentalServiceMethodDescriptorSupplier.class
+com\alexeyre\grpc\flight\FlightGUI.class
 com\alexeyre\grpc\flight\FlightServiceGrpc$FlightServiceFileDescriptorSupplier.class
 com\alexeyre\grpc\hotel\HotelAmenitiesRequest.class
 com\alexeyre\grpc\rental\RentalDetailsRequestOrBuilder.class
@@ -76,6 +78,7 @@ com\alexeyre\grpc\rental\RentalDetailsResponse$1.class
 com\alexeyre\grpc\rental\RentalAvailabilityRequest$1.class
 com\alexeyre\grpc\flight\FlightServiceGrpc$FlightServiceStub.class
 com\alexeyre\grpc\hotel\HotelServiceGrpc.class
+com\alexeyre\grpc\flight\FlightClient$2.class
 com\alexeyre\grpc\rental\RentalListResponse$1.class
 com\alexeyre\grpc\flight\PeopleResponse.class
 com\alexeyre\grpc\flight\PassengerRequest$Builder.class
@@ -106,6 +109,7 @@ com\alexeyre\grpc\rental\RentalServiceGrpc$1.class
 com\alexeyre\grpc\hotel\HotelAmenitiesResponse.class
 com\alexeyre\grpc\hotel\HotelServiceGrpc$HotelServiceImplBase.class
 com\alexeyre\grpc\rental\RentalAvailabilityResponseOrBuilder.class
+com\alexeyre\grpc\flight\FlightGUI$1.class
 com\alexeyre\grpc\flight\FlightServiceImpl$1.class
 com\alexeyre\grpc\flight\PassengerRequest.class
 com\alexeyre\grpc\rental\RentalServiceGrpc$RentalServiceImplBase.class
@@ -121,6 +125,7 @@ com\alexeyre\grpc\flight\BookingResponse.class
 com\alexeyre\grpc\rental\RentalServiceGrpc$RentalServiceFutureStub.class
 com\alexeyre\grpc\rental\RentalDetailsResponse$Builder.class
 com\alexeyre\grpc\flight\PeopleRequest.class
+com\alexeyre\grpc\flight\FlightGUI$2.class
 com\alexeyre\grpc\rental\RentalServiceGrpc$MethodHandlers.class
 com\alexeyre\grpc\flight\PeopleRequest$1.class
 com\alexeyre\grpc\flight\PassengerResponse$Builder.class
