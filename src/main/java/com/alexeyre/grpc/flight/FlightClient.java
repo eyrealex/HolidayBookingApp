@@ -58,43 +58,36 @@ public class FlightClient {
 
 		StreamObserver<BookingResponse> responseObserver = new StreamObserver<BookingResponse>() {
 
-			int count = 0;
 			@Override
 			public void onNext(BookingResponse value) {
 				System.out.println(value.getDepart());
-				count++;
 				try {
-					Thread.sleep(500);
+					Thread.sleep(800);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
 				System.out.println(value.getDepartDate());
-				count++;
 				try {
-					Thread.sleep(500);
+					Thread.sleep(800);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println(value.getArrival());
-				count++;
 				try {
-					Thread.sleep(500);
+					Thread.sleep(800);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println(value.getArrivalDate());
-				count++;
 				try {
-					Thread.sleep(500);
+					Thread.sleep(800);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
 
 			}
 
@@ -106,7 +99,7 @@ public class FlightClient {
 
 			@Override
 			public void onCompleted() {
-				System.out.println("Total number of entries made during booking: " + count);
+				System.out.println("\nCompleted stream");
 
 			}
 
@@ -115,16 +108,16 @@ public class FlightClient {
 		StreamObserver<BookingRequest> requestObserver = asyncStub.flightBooking(responseObserver);
 		try {
 			requestObserver.onNext(BookingRequest.newBuilder().setValue("Paris").build());
-			Thread.sleep(1000);
+			Thread.sleep(500);
 
 			requestObserver.onNext(BookingRequest.newBuilder().setValue("10/01/2022").build());
-			Thread.sleep(1000);
+			Thread.sleep(500);
 
 			requestObserver.onNext(BookingRequest.newBuilder().setValue("Dublin").build());
-			Thread.sleep(1000);
+			Thread.sleep(500);
 
 			requestObserver.onNext(BookingRequest.newBuilder().setValue("19/01/2022").build());
-			Thread.sleep(1000);
+			Thread.sleep(500);
 
 			// Mark the end of requests
 			requestObserver.onCompleted();
@@ -177,7 +170,6 @@ public class FlightClient {
 				System.out.println("You have been successful in booking " + count + " people onto the flight.");
 				System.out.println("\nBooking has now been complete");
 
-
 			}
 
 		};
@@ -188,12 +180,13 @@ public class FlightClient {
 
 		try {
 
+			Thread.sleep(800);
 			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("C4").setLuggage(2).build());
-			Thread.sleep(1500);
+			Thread.sleep(800);
 			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("D1").setLuggage(1).build());
-			Thread.sleep(1500);
+			Thread.sleep(800);
 			requestObserver.onNext(PassengerRequest.newBuilder().setSeat("E1").setLuggage(1).build());
-			Thread.sleep(1500);
+			Thread.sleep(800);
 
 			// Mark the end of requests
 			requestObserver.onCompleted();
