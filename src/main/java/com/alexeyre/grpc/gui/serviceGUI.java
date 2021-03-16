@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 
 import javax.jmdns.JmDNS;
@@ -34,6 +35,8 @@ import com.alexeyre.grpc.flight.FlightServiceGrpc.FlightServiceBlockingStub;
 import com.alexeyre.grpc.flight.FlightServiceGrpc.FlightServiceStub;
 import com.alexeyre.grpc.flight.ListRequest;
 import com.alexeyre.grpc.flight.ListResponse;
+import com.alexeyre.grpc.flight.PeopleRequest;
+import com.alexeyre.grpc.flight.PeopleResponse;
 import com.alexeyre.grpc.hotel.HotelServiceGrpc;
 import com.alexeyre.grpc.hotel.HotelServiceGrpc.HotelServiceBlockingStub;
 import com.alexeyre.grpc.hotel.HotelServiceGrpc.HotelServiceStub;
@@ -413,6 +416,25 @@ public class serviceGUI {
 		// creating action when btnSubmit is clicked
 		btnSubmit2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				String input = jTextField2.getText();
+				int num = 0;
+
+					if (!input.matches("[\\-]?[1-8]+")) {
+						jTextArea3.append("ERROR, 1-8 passengers per booking" + "\n");
+						System.out.println("\nERROR, 1-8 passengers per booking");
+						jTextField2.setText("");
+
+					} else {
+						num = Integer.parseInt(jTextField2.getText());
+						PeopleRequest peopleReq = PeopleRequest.newBuilder().setPassengers(num).build();
+						PeopleResponse peopleRes = blockingStub1.flightPeople(peopleReq);
+
+						btnSubmit2.setEnabled(false);
+						System.out.println("\nNumber of people booked: \" + peopleRes.getPassengers()");
+						jTextArea3.append("\nNumber of people booked: " + peopleRes.getPassengers());
+					}
+			
 
 			}// end btnSubmit2 action performed
 
