@@ -59,7 +59,7 @@ public class serviceGUI {
 	private JFrame jFrame;
 	private JTabbedPane tabbedPane;
 	private JTextArea jTextArea, jTextArea2, jTextArea3;
-	private JTextField jTextField;
+	private JTextField jTextField1, jTextField2;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -279,7 +279,7 @@ public class serviceGUI {
 				} // end catch
 
 			}// end action performed for btnList
-		}); // end action listerner for btnList
+		}); // end action listener for btnList
 
 		// Adding panel 2 to tab 1
 		tabPanel1.add(booking_flight_panel);
@@ -287,9 +287,9 @@ public class serviceGUI {
 		// Configuring buttons, labels and text fields for booking flight panel
 		JLabel JLabel2 = new JLabel("Location/Date: ");
 		booking_flight_panel.add(JLabel2);
-		jTextField = new JTextField();
-		booking_flight_panel.add(jTextField);
-		jTextField.setColumns(10);
+		jTextField1 = new JTextField();
+		booking_flight_panel.add(jTextField1);
+		jTextField1.setColumns(10);
 
 		JButton btnSubmit = new JButton("Submit");
 		booking_flight_panel.add(btnSubmit);
@@ -356,9 +356,9 @@ public class serviceGUI {
 					}// end on completed
 				}; // end Iterating through the stream of responses for flightBooking
 
-				String value = jTextField.getText();
+				String value = jTextField1.getText();
 				if (list.add(value)) {
-					jTextField.setText("");
+					jTextField1.setText("");
 				} // end if for removing text from text fields
 
 				// Iterating through the stream of requests for flightBooking
@@ -398,9 +398,9 @@ public class serviceGUI {
 		// Configuring buttons, labels and text fields for booking flight panel
 		JLabel JLabel3 = new JLabel("Number of passengers: ");
 		passengers_flight_panel.add(JLabel3);
-		jTextField = new JTextField();
-		passengers_flight_panel.add(jTextField);
-		jTextField.setColumns(10);
+		jTextField2 = new JTextField();
+		passengers_flight_panel.add(jTextField2);
+		jTextField2.setColumns(10);
 
 		JButton btnSubmit2 = new JButton("Submit");
 		passengers_flight_panel.add(btnSubmit2);
