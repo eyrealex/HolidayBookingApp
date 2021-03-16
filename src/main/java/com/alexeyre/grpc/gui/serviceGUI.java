@@ -61,8 +61,8 @@ public class serviceGUI {
 	private static ServiceInfo serviceInfo;
 	private JFrame jFrame;
 	private JTabbedPane tabbedPane;
-	private JTextArea jTextArea, jTextArea2, jTextArea3;
-	private JTextField jTextField1, jTextField2;
+	private JTextArea jTextArea, jTextArea2, jTextArea3, jTextArea4;
+	private JTextField jTextField1, jTextField2, jTextField3, jTextField4;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -157,7 +157,7 @@ public class serviceGUI {
 	public void initGUI() {
 		jFrame = new JFrame();
 		jFrame.setTitle("Holiday Booking App");
-		jFrame.setBounds(400, 400, 600, 500);
+		jFrame.setBounds(400, 400, 600, 550);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
@@ -197,8 +197,12 @@ public class serviceGUI {
 		booking_flight_panel.setBackground(Color.LIGHT_GRAY);
 
 		// Panel 3
+		JPanel people_flight_panel = new JPanel();
+		people_flight_panel.setBackground(new Color(128, 128, 128));
+
+		// Panel 4
 		JPanel passengers_flight_panel = new JPanel();
-		passengers_flight_panel.setBackground(new Color(128, 128, 128));
+		passengers_flight_panel.setBackground(Color.LIGHT_GRAY);
 
 		// Adding tab 1 Frame
 		tabPanel1.setLayout(b1);
@@ -220,6 +224,8 @@ public class serviceGUI {
 		list_flights_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 		booking_flight_panel.setAlignmentX(0.6f);
 		booking_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
+		people_flight_panel.setAlignmentX(0.6f);
+		people_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 		passengers_flight_panel.setAlignmentX(0.6f);
 		passengers_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 
@@ -238,6 +244,12 @@ public class serviceGUI {
 		p8.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		p9.setAlignmentX(0.6f);
 		p9.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH FLIGHT LIST PANEL
+		 * 
+		 */
 
 		// Adding panel 1 to tab 1
 		tabPanel1.add(list_flights_panel);
@@ -283,6 +295,12 @@ public class serviceGUI {
 
 			}// end action performed for btnList
 		}); // end action listener for btnList
+
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH FLIGHT BOOKING PANEL
+		 * 
+		 */
 
 		// Adding panel 2 to tab 1
 		tabPanel1.add(booking_flight_panel);
@@ -395,21 +413,27 @@ public class serviceGUI {
 			}// end btnSubmit action performed
 		}); // end btnSubmit action listener
 
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH FLIGHT PEOPLE PANEL
+		 * 
+		 */
+
 		// Adding panel 2 to tab 1
-		tabPanel1.add(passengers_flight_panel);
+		tabPanel1.add(people_flight_panel);
 
 		// Configuring buttons, labels and text fields for booking flight panel
 		JLabel JLabel3 = new JLabel("Number of passengers: ");
-		passengers_flight_panel.add(JLabel3);
+		people_flight_panel.add(JLabel3);
 		jTextField2 = new JTextField();
-		passengers_flight_panel.add(jTextField2);
+		people_flight_panel.add(jTextField2);
 		jTextField2.setColumns(10);
 
 		JButton btnSubmit2 = new JButton("Submit");
-		passengers_flight_panel.add(btnSubmit2);
+		people_flight_panel.add(btnSubmit2);
 
 		jTextArea3 = new JTextArea(3, 10);
-		passengers_flight_panel.add(jTextArea3);
+		people_flight_panel.add(jTextArea3);
 		jTextArea3.setLineWrap(true);
 		jTextArea3.setWrapStyleWord(true);
 
@@ -420,25 +444,53 @@ public class serviceGUI {
 				String input = jTextField2.getText();
 				int num = 0;
 
-					if (!input.matches("[\\-]?[1-8]+")) {
-						jTextArea3.append("ERROR, 1-8 passengers per booking" + "\n");
-						System.out.println("\nERROR, 1-8 passengers per booking");
-						jTextField2.setText("");
+				if (!input.matches("[\\-]?[1-8]+")) {
+					jTextArea3.append("ERROR, 1-8 passengers per booking" + "\n");
+					System.out.println("\nERROR, 1-8 passengers per booking");
+					jTextField2.setText("");
 
-					} else {
-						num = Integer.parseInt(jTextField2.getText());
-						PeopleRequest peopleReq = PeopleRequest.newBuilder().setPassengers(num).build();
-						PeopleResponse peopleRes = blockingStub1.flightPeople(peopleReq);
+				} else {
+					num = Integer.parseInt(jTextField2.getText());
+					PeopleRequest peopleReq = PeopleRequest.newBuilder().setPassengers(num).build();
+					PeopleResponse peopleRes = blockingStub1.flightPeople(peopleReq);
 
-						btnSubmit2.setEnabled(false);
-						System.out.println("\nNumber of people booked: \" + peopleRes.getPassengers()");
-						jTextArea3.append("\nNumber of people booked: " + peopleRes.getPassengers());
-					}
-			
+					btnSubmit2.setEnabled(false);
+					System.out.println("\nNumber of people booked: \" + peopleRes.getPassengers()");
+					jTextArea3.append("\nNumber of people booked: " + peopleRes.getPassengers());
+				}
 
 			}// end btnSubmit2 action performed
 
 		});// end btnSubmit2 action listener
+
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH FLIGHT PASSENGERS PREFERENCE PANEL
+		 * 
+		 */
+
+		tabPanel1.add(passengers_flight_panel);
+
+		// Configuring buttons, labels and text fields for booking flight panel
+		JLabel JLabel4 = new JLabel("Seat preference: ");
+		JLabel JLabel5 = new JLabel("Amount of luggage: ");
+		passengers_flight_panel.add(JLabel4);
+		jTextField3 = new JTextField();
+		passengers_flight_panel.add(jTextField3);
+		jTextField3.setColumns(10);
+		
+		passengers_flight_panel.add(JLabel5);
+		jTextField4 = new JTextField();
+		passengers_flight_panel.add(jTextField4);
+		jTextField4.setColumns(10);
+
+		JButton btnSubmit3 = new JButton("Submit");
+		passengers_flight_panel.add(btnSubmit3);
+
+		jTextArea4 = new JTextArea(3, 15);
+		passengers_flight_panel.add(jTextArea4);
+		jTextArea4.setLineWrap(true);
+		jTextArea4.setWrapStyleWord(true);
 
 		// adding the sections to the second tab
 		tabPanel2.add(p4);
