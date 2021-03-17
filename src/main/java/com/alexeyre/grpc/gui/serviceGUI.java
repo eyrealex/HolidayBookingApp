@@ -460,7 +460,7 @@ public class serviceGUI {
 					PeopleResponse peopleRes = blockingStub1.flightPeople(peopleReq);
 
 					btnSubmit2.setEnabled(false);
-					System.out.println("\nNumber of people booked: \" + peopleRes.getPassengers()");
+					System.out.println("\nNumber of people booked:" + peopleRes.getPassengers());
 					jTextArea3.append("\nNumber of people booked: " + peopleRes.getPassengers());
 				}
 
@@ -502,14 +502,10 @@ public class serviceGUI {
 
 				StreamObserver<PassengerResponse> responseObserver = new StreamObserver<PassengerResponse>() {
 
-					int count = 0;
-
 					@Override
 					public void onNext(PassengerResponse value) {
 						System.out.println("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
 								+ value.getLuggage());
-
-						count++;
 
 					}
 
@@ -521,7 +517,7 @@ public class serviceGUI {
 
 					@Override
 					public void onCompleted() {
-						System.out.println("You have been successful in booking " + count + " people onto the flight.");
+
 						System.out.println("\nBooking has now been complete");
 
 					}
@@ -530,43 +526,29 @@ public class serviceGUI {
 
 				StreamObserver<PassengerRequest> requestObserver = asyncStub1.flightPassenger(responseObserver);
 
-				System.out.println("\nChoose preferences for each person that was booked onto the flight: ");
+				ArrayList<String> list = new ArrayList();
+				String seat = "";
+				int luggage = 0;
+				luggage = Integer.parseInt(jTextField4.getText());
 
-				try {
-					
-					ArrayList<String> list = new ArrayList();
-					String seat = "";
-					int luggage = 0;
+				if (list.size() < position - 1) {
+					seat = jTextField3.getText();
+					list.add(seat);
 
-					
-					if(list.size() <= position - 1) {
-						seat = jTextField3.getText();
-						luggage = Integer.parseInt(jTextField4.getText());
-						list.add(seat); 
+					for (int i = 0; i < list.size(); i++) {
+						requestObserver
+								.onNext(PassengerRequest.newBuilder().setSeat(list.get(i)).setLuggage(luggage).build());
+
 					}
-					requestObserver.onNext(PassengerRequest.newBuilder().setSeat(seat).setLuggage(luggage).build());
-					Thread.sleep(800);
+					
+					if(list.size() > position) {
+						requestObserver.onCompleted();
+						btnSubmit.setEnabled(false);
+					}
+
 					
 
-					// Mark the end of requests
-					requestObserver.onCompleted();
-
-					// Sleep for a bit before sending the next one.
-					Thread.sleep(new Random().nextInt(1000) + 500);
-
-				} catch (RuntimeException m) {
-					m.printStackTrace();
-				} catch (InterruptedException m) {
-					m.printStackTrace();
 				}
-
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException m) {
-					// TODO Auto-generated catch block
-					m.printStackTrace();
-				}
-
 			}
 
 		});
@@ -586,4 +568,5 @@ public class serviceGUI {
 
 	}
 
-}// end FlightGUI class
+}
+// end FlightGUI class

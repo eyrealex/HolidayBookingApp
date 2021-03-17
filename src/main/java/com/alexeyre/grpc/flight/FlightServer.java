@@ -214,7 +214,7 @@ public class FlightServer extends FlightServiceImplBase {
 				System.out.println("\nReceving passenger information...\n" + "Seat preference: " + value.getSeat()
 						+ "\nAmount of luggage bags taken: " + value.getLuggage());
 
-				if (list.size() <= position - 1) {
+				if (list.size() < position -1) {
 					seat = value.getSeat();
 					int luggage = value.getLuggage();
 					list.add(seat);
