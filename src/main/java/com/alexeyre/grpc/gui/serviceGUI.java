@@ -64,9 +64,11 @@ public class serviceGUI {
 	private static ServiceInfo serviceInfo;
 	private JFrame jFrame;
 	private JTabbedPane tabbedPane;
-	private JTextArea jTextArea, jTextArea2, jTextArea3, jTextArea4;
-	private JTextField jTextField1, jTextField2, jTextField3, jTextField4;
-	private static int position = 0;
+	private JTextArea flight_list_ta, location_date_ta, no_of_passengers_ta, seat_luggage_ta;
+	private JTextField location_date_tf, no_of_passengers_tf, seat_pref_tf, luggage_tf;
+	private int position;
+	ArrayList<String> list = new ArrayList();
+	ArrayList<String> luggage = new ArrayList();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -264,10 +266,10 @@ public class serviceGUI {
 		JButton btnList = new JButton("Submit");
 		list_flights_panel.add(btnList);
 
-		jTextArea = new JTextArea(3, 15);
-		list_flights_panel.add(jTextArea);
-		jTextArea.setLineWrap(true);
-		jTextArea.setWrapStyleWord(true);
+		flight_list_ta = new JTextArea(3, 15);
+		list_flights_panel.add(flight_list_ta);
+		flight_list_ta.setLineWrap(true);
+		flight_list_ta.setWrapStyleWord(true);
 
 		// creating action when btnList is clicked
 		btnList.addActionListener(new ActionListener() {
@@ -288,7 +290,7 @@ public class serviceGUI {
 					// text area
 					while (response.hasNext()) {
 						ListResponse temp = response.next();
-						jTextArea.append("Location: " + temp.getResult() + "\n");
+						flight_list_ta.append("Location: " + temp.getResult() + "\n");
 
 						System.out.println("Location: " + temp.getResult());
 					} // end while
@@ -312,23 +314,22 @@ public class serviceGUI {
 		// Configuring buttons, labels and text fields for booking flight panel
 		JLabel JLabel2 = new JLabel("(Client-side streaming) Location/Date: ");
 		booking_flight_panel.add(JLabel2);
-		jTextField1 = new JTextField();
-		booking_flight_panel.add(jTextField1);
-		jTextField1.setColumns(10);
+		location_date_tf = new JTextField();
+		booking_flight_panel.add(location_date_tf);
+		location_date_tf.setColumns(10);
 
-		JButton btnSubmit = new JButton("Submit");
-		booking_flight_panel.add(btnSubmit);
+		JButton btnLocation = new JButton("Submit");
+		booking_flight_panel.add(btnLocation);
 
-		jTextArea2 = new JTextArea(3, 15);
-		booking_flight_panel.add(jTextArea2);
-		jTextArea2.setLineWrap(true);
-		jTextArea2.setWrapStyleWord(true);
+		location_date_ta = new JTextArea(3, 15);
+		booking_flight_panel.add(location_date_ta);
+		location_date_ta.setLineWrap(true);
+		location_date_ta.setWrapStyleWord(true);
 
 		// Initializing array list to be used for setting values
-		ArrayList<String> list = new ArrayList();
 
 		// creating action when btnSubmit is clicked
-		btnSubmit.addActionListener(new ActionListener() {
+		btnLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				// Iterating through the stream of responses for flightBooking
@@ -336,7 +337,7 @@ public class serviceGUI {
 
 					@Override
 					public void onNext(BookingResponse value) {
-						jTextArea2.append("Depart: " + value.getDepart());
+						location_date_ta.append("Depart: " + value.getDepart());
 						System.out.println("\nDepart: " + value.getDepart());
 						try {
 							Thread.sleep(800);
@@ -344,7 +345,7 @@ public class serviceGUI {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						jTextArea2.append("\nDepart date: " + value.getDepartDate());
+						location_date_ta.append("\nDepart date: " + value.getDepartDate());
 						System.out.println("Depart date: " + value.getDepartDate());
 						try {
 							Thread.sleep(800);
@@ -352,7 +353,7 @@ public class serviceGUI {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						jTextArea2.append("\nArrival: " + value.getArrival());
+						location_date_ta.append("\nArrival: " + value.getArrival());
 						System.out.println("Arrival: " + value.getArrival());
 						try {
 							Thread.sleep(800);
@@ -360,7 +361,7 @@ public class serviceGUI {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						jTextArea2.append("\nArrival date: " + value.getArrivalDate());
+						location_date_ta.append("\nArrival date: " + value.getArrivalDate());
 						System.out.println("Arrival date: " + value.getArrivalDate());
 						try {
 							Thread.sleep(800);
@@ -381,9 +382,9 @@ public class serviceGUI {
 					}// end on completed
 				}; // end Iterating through the stream of responses for flightBooking
 
-				String value = jTextField1.getText();
+				String value = location_date_tf.getText();
 				if (list.add(value)) {
-					jTextField1.setText("");
+					location_date_tf.setText("");
 				} // end if for removing text from text fields
 
 				// Iterating through the stream of requests for flightBooking
@@ -402,7 +403,7 @@ public class serviceGUI {
 
 						// Mark the end of requests
 						requestObserver.onCompleted();
-						btnSubmit.setEnabled(false);
+						btnLocation.setEnabled(false);
 
 						Thread.sleep(3000);
 
@@ -429,39 +430,39 @@ public class serviceGUI {
 		// Configuring buttons, labels and text fields for booking flight panel
 		JLabel JLabel3 = new JLabel("(Unary call) Number of passengers: ");
 		people_flight_panel.add(JLabel3);
-		jTextField2 = new JTextField();
-		people_flight_panel.add(jTextField2);
-		jTextField2.setColumns(10);
+		no_of_passengers_tf = new JTextField();
+		people_flight_panel.add(no_of_passengers_tf);
+		no_of_passengers_tf.setColumns(10);
 
-		JButton btnSubmit2 = new JButton("Submit");
-		people_flight_panel.add(btnSubmit2);
+		JButton btnPassengers = new JButton("Submit");
+		people_flight_panel.add(btnPassengers);
 
-		jTextArea3 = new JTextArea(3, 10);
-		people_flight_panel.add(jTextArea3);
-		jTextArea3.setLineWrap(true);
-		jTextArea3.setWrapStyleWord(true);
+		no_of_passengers_ta = new JTextArea(3, 10);
+		people_flight_panel.add(no_of_passengers_ta);
+		no_of_passengers_ta.setLineWrap(true);
+		no_of_passengers_ta.setWrapStyleWord(true);
 
 		// creating action when btnSubmit is clicked
-		btnSubmit2.addActionListener(new ActionListener() {
+		btnPassengers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				String input = jTextField2.getText();
+				String input = no_of_passengers_tf.getText();
 				int num = 0;
 
 				if (!input.matches("[\\-]?[1-8]+")) {
-					jTextArea3.append("ERROR, 1-8 passengers per booking" + "\n");
+					no_of_passengers_ta.append("ERROR, 1-8 passengers per booking" + "\n");
 					System.out.println("\nERROR, 1-8 passengers per booking");
-					jTextField2.setText("");
+					no_of_passengers_ta.setText("");
 
 				} else {
-					num = Integer.parseInt(jTextField2.getText());
-					position = num;
+					num = Integer.parseInt(no_of_passengers_tf.getText());
 					PeopleRequest peopleReq = PeopleRequest.newBuilder().setPassengers(num).build();
+					position = num;
 					PeopleResponse peopleRes = blockingStub1.flightPeople(peopleReq);
 
-					btnSubmit2.setEnabled(false);
+					btnPassengers.setEnabled(false);
 					System.out.println("\nNumber of people booked:" + peopleRes.getPassengers());
-					jTextArea3.append("\nNumber of people booked: " + peopleRes.getPassengers());
+					no_of_passengers_ta.append("\nNumber of people booked: " + peopleRes.getPassengers());
 				}
 
 			}// end btnSubmit2 action performed
@@ -480,24 +481,24 @@ public class serviceGUI {
 		JLabel JLabel4 = new JLabel("(Bi-directional) Seat preference: ");
 		JLabel JLabel5 = new JLabel("Amount of luggage: ");
 		passengers_flight_panel.add(JLabel4);
-		jTextField3 = new JTextField();
-		passengers_flight_panel.add(jTextField3);
-		jTextField3.setColumns(10);
+		seat_pref_tf = new JTextField();
+		passengers_flight_panel.add(seat_pref_tf);
+		seat_pref_tf.setColumns(10);
 
 		passengers_flight_panel.add(JLabel5);
-		jTextField4 = new JTextField();
-		passengers_flight_panel.add(jTextField4);
-		jTextField4.setColumns(10);
+		luggage_tf = new JTextField();
+		passengers_flight_panel.add(luggage_tf);
+		luggage_tf.setColumns(10);
 
-		JButton btnSubmit3 = new JButton("Submit");
-		passengers_flight_panel.add(btnSubmit3);
+		JButton btnSeatLuggage = new JButton("Submit");
+		passengers_flight_panel.add(btnSeatLuggage);
 
-		jTextArea4 = new JTextArea(3, 15);
-		passengers_flight_panel.add(jTextArea4);
-		jTextArea4.setLineWrap(true);
-		jTextArea4.setWrapStyleWord(true);
+		seat_luggage_ta = new JTextArea(3, 15);
+		passengers_flight_panel.add(seat_luggage_ta);
+		seat_luggage_ta.setLineWrap(true);
+		seat_luggage_ta.setWrapStyleWord(true);
 
-		btnSubmit3.addActionListener(new ActionListener() {
+		btnSeatLuggage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				StreamObserver<PassengerResponse> responseObserver = new StreamObserver<PassengerResponse>() {
@@ -505,6 +506,9 @@ public class serviceGUI {
 					@Override
 					public void onNext(PassengerResponse value) {
 						System.out.println("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
+								+ value.getLuggage());
+						
+						seat_luggage_ta.append("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
 								+ value.getLuggage());
 
 					}
@@ -518,7 +522,6 @@ public class serviceGUI {
 					@Override
 					public void onCompleted() {
 
-						System.out.println("\nBooking has now been complete");
 
 					}
 
@@ -526,29 +529,40 @@ public class serviceGUI {
 
 				StreamObserver<PassengerRequest> requestObserver = asyncStub1.flightPassenger(responseObserver);
 
-				ArrayList<String> list = new ArrayList();
 				String seat = "";
-				int luggage = 0;
-				luggage = Integer.parseInt(jTextField4.getText());
+				int luggage = Integer.parseInt(luggage_tf.getText());
+				seat = seat_pref_tf.getText();
+				
 
 				if (list.size() < position - 1) {
-					seat = jTextField3.getText();
 					list.add(seat);
 
-					for (int i = 0; i < list.size(); i++) {
-						requestObserver
-								.onNext(PassengerRequest.newBuilder().setSeat(list.get(i)).setLuggage(luggage).build());
+					try {
 
+						for (int i = 0; i < list.size(); i++) {
+
+							
+							requestObserver.onNext(
+									PassengerRequest.newBuilder().setSeat(seat).setLuggage(luggage).build());
+
+						}
+						Thread.sleep(1000);
+						// Mark the end of requests
+						
+
+					} catch (RuntimeException e1) {
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-					
-					if(list.size() > position) {
-						requestObserver.onCompleted();
-						btnSubmit.setEnabled(false);
-					}
 
+				} else {
+					requestObserver.onCompleted();
+		
 					
-
 				}
+
 			}
 
 		});

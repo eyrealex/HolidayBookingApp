@@ -18,7 +18,8 @@ import io.grpc.stub.StreamObserver;
 
 public class FlightServer extends FlightServiceImplBase {
 
-	private static int position = 0;
+	private static int position;
+	private static ArrayList<String> list = new ArrayList();
 
 	public static void main(String[] args) {
 
@@ -177,9 +178,9 @@ public class FlightServer extends FlightServiceImplBase {
 				String temp2 = list.get(1);
 				String temp3 = list.get(2);
 				String temp4 = list.get(3);
-				
-				
-				BookingResponse response = BookingResponse.newBuilder().setDepart(temp1).setDepartDate(temp2).setArrival(temp3).setArrivalDate(temp4).build();
+
+				BookingResponse response = BookingResponse.newBuilder().setDepart(temp1).setDepartDate(temp2)
+						.setArrival(temp3).setArrivalDate(temp4).build();
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 
@@ -194,7 +195,7 @@ public class FlightServer extends FlightServiceImplBase {
 		int passenger = request.getPassengers();
 		position = passenger;
 
-		System.out.println("Receiving amount of passengers per booking: " + passenger);
+		System.out.println("Receiving amount of passengers per booking: " + passenger + "\n position : " + position);
 		PeopleResponse response = PeopleResponse.newBuilder().setPassengers(passenger).build();
 
 		responseObserver.onNext(response);
@@ -205,22 +206,24 @@ public class FlightServer extends FlightServiceImplBase {
 	@Override
 	public StreamObserver<PassengerRequest> flightPassenger(StreamObserver<PassengerResponse> responseObserver) {
 		return new StreamObserver<PassengerRequest>() {
-			ArrayList<String> list = new ArrayList();
+
 			String seat, luggage;
 
 			@Override
 			public void onNext(PassengerRequest value) {
 
-				System.out.println("\nReceving passenger information...\n" + "Seat preference: " + value.getSeat()
-						+ "\nAmount of luggage bags taken: " + value.getLuggage());
-
-				if (list.size() < position -1) {
+				
 					seat = value.getSeat();
 					int luggage = value.getLuggage();
 					list.add(seat);
+				if (list.size() <= position ) {
+					System.out.println("\nReceving passenger information...\n" + "Seat preference: " + value.getSeat()
+							+ "\nAmount of luggage bags taken: " + value.getLuggage() + "\n list size : "
+							+ list.size());
 
 					PassengerResponse reply = PassengerResponse.newBuilder().setSeat(seat)
 							.setLuggage(value.getLuggage()).build();
+
 					responseObserver.onNext(reply);
 
 				} else {
@@ -238,6 +241,7 @@ public class FlightServer extends FlightServiceImplBase {
 			@Override
 			public void onCompleted() {
 
+				System.out.println("Bi directional streaming on server has been complete");
 				responseObserver.onCompleted();
 
 			}
