@@ -8,12 +8,12 @@ public interface HotelListResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string hotels = 1;</code>
+   * <code>string result = 1;</code>
    */
-  java.lang.String getHotels();
+  java.lang.String getResult();
   /**
-   * <code>string hotels = 1;</code>
+   * <code>string result = 1;</code>
    */
   com.google.protobuf.ByteString
-      getHotelsBytes();
+      getResultBytes();
 }

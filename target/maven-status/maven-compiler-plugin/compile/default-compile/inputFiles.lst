@@ -1,4 +1,3 @@
-C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\flight\FlightGUI.java
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\flight\FlightServer.java
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\flight\PassengerRequestOrBuilder.java
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\rental\RentalBookingDateResponse.java
@@ -30,6 +29,7 @@ C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grp
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\flight\PassengerResponse.java
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\rental\RentalDetailsResponse.java
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\hotel\HotelBookingResponseOrBuilder.java
+C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\gui\serviceGUI.java
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\flight\ListRequest.java
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\rental\RentalBookingDateRequestOrBuilder.java
 C:\Users\Alex\eclipse-workspace\HolidayBookingApp\src\main\java\com\alexeyre\grpc\rental\RentalAvailabilityResponseOrBuilder.java

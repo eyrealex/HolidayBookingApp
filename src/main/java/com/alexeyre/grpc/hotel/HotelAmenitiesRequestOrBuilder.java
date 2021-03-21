@@ -8,12 +8,22 @@ public interface HotelAmenitiesRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool breakfast = 1;</code>
+   * <code>string breakfast = 1;</code>
    */
-  boolean getBreakfast();
+  java.lang.String getBreakfast();
+  /**
+   * <code>string breakfast = 1;</code>
+   */
+  com.google.protobuf.ByteString
+      getBreakfastBytes();
 
   /**
-   * <code>bool gym = 2;</code>
+   * <code>string gym = 2;</code>
    */
-  boolean getGym();
+  java.lang.String getGym();
+  /**
+   * <code>string gym = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getGymBytes();
 }

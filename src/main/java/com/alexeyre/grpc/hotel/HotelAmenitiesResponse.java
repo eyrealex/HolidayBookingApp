@@ -16,8 +16,8 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private HotelAmenitiesResponse() {
-    breakfast_ = false;
-    gym_ = false;
+    breakfast_ = "";
+    gym_ = "";
   }
 
   @java.lang.Override
@@ -44,14 +44,16 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            breakfast_ = input.readBool();
+            breakfast_ = s;
             break;
           }
-          case 16: {
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            gym_ = input.readBool();
+            gym_ = s;
             break;
           }
           default: {
@@ -87,21 +89,71 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int BREAKFAST_FIELD_NUMBER = 1;
-  private boolean breakfast_;
+  private volatile java.lang.Object breakfast_;
   /**
-   * <code>bool breakfast = 1;</code>
+   * <code>string breakfast = 1;</code>
    */
-  public boolean getBreakfast() {
-    return breakfast_;
+  public java.lang.String getBreakfast() {
+    java.lang.Object ref = breakfast_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      breakfast_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string breakfast = 1;</code>
+   */
+  public com.google.protobuf.ByteString
+      getBreakfastBytes() {
+    java.lang.Object ref = breakfast_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      breakfast_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   public static final int GYM_FIELD_NUMBER = 2;
-  private boolean gym_;
+  private volatile java.lang.Object gym_;
   /**
-   * <code>bool gym = 2;</code>
+   * <code>string gym = 2;</code>
    */
-  public boolean getGym() {
-    return gym_;
+  public java.lang.String getGym() {
+    java.lang.Object ref = gym_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      gym_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string gym = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getGymBytes() {
+    java.lang.Object ref = gym_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      gym_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -118,11 +170,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (breakfast_ != false) {
-      output.writeBool(1, breakfast_);
+    if (!getBreakfastBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, breakfast_);
     }
-    if (gym_ != false) {
-      output.writeBool(2, gym_);
+    if (!getGymBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, gym_);
     }
     unknownFields.writeTo(output);
   }
@@ -133,13 +185,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (breakfast_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(1, breakfast_);
+    if (!getBreakfastBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, breakfast_);
     }
-    if (gym_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(2, gym_);
+    if (!getGymBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, gym_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -157,10 +207,10 @@ private static final long serialVersionUID = 0L;
     com.alexeyre.grpc.hotel.HotelAmenitiesResponse other = (com.alexeyre.grpc.hotel.HotelAmenitiesResponse) obj;
 
     boolean result = true;
-    result = result && (getBreakfast()
-        == other.getBreakfast());
-    result = result && (getGym()
-        == other.getGym());
+    result = result && getBreakfast()
+        .equals(other.getBreakfast());
+    result = result && getGym()
+        .equals(other.getGym());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -173,11 +223,9 @@ private static final long serialVersionUID = 0L;
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + BREAKFAST_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getBreakfast());
+    hash = (53 * hash) + getBreakfast().hashCode();
     hash = (37 * hash) + GYM_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getGym());
+    hash = (53 * hash) + getGym().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -311,9 +359,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      breakfast_ = false;
+      breakfast_ = "";
 
-      gym_ = false;
+      gym_ = "";
 
       return this;
     }
@@ -391,11 +439,13 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.alexeyre.grpc.hotel.HotelAmenitiesResponse other) {
       if (other == com.alexeyre.grpc.hotel.HotelAmenitiesResponse.getDefaultInstance()) return this;
-      if (other.getBreakfast() != false) {
-        setBreakfast(other.getBreakfast());
+      if (!other.getBreakfast().isEmpty()) {
+        breakfast_ = other.breakfast_;
+        onChanged();
       }
-      if (other.getGym() != false) {
-        setGym(other.getGym());
+      if (!other.getGym().isEmpty()) {
+        gym_ = other.gym_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -426,54 +476,140 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean breakfast_ ;
+    private java.lang.Object breakfast_ = "";
     /**
-     * <code>bool breakfast = 1;</code>
+     * <code>string breakfast = 1;</code>
      */
-    public boolean getBreakfast() {
-      return breakfast_;
+    public java.lang.String getBreakfast() {
+      java.lang.Object ref = breakfast_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        breakfast_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>bool breakfast = 1;</code>
+     * <code>string breakfast = 1;</code>
      */
-    public Builder setBreakfast(boolean value) {
-      
+    public com.google.protobuf.ByteString
+        getBreakfastBytes() {
+      java.lang.Object ref = breakfast_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        breakfast_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string breakfast = 1;</code>
+     */
+    public Builder setBreakfast(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
       breakfast_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bool breakfast = 1;</code>
+     * <code>string breakfast = 1;</code>
      */
     public Builder clearBreakfast() {
       
-      breakfast_ = false;
+      breakfast_ = getDefaultInstance().getBreakfast();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string breakfast = 1;</code>
+     */
+    public Builder setBreakfastBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      breakfast_ = value;
       onChanged();
       return this;
     }
 
-    private boolean gym_ ;
+    private java.lang.Object gym_ = "";
     /**
-     * <code>bool gym = 2;</code>
+     * <code>string gym = 2;</code>
      */
-    public boolean getGym() {
-      return gym_;
+    public java.lang.String getGym() {
+      java.lang.Object ref = gym_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        gym_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>bool gym = 2;</code>
+     * <code>string gym = 2;</code>
      */
-    public Builder setGym(boolean value) {
-      
+    public com.google.protobuf.ByteString
+        getGymBytes() {
+      java.lang.Object ref = gym_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        gym_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string gym = 2;</code>
+     */
+    public Builder setGym(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
       gym_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bool gym = 2;</code>
+     * <code>string gym = 2;</code>
      */
     public Builder clearGym() {
       
-      gym_ = false;
+      gym_ = getDefaultInstance().getGym();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string gym = 2;</code>
+     */
+    public Builder setGymBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      gym_ = value;
       onChanged();
       return this;
     }

@@ -107,20 +107,20 @@ public class FlightServer extends FlightServiceImplBase {
 	@Override
 	public void flightList(ListRequest request, StreamObserver<ListResponse> responseObserver) {
 
-		ArrayList<String> list = new ArrayList();
-		list.add("London");
-		list.add("Paris");
-		list.add("Berlin");
-		list.add("Madrid");
+		ArrayList<String> flightlist = new ArrayList();
+		flightlist.add("London");
+		flightlist.add("Paris");
+		flightlist.add("Berlin");
+		flightlist.add("Madrid");
 
-		for (int i = 0; i < list.size(); i++) {
-			String name = list.get(i);
+		for (int i = 0; i < flightlist.size(); i++) {
+			String name = flightlist.get(i);
 			ListResponse listresponse = ListResponse.newBuilder().setResult(name).build();
 			responseObserver.onNext(listresponse);
 		}
 
-		System.out.println("Receiving list of all possible flight destinations out of Dublin Airport: " + list.get(0)
-				+ ", " + list.get(1) + ", " + list.get(2) + ", " + list.get(3));
+		System.out.println("Receiving list of all possible flight destinations out of Dublin Airport: "
+				+ flightlist.get(0) + ", " + flightlist.get(1) + ", " + flightlist.get(2) + ", " + flightlist.get(3));
 		responseObserver.onCompleted();
 	}
 
@@ -128,7 +128,7 @@ public class FlightServer extends FlightServiceImplBase {
 	public StreamObserver<BookingRequest> flightBooking(StreamObserver<BookingResponse> responseObserver) {
 		return new StreamObserver<BookingRequest>() {
 
-			ArrayList<String> list = new ArrayList();
+			ArrayList<String> bookinglist = new ArrayList();
 			String depart, arrival;
 			String depart_date, arrival_date;
 
@@ -137,28 +137,28 @@ public class FlightServer extends FlightServiceImplBase {
 
 				BookingResponse.Builder response = BookingResponse.newBuilder();
 
-				if (list.size() == 0) {
+				if (bookinglist.size() == 0) {
 					System.out.println("\nHoliday departure destination  request: " + value.getValue());
 					depart = value.getValue();
-					list.add(depart);
-				} else if (list.size() == 1) {
+					bookinglist.add(depart);
+				} else if (bookinglist.size() == 1) {
 					System.out.println("Holiday departure date request : " + value.getValue());
 					depart_date = value.getValue();
-					list.add(depart_date);
-				} else if (list.size() == 2) {
+					bookinglist.add(depart_date);
+				} else if (bookinglist.size() == 2) {
 					System.out.println("Holiday return destination request : " + value.getValue());
 					arrival = value.getValue();
-					list.add(arrival);
-				} else if (list.size() == 3) {
+					bookinglist.add(arrival);
+				} else if (bookinglist.size() == 3) {
 					System.out.println("Holiday date departure request : " + value.getValue());
 					arrival_date = value.getValue();
-					list.add(arrival_date);
+					bookinglist.add(arrival_date);
 
 				} else {
 
 				}
 
-				if (list.size() > 3) {
+				if (bookinglist.size() > 3) {
 					onCompleted();
 				}
 			}
@@ -174,10 +174,10 @@ public class FlightServer extends FlightServiceImplBase {
 
 				System.out.println("Flight locations and dates have been booked");
 
-				String temp1 = list.get(0);
-				String temp2 = list.get(1);
-				String temp3 = list.get(2);
-				String temp4 = list.get(3);
+				String temp1 = bookinglist.get(0);
+				String temp2 = bookinglist.get(1);
+				String temp3 = bookinglist.get(2);
+				String temp4 = bookinglist.get(3);
 
 				BookingResponse response = BookingResponse.newBuilder().setDepart(temp1).setDepartDate(temp2)
 						.setArrival(temp3).setArrivalDate(temp4).build();
@@ -211,15 +211,13 @@ public class FlightServer extends FlightServiceImplBase {
 
 			@Override
 			public void onNext(PassengerRequest value) {
+				seat = value.getSeat();
+				int luggage = value.getLuggage();
+				list.add(seat);
 
-				
-					seat = value.getSeat();
-					int luggage = value.getLuggage();
-					list.add(seat);
-				if (list.size() <= position ) {
+				if (list.size() <= position) {
 					System.out.println("\nReceving passenger information...\n" + "Seat preference: " + value.getSeat()
-							+ "\nAmount of luggage bags taken: " + value.getLuggage() + "\n list size : "
-							+ list.size());
+							+ "\nAmount of luggage bags taken: " + value.getLuggage());
 
 					PassengerResponse reply = PassengerResponse.newBuilder().setSeat(seat)
 							.setLuggage(value.getLuggage()).build();

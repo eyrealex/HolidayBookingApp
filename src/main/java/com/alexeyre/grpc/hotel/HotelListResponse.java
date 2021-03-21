@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private HotelListResponse() {
-    hotels_ = "";
+    result_ = "";
   }
 
   @java.lang.Override
@@ -46,7 +46,7 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            hotels_ = s;
+            result_ = s;
             break;
           }
           default: {
@@ -81,34 +81,34 @@ private static final long serialVersionUID = 0L;
             com.alexeyre.grpc.hotel.HotelListResponse.class, com.alexeyre.grpc.hotel.HotelListResponse.Builder.class);
   }
 
-  public static final int HOTELS_FIELD_NUMBER = 1;
-  private volatile java.lang.Object hotels_;
+  public static final int RESULT_FIELD_NUMBER = 1;
+  private volatile java.lang.Object result_;
   /**
-   * <code>string hotels = 1;</code>
+   * <code>string result = 1;</code>
    */
-  public java.lang.String getHotels() {
-    java.lang.Object ref = hotels_;
+  public java.lang.String getResult() {
+    java.lang.Object ref = result_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      hotels_ = s;
+      result_ = s;
       return s;
     }
   }
   /**
-   * <code>string hotels = 1;</code>
+   * <code>string result = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getHotelsBytes() {
-    java.lang.Object ref = hotels_;
+      getResultBytes() {
+    java.lang.Object ref = result_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      hotels_ = b;
+      result_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -129,8 +129,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getHotelsBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, hotels_);
+    if (!getResultBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, result_);
     }
     unknownFields.writeTo(output);
   }
@@ -141,8 +141,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getHotelsBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, hotels_);
+    if (!getResultBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, result_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -160,8 +160,8 @@ private static final long serialVersionUID = 0L;
     com.alexeyre.grpc.hotel.HotelListResponse other = (com.alexeyre.grpc.hotel.HotelListResponse) obj;
 
     boolean result = true;
-    result = result && getHotels()
-        .equals(other.getHotels());
+    result = result && getResult()
+        .equals(other.getResult());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -173,8 +173,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + HOTELS_FIELD_NUMBER;
-    hash = (53 * hash) + getHotels().hashCode();
+    hash = (37 * hash) + RESULT_FIELD_NUMBER;
+    hash = (53 * hash) + getResult().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -308,7 +308,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      hotels_ = "";
+      result_ = "";
 
       return this;
     }
@@ -336,7 +336,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.alexeyre.grpc.hotel.HotelListResponse buildPartial() {
       com.alexeyre.grpc.hotel.HotelListResponse result = new com.alexeyre.grpc.hotel.HotelListResponse(this);
-      result.hotels_ = hotels_;
+      result.result_ = result_;
       onBuilt();
       return result;
     }
@@ -385,8 +385,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.alexeyre.grpc.hotel.HotelListResponse other) {
       if (other == com.alexeyre.grpc.hotel.HotelListResponse.getDefaultInstance()) return this;
-      if (!other.getHotels().isEmpty()) {
-        hotels_ = other.hotels_;
+      if (!other.getResult().isEmpty()) {
+        result_ = other.result_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -418,71 +418,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object hotels_ = "";
+    private java.lang.Object result_ = "";
     /**
-     * <code>string hotels = 1;</code>
+     * <code>string result = 1;</code>
      */
-    public java.lang.String getHotels() {
-      java.lang.Object ref = hotels_;
+    public java.lang.String getResult() {
+      java.lang.Object ref = result_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        hotels_ = s;
+        result_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string hotels = 1;</code>
+     * <code>string result = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getHotelsBytes() {
-      java.lang.Object ref = hotels_;
+        getResultBytes() {
+      java.lang.Object ref = result_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        hotels_ = b;
+        result_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string hotels = 1;</code>
+     * <code>string result = 1;</code>
      */
-    public Builder setHotels(
+    public Builder setResult(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      hotels_ = value;
+      result_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string hotels = 1;</code>
+     * <code>string result = 1;</code>
      */
-    public Builder clearHotels() {
+    public Builder clearResult() {
       
-      hotels_ = getDefaultInstance().getHotels();
+      result_ = getDefaultInstance().getResult();
       onChanged();
       return this;
     }
     /**
-     * <code>string hotels = 1;</code>
+     * <code>string result = 1;</code>
      */
-    public Builder setHotelsBytes(
+    public Builder setResultBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      hotels_ = value;
+      result_ = value;
       onChanged();
       return this;
     }

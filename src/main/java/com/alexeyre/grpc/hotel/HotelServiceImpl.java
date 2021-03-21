@@ -53,25 +53,27 @@ public final class HotelServiceImpl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013hotel.proto\022\027com.alexeyre.grpc.hotel\"\"" +
-      "\n\020HotelListRequest\022\016\n\006hotels\030\001 \001(\t\"#\n\021Ho" +
-      "telListResponse\022\016\n\006hotels\030\001 \001(\t\"5\n\023Hotel" +
-      "BookingRequest\022\014\n\004date\030\001 \001(\t\022\020\n\010roomType" +
-      "\030\002 \001(\t\"6\n\024HotelBookingResponse\022\014\n\004date\030\001" +
-      " \001(\t\022\020\n\010roomType\030\002 \001(\t\"7\n\025HotelAmenities" +
-      "Request\022\021\n\tbreakfast\030\001 \001(\010\022\013\n\003gym\030\002 \001(\010\"" +
-      "8\n\026HotelAmenitiesResponse\022\021\n\tbreakfast\030\001" +
-      " \001(\010\022\013\n\003gym\030\002 \001(\0102\336\002\n\014HotelService\022f\n\tho" +
-      "telList\022).com.alexeyre.grpc.hotel.HotelL" +
-      "istRequest\032*.com.alexeyre.grpc.hotel.Hot" +
-      "elListResponse\"\0000\001\022o\n\014hotelBooking\022,.com" +
-      ".alexeyre.grpc.hotel.HotelBookingRequest" +
-      "\032-.com.alexeyre.grpc.hotel.HotelBookingR" +
-      "esponse\"\000(\001\022u\n\016hotelAmenities\022..com.alex" +
-      "eyre.grpc.hotel.HotelAmenitiesRequest\032/." +
-      "com.alexeyre.grpc.hotel.HotelAmenitiesRe" +
-      "sponse\"\000(\001B-\n\027com.alexeyre.grpc.hotelB\020H" +
-      "otelServiceImplP\001b\006proto3"
+      "\n\013hotel.proto\022\027com.alexeyre.grpc.hotel\"R" +
+      "\n\020HotelListRequest\022\016\n\006hotel1\030\001 \001(\t\022\016\n\006ho" +
+      "tel2\030\002 \001(\t\022\016\n\006hotel3\030\003 \001(\t\022\016\n\006hotel4\030\004 \001" +
+      "(\t\"#\n\021HotelListResponse\022\016\n\006result\030\001 \001(\t\"" +
+      "$\n\023HotelBookingRequest\022\r\n\005value\030\001 \001(\t\"a\n" +
+      "\024HotelBookingResponse\022\r\n\005hotel\030\001 \001(\t\022\020\n\010" +
+      "roomType\030\002 \001(\t\022\023\n\013arrivalDate\030\003 \001(\t\022\023\n\013l" +
+      "eavingDate\030\004 \001(\t\"7\n\025HotelAmenitiesReques" +
+      "t\022\021\n\tbreakfast\030\001 \001(\t\022\013\n\003gym\030\002 \001(\t\"8\n\026Hot" +
+      "elAmenitiesResponse\022\021\n\tbreakfast\030\001 \001(\t\022\013" +
+      "\n\003gym\030\002 \001(\t2\334\002\n\014HotelService\022f\n\thotelLis" +
+      "t\022).com.alexeyre.grpc.hotel.HotelListReq" +
+      "uest\032*.com.alexeyre.grpc.hotel.HotelList" +
+      "Response\"\0000\001\022o\n\014hotelBooking\022,.com.alexe" +
+      "yre.grpc.hotel.HotelBookingRequest\032-.com" +
+      ".alexeyre.grpc.hotel.HotelBookingRespons" +
+      "e\"\000(\001\022s\n\016hotelAmenities\022..com.alexeyre.g" +
+      "rpc.hotel.HotelAmenitiesRequest\032/.com.al" +
+      "exeyre.grpc.hotel.HotelAmenitiesResponse" +
+      "\"\000B-\n\027com.alexeyre.grpc.hotelB\020HotelServ" +
+      "iceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -90,25 +92,25 @@ public final class HotelServiceImpl {
     internal_static_com_alexeyre_grpc_hotel_HotelListRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_hotel_HotelListRequest_descriptor,
-        new java.lang.String[] { "Hotels", });
+        new java.lang.String[] { "Hotel1", "Hotel2", "Hotel3", "Hotel4", });
     internal_static_com_alexeyre_grpc_hotel_HotelListResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_alexeyre_grpc_hotel_HotelListResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_hotel_HotelListResponse_descriptor,
-        new java.lang.String[] { "Hotels", });
+        new java.lang.String[] { "Result", });
     internal_static_com_alexeyre_grpc_hotel_HotelBookingRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_alexeyre_grpc_hotel_HotelBookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_hotel_HotelBookingRequest_descriptor,
-        new java.lang.String[] { "Date", "RoomType", });
+        new java.lang.String[] { "Value", });
     internal_static_com_alexeyre_grpc_hotel_HotelBookingResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_com_alexeyre_grpc_hotel_HotelBookingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_hotel_HotelBookingResponse_descriptor,
-        new java.lang.String[] { "Date", "RoomType", });
+        new java.lang.String[] { "Hotel", "RoomType", "ArrivalDate", "LeavingDate", });
     internal_static_com_alexeyre_grpc_hotel_HotelAmenitiesRequest_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_com_alexeyre_grpc_hotel_HotelAmenitiesRequest_fieldAccessorTable = new

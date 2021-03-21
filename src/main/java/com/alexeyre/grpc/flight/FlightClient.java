@@ -16,7 +16,7 @@ public class FlightClient {
 
 	public static void main(String[] args) {
 
-		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
+		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 60001).usePlaintext().build();
 
 		// stubs -- generate from proto
 		blockingStub = FlightServiceGrpc.newBlockingStub(channel);
@@ -60,28 +60,28 @@ public class FlightClient {
 
 			@Override
 			public void onNext(BookingResponse value) {
-				System.out.println(value.getDepart());
+				System.out.println("Departure location" + value.getDepart());
 				try {
 					Thread.sleep(800);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println(value.getDepartDate());
+				System.out.println("Departure date" + value.getDepartDate());
 				try {
 					Thread.sleep(800);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println(value.getArrival());
+				System.out.println("Arrival location" + value.getArrival());
 				try {
 					Thread.sleep(800);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println(value.getArrivalDate());
+				System.out.println("Departure date" + value.getArrivalDate());
 				try {
 					Thread.sleep(800);
 				} catch (InterruptedException e) {
@@ -99,7 +99,7 @@ public class FlightClient {
 
 			@Override
 			public void onCompleted() {
-				System.out.println("\nCompleted stream");
+				System.out.println("\nCompleted flight booking");
 
 			}
 

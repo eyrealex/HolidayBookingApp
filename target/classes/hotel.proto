@@ -10,34 +10,38 @@ service HotelService {
 
 	rpc hotelList(HotelListRequest) returns (stream HotelListResponse) {}
 	rpc hotelBooking(stream HotelBookingRequest) returns(HotelBookingResponse) {}
-	rpc hotelAmenities(stream HotelAmenitiesRequest) returns (HotelAmenitiesResponse) {}
+	rpc hotelAmenities(HotelAmenitiesRequest) returns (HotelAmenitiesResponse) {}
 
 }
 
 message HotelListRequest{
-	string hotels = 1;
+	string hotel1 = 1;
+	string hotel2 = 2;
+	string hotel3 = 3;
+	string hotel4 = 4;
 }
 
 message HotelListResponse{
-	string hotels = 1;
+	string result = 1;
 }
 
 message HotelBookingRequest{
-	string date = 1;
-	string roomType = 2;
+	string value = 1;
 }
 
 message HotelBookingResponse{
-	string date = 1;
+	string hotel = 1;
 	string roomType = 2;
+	string arrivalDate = 3;
+	string leavingDate = 4;
 }
 
 message HotelAmenitiesRequest{
-	bool breakfast = 1;
-	bool gym = 2;
+	string breakfast = 1;
+	string gym = 2;
 }
 
 message HotelAmenitiesResponse{
-	bool breakfast = 1;
-	bool gym = 2;
+	string breakfast = 1;
+	string gym = 2;
 }

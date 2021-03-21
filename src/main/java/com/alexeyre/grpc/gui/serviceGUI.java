@@ -66,9 +66,9 @@ public class serviceGUI {
 	private JTabbedPane tabbedPane;
 	private JTextArea flight_list_ta, location_date_ta, no_of_passengers_ta, seat_luggage_ta;
 	private JTextField location_date_tf, no_of_passengers_tf, seat_pref_tf, luggage_tf;
-	private int position;
+	private static int position;
 	ArrayList<String> list = new ArrayList();
-	ArrayList<String> luggage = new ArrayList();
+	ArrayList<String> booking = new ArrayList();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -270,6 +270,9 @@ public class serviceGUI {
 		list_flights_panel.add(flight_list_ta);
 		flight_list_ta.setLineWrap(true);
 		flight_list_ta.setWrapStyleWord(true);
+		
+		JScrollPane scrollPane = new JScrollPane(flight_list_ta);
+		list_flights_panel.add(scrollPane);
 
 		// creating action when btnList is clicked
 		btnList.addActionListener(new ActionListener() {
@@ -325,6 +328,8 @@ public class serviceGUI {
 		booking_flight_panel.add(location_date_ta);
 		location_date_ta.setLineWrap(true);
 		location_date_ta.setWrapStyleWord(true);
+		JScrollPane scrollPane1 = new JScrollPane(location_date_ta);
+		booking_flight_panel.add(scrollPane1);
 
 		// Initializing array list to be used for setting values
 
@@ -383,7 +388,7 @@ public class serviceGUI {
 				}; // end Iterating through the stream of responses for flightBooking
 
 				String value = location_date_tf.getText();
-				if (list.add(value)) {
+				if (booking.add(value)) {
 					location_date_tf.setText("");
 				} // end if for removing text from text fields
 
@@ -391,13 +396,13 @@ public class serviceGUI {
 				StreamObserver<BookingRequest> requestObserver = asyncStub1.flightBooking(responseObserver);
 
 				// if the list of requests is greater than 3 do ...
-				if (list.size() > 3) {
+				if (booking.size() > 3) {
 
 					// loop through the list size and for each position set the value in the request
 					// this prevents overriding values for each user input
 					try {
-						for (int i = 0; i < list.size(); i++) {
-							requestObserver.onNext(BookingRequest.newBuilder().setValue(list.get(i)).build());
+						for (int i = 0; i < booking.size(); i++) {
+							requestObserver.onNext(BookingRequest.newBuilder().setValue(booking.get(i)).build());
 							Thread.sleep(500);
 						} // end for loop
 
@@ -441,6 +446,8 @@ public class serviceGUI {
 		people_flight_panel.add(no_of_passengers_ta);
 		no_of_passengers_ta.setLineWrap(true);
 		no_of_passengers_ta.setWrapStyleWord(true);
+		JScrollPane scrollPane2 = new JScrollPane(no_of_passengers_ta);
+		people_flight_panel.add(scrollPane2);
 
 		// creating action when btnSubmit is clicked
 		btnPassengers.addActionListener(new ActionListener() {
@@ -462,7 +469,7 @@ public class serviceGUI {
 
 					btnPassengers.setEnabled(false);
 					System.out.println("\nNumber of people booked:" + peopleRes.getPassengers());
-					no_of_passengers_ta.append("\nNumber of people booked: " + peopleRes.getPassengers());
+					no_of_passengers_ta.append("Number of people booked: " + peopleRes.getPassengers());
 				}
 
 			}// end btnSubmit2 action performed
@@ -497,6 +504,8 @@ public class serviceGUI {
 		passengers_flight_panel.add(seat_luggage_ta);
 		seat_luggage_ta.setLineWrap(true);
 		seat_luggage_ta.setWrapStyleWord(true);
+		JScrollPane scrollPane3 = new JScrollPane(seat_luggage_ta);
+		passengers_flight_panel.add(scrollPane3);
 
 		btnSeatLuggage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -506,10 +515,10 @@ public class serviceGUI {
 					@Override
 					public void onNext(PassengerResponse value) {
 						System.out.println("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
-								+ value.getLuggage());
-						
+								+ value.getLuggage() + "\n");
+
 						seat_luggage_ta.append("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
-								+ value.getLuggage());
+								+ value.getLuggage() + "\n");
 
 					}
 
@@ -522,7 +531,6 @@ public class serviceGUI {
 					@Override
 					public void onCompleted() {
 
-
 					}
 
 				};
@@ -532,23 +540,16 @@ public class serviceGUI {
 				String seat = "";
 				int luggage = Integer.parseInt(luggage_tf.getText());
 				seat = seat_pref_tf.getText();
-				
+				list.add(seat);
 
-				if (list.size() < position - 1) {
-					list.add(seat);
+				if (list.size() <= position) {
 
 					try {
 
-						for (int i = 0; i < list.size(); i++) {
+						requestObserver.onNext(PassengerRequest.newBuilder().setSeat(seat).setLuggage(luggage).build());
 
-							
-							requestObserver.onNext(
-									PassengerRequest.newBuilder().setSeat(seat).setLuggage(luggage).build());
-
-						}
 						Thread.sleep(1000);
 						// Mark the end of requests
-						
 
 					} catch (RuntimeException e1) {
 						e1.printStackTrace();
@@ -559,8 +560,10 @@ public class serviceGUI {
 
 				} else {
 					requestObserver.onCompleted();
-		
-					
+					System.out.println("All passengers seat preference and luggage have been booked" + "\n");
+					seat_luggage_ta.append("All passengers seat preference and luggage have been booked" + "\n");
+					btnSeatLuggage.setEnabled(false);
+
 				}
 
 			}

@@ -8,14 +8,14 @@ public interface HotelBookingResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string date = 1;</code>
+   * <code>string hotel = 1;</code>
    */
-  java.lang.String getDate();
+  java.lang.String getHotel();
   /**
-   * <code>string date = 1;</code>
+   * <code>string hotel = 1;</code>
    */
   com.google.protobuf.ByteString
-      getDateBytes();
+      getHotelBytes();
 
   /**
    * <code>string roomType = 2;</code>
@@ -26,4 +26,24 @@ public interface HotelBookingResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getRoomTypeBytes();
+
+  /**
+   * <code>string arrivalDate = 3;</code>
+   */
+  java.lang.String getArrivalDate();
+  /**
+   * <code>string arrivalDate = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getArrivalDateBytes();
+
+  /**
+   * <code>string leavingDate = 4;</code>
+   */
+  java.lang.String getLeavingDate();
+  /**
+   * <code>string leavingDate = 4;</code>
+   */
+  com.google.protobuf.ByteString
+      getLeavingDateBytes();
 }

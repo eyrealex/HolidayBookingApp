@@ -8,22 +8,12 @@ public interface HotelBookingRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string date = 1;</code>
+   * <code>string value = 1;</code>
    */
-  java.lang.String getDate();
+  java.lang.String getValue();
   /**
-   * <code>string date = 1;</code>
+   * <code>string value = 1;</code>
    */
   com.google.protobuf.ByteString
-      getDateBytes();
-
-  /**
-   * <code>string roomType = 2;</code>
-   */
-  java.lang.String getRoomType();
-  /**
-   * <code>string roomType = 2;</code>
-   */
-  com.google.protobuf.ByteString
-      getRoomTypeBytes();
+      getValueBytes();
 }

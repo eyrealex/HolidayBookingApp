@@ -98,7 +98,7 @@ public final class HotelServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "hotelAmenities",
       requestType = com.alexeyre.grpc.hotel.HotelAmenitiesRequest.class,
       responseType = com.alexeyre.grpc.hotel.HotelAmenitiesResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.alexeyre.grpc.hotel.HotelAmenitiesRequest,
       com.alexeyre.grpc.hotel.HotelAmenitiesResponse> getHotelAmenitiesMethod() {
     io.grpc.MethodDescriptor<com.alexeyre.grpc.hotel.HotelAmenitiesRequest, com.alexeyre.grpc.hotel.HotelAmenitiesResponse> getHotelAmenitiesMethod;
@@ -107,7 +107,7 @@ public final class HotelServiceGrpc {
         if ((getHotelAmenitiesMethod = HotelServiceGrpc.getHotelAmenitiesMethod) == null) {
           HotelServiceGrpc.getHotelAmenitiesMethod = getHotelAmenitiesMethod = 
               io.grpc.MethodDescriptor.<com.alexeyre.grpc.hotel.HotelAmenitiesRequest, com.alexeyre.grpc.hotel.HotelAmenitiesResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "com.alexeyre.grpc.hotel.HotelService", "hotelAmenities"))
               .setSampledToLocalTracing(true)
@@ -166,9 +166,9 @@ public final class HotelServiceGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<com.alexeyre.grpc.hotel.HotelAmenitiesRequest> hotelAmenities(
+    public void hotelAmenities(com.alexeyre.grpc.hotel.HotelAmenitiesRequest request,
         io.grpc.stub.StreamObserver<com.alexeyre.grpc.hotel.HotelAmenitiesResponse> responseObserver) {
-      return asyncUnimplementedStreamingCall(getHotelAmenitiesMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getHotelAmenitiesMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -189,7 +189,7 @@ public final class HotelServiceGrpc {
                   this, METHODID_HOTEL_BOOKING)))
           .addMethod(
             getHotelAmenitiesMethod(),
-            asyncClientStreamingCall(
+            asyncUnaryCall(
               new MethodHandlers<
                 com.alexeyre.grpc.hotel.HotelAmenitiesRequest,
                 com.alexeyre.grpc.hotel.HotelAmenitiesResponse>(
@@ -234,10 +234,10 @@ public final class HotelServiceGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<com.alexeyre.grpc.hotel.HotelAmenitiesRequest> hotelAmenities(
+    public void hotelAmenities(com.alexeyre.grpc.hotel.HotelAmenitiesRequest request,
         io.grpc.stub.StreamObserver<com.alexeyre.grpc.hotel.HotelAmenitiesResponse> responseObserver) {
-      return asyncClientStreamingCall(
-          getChannel().newCall(getHotelAmenitiesMethod(), getCallOptions()), responseObserver);
+      asyncUnaryCall(
+          getChannel().newCall(getHotelAmenitiesMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -266,6 +266,13 @@ public final class HotelServiceGrpc {
       return blockingServerStreamingCall(
           getChannel(), getHotelListMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public com.alexeyre.grpc.hotel.HotelAmenitiesResponse hotelAmenities(com.alexeyre.grpc.hotel.HotelAmenitiesRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getHotelAmenitiesMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -285,11 +292,19 @@ public final class HotelServiceGrpc {
         io.grpc.CallOptions callOptions) {
       return new HotelServiceFutureStub(channel, callOptions);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.alexeyre.grpc.hotel.HotelAmenitiesResponse> hotelAmenities(
+        com.alexeyre.grpc.hotel.HotelAmenitiesRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getHotelAmenitiesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_HOTEL_LIST = 0;
-  private static final int METHODID_HOTEL_BOOKING = 1;
-  private static final int METHODID_HOTEL_AMENITIES = 2;
+  private static final int METHODID_HOTEL_AMENITIES = 1;
+  private static final int METHODID_HOTEL_BOOKING = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -312,6 +327,10 @@ public final class HotelServiceGrpc {
           serviceImpl.hotelList((com.alexeyre.grpc.hotel.HotelListRequest) request,
               (io.grpc.stub.StreamObserver<com.alexeyre.grpc.hotel.HotelListResponse>) responseObserver);
           break;
+        case METHODID_HOTEL_AMENITIES:
+          serviceImpl.hotelAmenities((com.alexeyre.grpc.hotel.HotelAmenitiesRequest) request,
+              (io.grpc.stub.StreamObserver<com.alexeyre.grpc.hotel.HotelAmenitiesResponse>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -325,9 +344,6 @@ public final class HotelServiceGrpc {
         case METHODID_HOTEL_BOOKING:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.hotelBooking(
               (io.grpc.stub.StreamObserver<com.alexeyre.grpc.hotel.HotelBookingResponse>) responseObserver);
-        case METHODID_HOTEL_AMENITIES:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.hotelAmenities(
-              (io.grpc.stub.StreamObserver<com.alexeyre.grpc.hotel.HotelAmenitiesResponse>) responseObserver);
         default:
           throw new AssertionError();
       }

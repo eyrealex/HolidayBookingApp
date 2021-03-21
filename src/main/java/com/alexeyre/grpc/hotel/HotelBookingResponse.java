@@ -16,8 +16,10 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private HotelBookingResponse() {
-    date_ = "";
+    hotel_ = "";
     roomType_ = "";
+    arrivalDate_ = "";
+    leavingDate_ = "";
   }
 
   @java.lang.Override
@@ -47,13 +49,25 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            date_ = s;
+            hotel_ = s;
             break;
           }
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
             roomType_ = s;
+            break;
+          }
+          case 26: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            arrivalDate_ = s;
+            break;
+          }
+          case 34: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            leavingDate_ = s;
             break;
           }
           default: {
@@ -88,34 +102,34 @@ private static final long serialVersionUID = 0L;
             com.alexeyre.grpc.hotel.HotelBookingResponse.class, com.alexeyre.grpc.hotel.HotelBookingResponse.Builder.class);
   }
 
-  public static final int DATE_FIELD_NUMBER = 1;
-  private volatile java.lang.Object date_;
+  public static final int HOTEL_FIELD_NUMBER = 1;
+  private volatile java.lang.Object hotel_;
   /**
-   * <code>string date = 1;</code>
+   * <code>string hotel = 1;</code>
    */
-  public java.lang.String getDate() {
-    java.lang.Object ref = date_;
+  public java.lang.String getHotel() {
+    java.lang.Object ref = hotel_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      date_ = s;
+      hotel_ = s;
       return s;
     }
   }
   /**
-   * <code>string date = 1;</code>
+   * <code>string hotel = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getDateBytes() {
-    java.lang.Object ref = date_;
+      getHotelBytes() {
+    java.lang.Object ref = hotel_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      date_ = b;
+      hotel_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -156,6 +170,74 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int ARRIVALDATE_FIELD_NUMBER = 3;
+  private volatile java.lang.Object arrivalDate_;
+  /**
+   * <code>string arrivalDate = 3;</code>
+   */
+  public java.lang.String getArrivalDate() {
+    java.lang.Object ref = arrivalDate_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      arrivalDate_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string arrivalDate = 3;</code>
+   */
+  public com.google.protobuf.ByteString
+      getArrivalDateBytes() {
+    java.lang.Object ref = arrivalDate_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      arrivalDate_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int LEAVINGDATE_FIELD_NUMBER = 4;
+  private volatile java.lang.Object leavingDate_;
+  /**
+   * <code>string leavingDate = 4;</code>
+   */
+  public java.lang.String getLeavingDate() {
+    java.lang.Object ref = leavingDate_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      leavingDate_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string leavingDate = 4;</code>
+   */
+  public com.google.protobuf.ByteString
+      getLeavingDateBytes() {
+    java.lang.Object ref = leavingDate_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      leavingDate_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -170,11 +252,17 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getDateBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, date_);
+    if (!getHotelBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, hotel_);
     }
     if (!getRoomTypeBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, roomType_);
+    }
+    if (!getArrivalDateBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, arrivalDate_);
+    }
+    if (!getLeavingDateBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, leavingDate_);
     }
     unknownFields.writeTo(output);
   }
@@ -185,11 +273,17 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getDateBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, date_);
+    if (!getHotelBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, hotel_);
     }
     if (!getRoomTypeBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, roomType_);
+    }
+    if (!getArrivalDateBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, arrivalDate_);
+    }
+    if (!getLeavingDateBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, leavingDate_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -207,10 +301,14 @@ private static final long serialVersionUID = 0L;
     com.alexeyre.grpc.hotel.HotelBookingResponse other = (com.alexeyre.grpc.hotel.HotelBookingResponse) obj;
 
     boolean result = true;
-    result = result && getDate()
-        .equals(other.getDate());
+    result = result && getHotel()
+        .equals(other.getHotel());
     result = result && getRoomType()
         .equals(other.getRoomType());
+    result = result && getArrivalDate()
+        .equals(other.getArrivalDate());
+    result = result && getLeavingDate()
+        .equals(other.getLeavingDate());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -222,10 +320,14 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + DATE_FIELD_NUMBER;
-    hash = (53 * hash) + getDate().hashCode();
+    hash = (37 * hash) + HOTEL_FIELD_NUMBER;
+    hash = (53 * hash) + getHotel().hashCode();
     hash = (37 * hash) + ROOMTYPE_FIELD_NUMBER;
     hash = (53 * hash) + getRoomType().hashCode();
+    hash = (37 * hash) + ARRIVALDATE_FIELD_NUMBER;
+    hash = (53 * hash) + getArrivalDate().hashCode();
+    hash = (37 * hash) + LEAVINGDATE_FIELD_NUMBER;
+    hash = (53 * hash) + getLeavingDate().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -359,9 +461,13 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      date_ = "";
+      hotel_ = "";
 
       roomType_ = "";
+
+      arrivalDate_ = "";
+
+      leavingDate_ = "";
 
       return this;
     }
@@ -389,8 +495,10 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.alexeyre.grpc.hotel.HotelBookingResponse buildPartial() {
       com.alexeyre.grpc.hotel.HotelBookingResponse result = new com.alexeyre.grpc.hotel.HotelBookingResponse(this);
-      result.date_ = date_;
+      result.hotel_ = hotel_;
       result.roomType_ = roomType_;
+      result.arrivalDate_ = arrivalDate_;
+      result.leavingDate_ = leavingDate_;
       onBuilt();
       return result;
     }
@@ -439,12 +547,20 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.alexeyre.grpc.hotel.HotelBookingResponse other) {
       if (other == com.alexeyre.grpc.hotel.HotelBookingResponse.getDefaultInstance()) return this;
-      if (!other.getDate().isEmpty()) {
-        date_ = other.date_;
+      if (!other.getHotel().isEmpty()) {
+        hotel_ = other.hotel_;
         onChanged();
       }
       if (!other.getRoomType().isEmpty()) {
         roomType_ = other.roomType_;
+        onChanged();
+      }
+      if (!other.getArrivalDate().isEmpty()) {
+        arrivalDate_ = other.arrivalDate_;
+        onChanged();
+      }
+      if (!other.getLeavingDate().isEmpty()) {
+        leavingDate_ = other.leavingDate_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -476,71 +592,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object date_ = "";
+    private java.lang.Object hotel_ = "";
     /**
-     * <code>string date = 1;</code>
+     * <code>string hotel = 1;</code>
      */
-    public java.lang.String getDate() {
-      java.lang.Object ref = date_;
+    public java.lang.String getHotel() {
+      java.lang.Object ref = hotel_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        date_ = s;
+        hotel_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string date = 1;</code>
+     * <code>string hotel = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getDateBytes() {
-      java.lang.Object ref = date_;
+        getHotelBytes() {
+      java.lang.Object ref = hotel_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        date_ = b;
+        hotel_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string date = 1;</code>
+     * <code>string hotel = 1;</code>
      */
-    public Builder setDate(
+    public Builder setHotel(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      date_ = value;
+      hotel_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string date = 1;</code>
+     * <code>string hotel = 1;</code>
      */
-    public Builder clearDate() {
+    public Builder clearHotel() {
       
-      date_ = getDefaultInstance().getDate();
+      hotel_ = getDefaultInstance().getHotel();
       onChanged();
       return this;
     }
     /**
-     * <code>string date = 1;</code>
+     * <code>string hotel = 1;</code>
      */
-    public Builder setDateBytes(
+    public Builder setHotelBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      date_ = value;
+      hotel_ = value;
       onChanged();
       return this;
     }
@@ -610,6 +726,144 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       roomType_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object arrivalDate_ = "";
+    /**
+     * <code>string arrivalDate = 3;</code>
+     */
+    public java.lang.String getArrivalDate() {
+      java.lang.Object ref = arrivalDate_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        arrivalDate_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string arrivalDate = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getArrivalDateBytes() {
+      java.lang.Object ref = arrivalDate_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        arrivalDate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string arrivalDate = 3;</code>
+     */
+    public Builder setArrivalDate(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      arrivalDate_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string arrivalDate = 3;</code>
+     */
+    public Builder clearArrivalDate() {
+      
+      arrivalDate_ = getDefaultInstance().getArrivalDate();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string arrivalDate = 3;</code>
+     */
+    public Builder setArrivalDateBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      arrivalDate_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object leavingDate_ = "";
+    /**
+     * <code>string leavingDate = 4;</code>
+     */
+    public java.lang.String getLeavingDate() {
+      java.lang.Object ref = leavingDate_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        leavingDate_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string leavingDate = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLeavingDateBytes() {
+      java.lang.Object ref = leavingDate_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        leavingDate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string leavingDate = 4;</code>
+     */
+    public Builder setLeavingDate(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      leavingDate_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string leavingDate = 4;</code>
+     */
+    public Builder clearLeavingDate() {
+      
+      leavingDate_ = getDefaultInstance().getLeavingDate();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string leavingDate = 4;</code>
+     */
+    public Builder setLeavingDateBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      leavingDate_ = value;
       onChanged();
       return this;
     }
