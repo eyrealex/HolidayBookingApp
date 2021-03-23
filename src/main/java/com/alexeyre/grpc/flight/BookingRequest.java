@@ -16,7 +16,11 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private BookingRequest() {
-    value_ = "";
+    flightNumber_ = "";
+    ticketType_ = "";
+    firstname_ = "";
+    surname_ = "";
+    seatPref_ = "";
   }
 
   @java.lang.Override
@@ -46,7 +50,31 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            value_ = s;
+            flightNumber_ = s;
+            break;
+          }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            ticketType_ = s;
+            break;
+          }
+          case 26: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            firstname_ = s;
+            break;
+          }
+          case 34: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            surname_ = s;
+            break;
+          }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            seatPref_ = s;
             break;
           }
           default: {
@@ -81,34 +109,170 @@ private static final long serialVersionUID = 0L;
             com.alexeyre.grpc.flight.BookingRequest.class, com.alexeyre.grpc.flight.BookingRequest.Builder.class);
   }
 
-  public static final int VALUE_FIELD_NUMBER = 1;
-  private volatile java.lang.Object value_;
+  public static final int FLIGHTNUMBER_FIELD_NUMBER = 1;
+  private volatile java.lang.Object flightNumber_;
   /**
-   * <code>string value = 1;</code>
+   * <code>string flightNumber = 1;</code>
    */
-  public java.lang.String getValue() {
-    java.lang.Object ref = value_;
+  public java.lang.String getFlightNumber() {
+    java.lang.Object ref = flightNumber_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      value_ = s;
+      flightNumber_ = s;
       return s;
     }
   }
   /**
-   * <code>string value = 1;</code>
+   * <code>string flightNumber = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getValueBytes() {
-    java.lang.Object ref = value_;
+      getFlightNumberBytes() {
+    java.lang.Object ref = flightNumber_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      value_ = b;
+      flightNumber_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TICKETTYPE_FIELD_NUMBER = 2;
+  private volatile java.lang.Object ticketType_;
+  /**
+   * <code>string ticketType = 2;</code>
+   */
+  public java.lang.String getTicketType() {
+    java.lang.Object ref = ticketType_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      ticketType_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string ticketType = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getTicketTypeBytes() {
+    java.lang.Object ref = ticketType_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      ticketType_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int FIRSTNAME_FIELD_NUMBER = 3;
+  private volatile java.lang.Object firstname_;
+  /**
+   * <code>string firstname = 3;</code>
+   */
+  public java.lang.String getFirstname() {
+    java.lang.Object ref = firstname_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      firstname_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string firstname = 3;</code>
+   */
+  public com.google.protobuf.ByteString
+      getFirstnameBytes() {
+    java.lang.Object ref = firstname_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      firstname_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int SURNAME_FIELD_NUMBER = 4;
+  private volatile java.lang.Object surname_;
+  /**
+   * <code>string surname = 4;</code>
+   */
+  public java.lang.String getSurname() {
+    java.lang.Object ref = surname_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      surname_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string surname = 4;</code>
+   */
+  public com.google.protobuf.ByteString
+      getSurnameBytes() {
+    java.lang.Object ref = surname_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      surname_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int SEATPREF_FIELD_NUMBER = 5;
+  private volatile java.lang.Object seatPref_;
+  /**
+   * <code>string seatPref = 5;</code>
+   */
+  public java.lang.String getSeatPref() {
+    java.lang.Object ref = seatPref_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      seatPref_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string seatPref = 5;</code>
+   */
+  public com.google.protobuf.ByteString
+      getSeatPrefBytes() {
+    java.lang.Object ref = seatPref_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      seatPref_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -129,8 +293,20 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getValueBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, value_);
+    if (!getFlightNumberBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, flightNumber_);
+    }
+    if (!getTicketTypeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ticketType_);
+    }
+    if (!getFirstnameBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, firstname_);
+    }
+    if (!getSurnameBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, surname_);
+    }
+    if (!getSeatPrefBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, seatPref_);
     }
     unknownFields.writeTo(output);
   }
@@ -141,8 +317,20 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getValueBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, value_);
+    if (!getFlightNumberBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, flightNumber_);
+    }
+    if (!getTicketTypeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ticketType_);
+    }
+    if (!getFirstnameBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, firstname_);
+    }
+    if (!getSurnameBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, surname_);
+    }
+    if (!getSeatPrefBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, seatPref_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -160,8 +348,16 @@ private static final long serialVersionUID = 0L;
     com.alexeyre.grpc.flight.BookingRequest other = (com.alexeyre.grpc.flight.BookingRequest) obj;
 
     boolean result = true;
-    result = result && getValue()
-        .equals(other.getValue());
+    result = result && getFlightNumber()
+        .equals(other.getFlightNumber());
+    result = result && getTicketType()
+        .equals(other.getTicketType());
+    result = result && getFirstname()
+        .equals(other.getFirstname());
+    result = result && getSurname()
+        .equals(other.getSurname());
+    result = result && getSeatPref()
+        .equals(other.getSeatPref());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -173,8 +369,16 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + VALUE_FIELD_NUMBER;
-    hash = (53 * hash) + getValue().hashCode();
+    hash = (37 * hash) + FLIGHTNUMBER_FIELD_NUMBER;
+    hash = (53 * hash) + getFlightNumber().hashCode();
+    hash = (37 * hash) + TICKETTYPE_FIELD_NUMBER;
+    hash = (53 * hash) + getTicketType().hashCode();
+    hash = (37 * hash) + FIRSTNAME_FIELD_NUMBER;
+    hash = (53 * hash) + getFirstname().hashCode();
+    hash = (37 * hash) + SURNAME_FIELD_NUMBER;
+    hash = (53 * hash) + getSurname().hashCode();
+    hash = (37 * hash) + SEATPREF_FIELD_NUMBER;
+    hash = (53 * hash) + getSeatPref().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -308,7 +512,15 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      value_ = "";
+      flightNumber_ = "";
+
+      ticketType_ = "";
+
+      firstname_ = "";
+
+      surname_ = "";
+
+      seatPref_ = "";
 
       return this;
     }
@@ -336,7 +548,11 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.alexeyre.grpc.flight.BookingRequest buildPartial() {
       com.alexeyre.grpc.flight.BookingRequest result = new com.alexeyre.grpc.flight.BookingRequest(this);
-      result.value_ = value_;
+      result.flightNumber_ = flightNumber_;
+      result.ticketType_ = ticketType_;
+      result.firstname_ = firstname_;
+      result.surname_ = surname_;
+      result.seatPref_ = seatPref_;
       onBuilt();
       return result;
     }
@@ -385,8 +601,24 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.alexeyre.grpc.flight.BookingRequest other) {
       if (other == com.alexeyre.grpc.flight.BookingRequest.getDefaultInstance()) return this;
-      if (!other.getValue().isEmpty()) {
-        value_ = other.value_;
+      if (!other.getFlightNumber().isEmpty()) {
+        flightNumber_ = other.flightNumber_;
+        onChanged();
+      }
+      if (!other.getTicketType().isEmpty()) {
+        ticketType_ = other.ticketType_;
+        onChanged();
+      }
+      if (!other.getFirstname().isEmpty()) {
+        firstname_ = other.firstname_;
+        onChanged();
+      }
+      if (!other.getSurname().isEmpty()) {
+        surname_ = other.surname_;
+        onChanged();
+      }
+      if (!other.getSeatPref().isEmpty()) {
+        seatPref_ = other.seatPref_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -418,71 +650,347 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object value_ = "";
+    private java.lang.Object flightNumber_ = "";
     /**
-     * <code>string value = 1;</code>
+     * <code>string flightNumber = 1;</code>
      */
-    public java.lang.String getValue() {
-      java.lang.Object ref = value_;
+    public java.lang.String getFlightNumber() {
+      java.lang.Object ref = flightNumber_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        value_ = s;
+        flightNumber_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string value = 1;</code>
+     * <code>string flightNumber = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getValueBytes() {
-      java.lang.Object ref = value_;
+        getFlightNumberBytes() {
+      java.lang.Object ref = flightNumber_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        value_ = b;
+        flightNumber_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string value = 1;</code>
+     * <code>string flightNumber = 1;</code>
      */
-    public Builder setValue(
+    public Builder setFlightNumber(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      value_ = value;
+      flightNumber_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string value = 1;</code>
+     * <code>string flightNumber = 1;</code>
      */
-    public Builder clearValue() {
+    public Builder clearFlightNumber() {
       
-      value_ = getDefaultInstance().getValue();
+      flightNumber_ = getDefaultInstance().getFlightNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>string value = 1;</code>
+     * <code>string flightNumber = 1;</code>
      */
-    public Builder setValueBytes(
+    public Builder setFlightNumberBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      value_ = value;
+      flightNumber_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object ticketType_ = "";
+    /**
+     * <code>string ticketType = 2;</code>
+     */
+    public java.lang.String getTicketType() {
+      java.lang.Object ref = ticketType_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ticketType_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string ticketType = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getTicketTypeBytes() {
+      java.lang.Object ref = ticketType_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ticketType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string ticketType = 2;</code>
+     */
+    public Builder setTicketType(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      ticketType_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string ticketType = 2;</code>
+     */
+    public Builder clearTicketType() {
+      
+      ticketType_ = getDefaultInstance().getTicketType();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string ticketType = 2;</code>
+     */
+    public Builder setTicketTypeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      ticketType_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object firstname_ = "";
+    /**
+     * <code>string firstname = 3;</code>
+     */
+    public java.lang.String getFirstname() {
+      java.lang.Object ref = firstname_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        firstname_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string firstname = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFirstnameBytes() {
+      java.lang.Object ref = firstname_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        firstname_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string firstname = 3;</code>
+     */
+    public Builder setFirstname(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      firstname_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string firstname = 3;</code>
+     */
+    public Builder clearFirstname() {
+      
+      firstname_ = getDefaultInstance().getFirstname();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string firstname = 3;</code>
+     */
+    public Builder setFirstnameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      firstname_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object surname_ = "";
+    /**
+     * <code>string surname = 4;</code>
+     */
+    public java.lang.String getSurname() {
+      java.lang.Object ref = surname_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        surname_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string surname = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSurnameBytes() {
+      java.lang.Object ref = surname_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        surname_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string surname = 4;</code>
+     */
+    public Builder setSurname(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      surname_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string surname = 4;</code>
+     */
+    public Builder clearSurname() {
+      
+      surname_ = getDefaultInstance().getSurname();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string surname = 4;</code>
+     */
+    public Builder setSurnameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      surname_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object seatPref_ = "";
+    /**
+     * <code>string seatPref = 5;</code>
+     */
+    public java.lang.String getSeatPref() {
+      java.lang.Object ref = seatPref_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        seatPref_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string seatPref = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSeatPrefBytes() {
+      java.lang.Object ref = seatPref_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        seatPref_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string seatPref = 5;</code>
+     */
+    public Builder setSeatPref(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      seatPref_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string seatPref = 5;</code>
+     */
+    public Builder clearSeatPref() {
+      
+      seatPref_ = getDefaultInstance().getSeatPref();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string seatPref = 5;</code>
+     */
+    public Builder setSeatPrefBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      seatPref_ = value;
       onChanged();
       return this;
     }

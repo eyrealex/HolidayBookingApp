@@ -9,53 +9,101 @@ package com.alexeyre.grpc.flight;
 service FlightService {
 
 	rpc flightList(ListRequest) returns (stream ListResponse) {}
-	rpc flightBooking(stream BookingRequest) returns (BookingResponse) {}
-	rpc flightPeople(PeopleRequest) returns (PeopleResponse) {}
-	rpc flightPassenger(stream PassengerRequest) returns (stream PassengerResponse) {}
+	rpc flightSearch(stream SearchRequest) returns (SearchResponse) {}
+	rpc flightDetails(DetailsRequest) returns (stream DetailsResponse) {}
+	rpc flightNumber(NumberRequest) returns (NumberResponse) {}
+	rpc flightBooking(stream BookingRequest) returns (stream BookingResponse) {}
+	rpc flightDisplay(DisplayRequest) returns (stream DisplayResponse) {}
 
 }
 
 message ListRequest{
-	string location1 = 1;
-	string location2 = 2;
-	string location3 = 3;
-	string location4 = 4;
-	
+	string value = 1;	
 }
 
 message ListResponse{
 	string result = 1;
 }
 
-message BookingRequest{
+message SearchRequest{
 	string value = 1;
-	
+
 }
 
-message BookingResponse{
+message SearchResponse{
 	int32 responseCode = 1;
 	string responseMessage = 2;
 	string depart = 3;
 	string departDate = 4;
 	string arrival = 5;
 	string arrivalDate = 6;
-
+	int32 passengers = 7;
 }
 
-message PeopleRequest{
-	int32 passengers = 1;
+message DetailsRequest{
+	string detailsValue = 1;
 }
 
-message PeopleResponse{
-	int32 passengers = 1;
+message DetailsResponse{
+	string destination = 1;
+	string departureDate = 2;
+	string departureTime = 3;
+	string flightDuration = 4;
+	string arrivalTime = 5;
+	string flightNumber = 6;
+	string returnLocation = 7;
+	string returnDate = 8;
+	string returnTime = 9;
+	string flightReturnDuration = 10;
+	string returnArrivalTime = 11;
+	int32 passengers = 12;
+	string price = 13;
 }
 
-message PassengerRequest{
-	string seat = 1;
-	int32 luggage = 2;
+message NumberRequest{
+	string requestValue = 1;	
 }
 
-message PassengerResponse{
-	string seat = 1;
-	int32 luggage = 2;
+message NumberResponse{
+	string responseResult = 1;
+}
+
+message BookingRequest{
+	string flightNumber = 1;
+	string ticketType = 2;
+	string firstname = 3;
+	string surname = 4;
+	string seatPref = 5;
+}
+
+message BookingResponse{
+	string flightNumber = 1;
+	string ticketType = 2;
+	string seatPref = 3;
+	string firstname = 4;
+	string surname = 5;
+}
+
+message DisplayRequest{
+	string displayRequest = 1;	
+}
+
+message DisplayResponse{
+	string displayDestination = 1;
+	string displayDepartureDate = 2;
+	string displayDepartureTime = 3;
+	string displayFlightDuration = 4;
+	string displayArrivalTime = 5;
+	string displayFlightId = 6;
+	string displayReturnLocation = 7;
+	string displayReturnDate = 8;
+	string displayReturnTime = 9;
+	string displayFlightReturnDuration = 10;
+	string displayReturnArrivalTime = 11;
+	int32 displayPassengers = 12;
+	string displayPrice = 13;
+	string displayTicketType = 14;
+	string displaySeatPref = 15;
+	string displayFirstname = 16;
+	string displaySurname = 17;
 }

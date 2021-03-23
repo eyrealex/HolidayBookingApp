@@ -12,8 +12,7 @@ import javax.jmdns.ServiceInfo;
 
 import com.alexeyre.grpc.flight.BookingRequest;
 import com.alexeyre.grpc.flight.BookingResponse;
-import com.alexeyre.grpc.flight.PassengerResponse;
-import com.alexeyre.grpc.flight.PeopleResponse;
+
 import com.alexeyre.grpc.hotel.HotelServiceGrpc.HotelServiceImplBase;
 
 import io.grpc.Server;

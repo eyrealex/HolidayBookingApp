@@ -19,7 +19,43 @@ import io.grpc.stub.StreamObserver;
 public class FlightServer extends FlightServiceImplBase {
 
 	private static int position;
-	private static ArrayList<String> list = new ArrayList();
+	private static ArrayList<String> booking_list = new ArrayList();
+	private static String depart, arrival;
+	private static String depart_date, arrival_date;
+	private static int passengers;
+	private static String str_passengers = Integer.toString(passengers);
+	private static String str_passengers2 = Integer.toString(passengers);
+	private static String str_passengers3 = Integer.toString(passengers);
+
+	private static String depart_time1 = "06.55";
+	private static String depart_duration1 = "40Mins";
+	private static String arrival_time1 = "07:35";
+	private static String return_time1 = "18:30";
+	private static String return_duration1 = "35Mins";
+	private static String return_arrival_time1 = "19:05";
+	private static String price1 = "€213.99";
+
+	private static String depart_time2 = "13:20";
+	private static String depart_duration2 = "40Mins";
+	private static String arrival_time2 = "14:00";
+	private static String return_time2 = "17:00";
+	private static String return_duration2 = "35Mins";
+	private static String return_arrival_time2 = "17:35";
+	private static String price2 = "€229.99";
+
+	private static String depart_time3 = "08:50";
+	private static String depart_duration3 = "40Mins";
+	private static String arrival_time3 = "09:30";
+	private static String return_time3 = "18:20";
+	private static String return_duration3 = "35Mins";
+	private static String return_arrival_time3 = "18:55";
+	private static String price3 = "€207.99";
+
+	private static String randomNumber = Long.toHexString(Double.doubleToLongBits(Math.random()));
+	private static String randomNumber2 = Long.toHexString(Double.doubleToLongBits(Math.random()));
+	private static String randomNumber3 = Long.toHexString(Double.doubleToLongBits(Math.random()));
+
+	private static String firstname, surname, seatNo, ticketType, flightNumber;
 
 	public static void main(String[] args) {
 
@@ -119,46 +155,55 @@ public class FlightServer extends FlightServiceImplBase {
 			responseObserver.onNext(listresponse);
 		}
 
-		System.out.println("Receiving list of all possible flight destinations out of Dublin Airport: "
-				+ flightlist.get(0) + ", " + flightlist.get(1) + ", " + flightlist.get(2) + ", " + flightlist.get(3));
+		System.out.println("\nAll holiday destinations departing from Dublin Airport: " + "\n" + flightlist.get(0)
+				+ "\n" + flightlist.get(1) + "\n" + flightlist.get(2) + "\n" + flightlist.get(3));
 		responseObserver.onCompleted();
+		System.out.println("Please enter one for the following countries in the next service");
 	}
 
 	@Override
-	public StreamObserver<BookingRequest> flightBooking(StreamObserver<BookingResponse> responseObserver) {
-		return new StreamObserver<BookingRequest>() {
+	public StreamObserver<SearchRequest> flightSearch(StreamObserver<SearchResponse> responseObserver) {
+		return new StreamObserver<SearchRequest>() {
 
 			ArrayList<String> bookinglist = new ArrayList();
-			String depart, arrival;
-			String depart_date, arrival_date;
 
 			@Override
-			public void onNext(BookingRequest value) {
+			public void onNext(SearchRequest value) {
 
-				BookingResponse.Builder response = BookingResponse.newBuilder();
+				SearchResponse.Builder response = SearchResponse.newBuilder();
 
 				if (bookinglist.size() == 0) {
-					System.out.println("\nHoliday departure destination  request: " + value.getValue());
+					System.out.println("\nDeparture location: " + value.getValue());
+					System.out.println("Please enter a departure date: ");
 					depart = value.getValue();
 					bookinglist.add(depart);
 				} else if (bookinglist.size() == 1) {
-					System.out.println("Holiday departure date request : " + value.getValue());
+					System.out.println("\nDeparture date: " + value.getValue());
+					System.out.println("Please enter Dublin as your return location: ");
 					depart_date = value.getValue();
 					bookinglist.add(depart_date);
 				} else if (bookinglist.size() == 2) {
-					System.out.println("Holiday return destination request : " + value.getValue());
+					System.out.println("\nReturn location: " + value.getValue());
+					System.out.println("Please enter a return date: ");
 					arrival = value.getValue();
 					bookinglist.add(arrival);
 				} else if (bookinglist.size() == 3) {
-					System.out.println("Holiday date departure request : " + value.getValue());
+					System.out.println("\nReturn date: " + value.getValue());
+					System.out.println("Please enter the number of passengers to be booked: ");
 					arrival_date = value.getValue();
 					bookinglist.add(arrival_date);
+				} else if (bookinglist.size() == 4) {
+					System.out.println("Amount of passengers to book: " + value.getValue());
+					str_passengers = value.getValue();
+					bookinglist.add(str_passengers);
+					position = Integer.parseInt(str_passengers);
+				}
 
-				} else {
+				else {
 
 				}
 
-				if (bookinglist.size() > 3) {
+				if (bookinglist.size() > 4) {
 					onCompleted();
 				}
 			}
@@ -172,15 +217,16 @@ public class FlightServer extends FlightServiceImplBase {
 			@Override
 			public void onCompleted() {
 
-				System.out.println("Flight locations and dates have been booked");
+				System.out.println("Destination set, now searching for best prices ...");
 
 				String temp1 = bookinglist.get(0);
 				String temp2 = bookinglist.get(1);
 				String temp3 = bookinglist.get(2);
 				String temp4 = bookinglist.get(3);
+				String temp5 = bookinglist.get(4);
 
-				BookingResponse response = BookingResponse.newBuilder().setDepart(temp1).setDepartDate(temp2)
-						.setArrival(temp3).setArrivalDate(temp4).build();
+				SearchResponse response = SearchResponse.newBuilder().setDepart(temp1).setDepartDate(temp2)
+						.setArrival(temp3).setArrivalDate(temp4).setPassengers(Integer.parseInt(temp5)).build();
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 
@@ -190,40 +236,115 @@ public class FlightServer extends FlightServiceImplBase {
 	}
 
 	@Override
-	public void flightPeople(PeopleRequest request, StreamObserver<PeopleResponse> responseObserver) {
+	public void flightDetails(DetailsRequest request, StreamObserver<DetailsResponse> responseObserver) {
 
-		int passenger = request.getPassengers();
-		position = passenger;
+		System.out.println("Getting Available flights ...");
 
-		System.out.println("Receiving amount of passengers per booking: " + passenger + "\n position : " + position);
-		PeopleResponse response = PeopleResponse.newBuilder().setPassengers(passenger).build();
+		ArrayList<String> detail_list = new ArrayList();
 
-		responseObserver.onNext(response);
+		for (int i = 0; i <= 3; i++) {
+
+			if (i == 0) {
+				DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
+						.setDepartureDate(depart_date).setDepartureTime(depart_time1)
+						.setFlightDuration(depart_duration1).setArrivalTime(arrival_time1).setFlightNumber(randomNumber)
+						.setReturnLocation(arrival).setReturnDate(arrival_date).setReturnTime(return_time1)
+						.setFlightReturnDuration(return_duration1).setReturnArrivalTime(return_arrival_time1)
+						.setPassengers(Integer.parseInt(str_passengers)).setPrice(price1).build();
+
+				System.out.println("\nFlight 1: " + "\n" + "Destination: " + reply.getDestination() + "\n"
+						+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
+						+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
+						+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: " + reply.getFlightNumber()
+						+ "\n" + "Return location: " + reply.getReturnLocation() + "\n" + "Return date: "
+						+ reply.getReturnDate() + "\n" + "Return departure time: " + reply.getReturnTime() + "\n"
+						+ "Return duration: " + reply.getFlightReturnDuration() + "\n" + "Return arrival time: "
+						+ reply.getReturnArrivalTime() + "\n" + "No. of passengers: " + reply.getPassengers() + "\n"
+						+ "Price per person: " + reply.getPrice());
+				responseObserver.onNext(reply);
+			} else if (i == 1) {
+				DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
+						.setDepartureDate(depart_date).setDepartureTime(depart_time2)
+						.setFlightDuration(depart_duration2).setArrivalTime(arrival_time2)
+						.setFlightNumber(randomNumber2).setReturnLocation(arrival).setReturnDate(arrival_date)
+						.setReturnTime(return_time2).setFlightReturnDuration(return_duration2)
+						.setReturnArrivalTime(return_arrival_time2).setPassengers(Integer.parseInt(str_passengers))
+						.setPrice(price2).build();
+
+				System.out.println("\nFlight 2: " + "\n" + "Destination: " + reply.getDestination() + "\n"
+						+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
+						+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
+						+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: " + reply.getFlightNumber()
+						+ "\n" + "Return location: " + reply.getReturnLocation() + "\n" + "Return date: "
+						+ reply.getReturnDate() + "\n" + "Return departure time: " + reply.getReturnTime() + "\n"
+						+ "Return duration: " + reply.getFlightReturnDuration() + "\n" + "Return arrival time: "
+						+ reply.getReturnArrivalTime() + "\n" + "No. of passengers: " + reply.getPassengers() + "\n"
+						+ "Price per person: " + reply.getPrice());
+				responseObserver.onNext(reply);
+			} else if (i == 2) {
+				DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
+						.setDepartureDate(depart_date).setDepartureTime(depart_time3)
+						.setFlightDuration(depart_duration3).setArrivalTime(arrival_time3)
+						.setFlightNumber(randomNumber3).setReturnLocation(arrival).setReturnDate(arrival_date)
+						.setReturnTime(return_time3).setFlightReturnDuration(return_duration3)
+						.setReturnArrivalTime(return_arrival_time3).setPassengers(Integer.parseInt(str_passengers))
+						.setPrice(price3).build();
+
+				System.out.println("\nFlight 3: " + "\n" + "Destination: " + reply.getDestination() + "\n"
+						+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
+						+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
+						+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: " + reply.getFlightNumber()
+						+ "\n" + "Return location: " + reply.getReturnLocation() + "\n" + "Return date: "
+						+ reply.getReturnDate() + "\n" + "Return departure time: " + reply.getReturnTime() + "\n"
+						+ "Return duration: " + reply.getFlightReturnDuration() + "\n" + "Return arrival time: "
+						+ reply.getReturnArrivalTime() + "\n" + "No. of passengers: " + reply.getPassengers() + "\n"
+						+ "Price per person: " + reply.getPrice());
+				responseObserver.onNext(reply);
+			}
+
+		}
+
+		System.out.println("\nAll available flights for your given booking completed... "
+				+ "\nPlease choose one of the available flights in the next stream to finalise the booking");
 		responseObserver.onCompleted();
 
 	}
 
 	@Override
-	public StreamObserver<PassengerRequest> flightPassenger(StreamObserver<PassengerResponse> responseObserver) {
-		return new StreamObserver<PassengerRequest>() {
+	public void flightNumber(NumberRequest request, StreamObserver<NumberResponse> responseObserver) {
+		flightNumber = request.getRequestValue();
 
-			String seat, luggage;
+		NumberResponse numberResponse = NumberResponse.newBuilder().setResponseResult(flightNumber).build();
+		System.out.println("\nFlight number chosen: " + flightNumber);
+		System.out.println("Please enter ticket type, seat preference and names of all passengers on the next service");
+		responseObserver.onNext(numberResponse);
+		responseObserver.onCompleted();
+
+	}
+
+	@Override
+	public StreamObserver<BookingRequest> flightBooking(StreamObserver<BookingResponse> responseObserver) {
+		return new StreamObserver<BookingRequest>() {
+			
 
 			@Override
-			public void onNext(PassengerRequest value) {
-				seat = value.getSeat();
-				int luggage = value.getLuggage();
-				list.add(seat);
+			public void onNext(BookingRequest value) {
+				ticketType = value.getTicketType();
+				booking_list.add(ticketType);
+				firstname = value.getFirstname();
+				surname = value.getSurname();
+				seatNo = value.getSeatPref();
 
-				if (list.size() <= position) {
-					System.out.println("\nReceving passenger information...\n" + "Seat preference: " + value.getSeat()
-							+ "\nAmount of luggage bags taken: " + value.getLuggage());
+				if (booking_list.size() <= position) {
+					System.out.println("\nMaking booking for passenger:" + "\n" + "Ticket type: "
+							+ value.getTicketType() + "\n" + "Seat Preference: " + value.getSeatPref() + "\n"
+							+ "Firstname: " + value.getFirstname() + "\n" + "Surname: " + value.getSurname());
 
-					PassengerResponse reply = PassengerResponse.newBuilder().setSeat(seat)
-							.setLuggage(value.getLuggage()).build();
+					BookingResponse bookingResponse = BookingResponse.newBuilder().setTicketType(ticketType)
+							.setSeatPref(seatNo).setFirstname(firstname)
+							.setSurname(surname).build();
 
-					responseObserver.onNext(reply);
-
+					responseObserver.onNext(bookingResponse);
 				} else {
 					onCompleted();
 				}
@@ -238,13 +359,58 @@ public class FlightServer extends FlightServiceImplBase {
 
 			@Override
 			public void onCompleted() {
-
-				System.out.println("Bi directional streaming on server has been complete");
+				System.out.println("\nFlight Booking completed for all passengers ...");
+				System.out.println("\nDisplay booking information on the next service ...");
 				responseObserver.onCompleted();
 
 			}
 
 		};
+
+	}
+
+	@Override
+	public void flightDisplay(DisplayRequest request, StreamObserver<DisplayResponse> responseObserver) {
+
+		System.out.print("\nDisplaying finalized booking");
+
+		ArrayList<String> display_list = new ArrayList();
+
+		for (int i = 0; i < position; i++) {
+
+			DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDepartureDate(depart_date)
+					.setDisplayDepartureTime(depart_time1).setDisplayFlightDuration(depart_duration1)
+					.setDisplayArrivalTime(arrival_time1).setDisplayFlightId(randomNumber)
+					.setDisplayReturnLocation(arrival).setDisplayReturnDate(arrival_date)
+					.setDisplayReturnTime(return_time1).setDisplayFlightReturnDuration(return_duration1)
+					.setDisplayReturnArrivalTime(return_arrival_time1).setDisplayPassengers(passengers)
+					.setDisplayPrice(price1).setDisplayTicketType(ticketType).setDisplaySeatPref(seatNo)
+					.setDisplayFirstname(firstname).setDisplaySurname(surname).build();
+
+			System.out.println("\nDeparture: " + depart);
+			System.out.println("Depart date: " + depart_date);
+			System.out.println("Depart time: " + depart_time1);
+			System.out.println("Depart duration : " + depart_duration1);
+			System.out.println("Arrival time: " + arrival_time1);
+			System.out.println("Flight id: " + randomNumber);
+			System.out.println("Return location: " + arrival);
+			System.out.println("Return date: " + arrival_date);
+			System.out.println("Return departure time: " + return_time1);
+			System.out.println("Return flight duration: " + return_duration1);
+			System.out.println("Return arrival time: " + return_arrival_time1);
+			System.out.println("No. of passengers: " + passengers);
+			System.out.println("Price per passenger: " + price1);
+			System.out.println("Ticket type: " + ticketType);
+			System.out.println("Seat preference: " + seatNo);
+			System.out.println("Firstname: " + firstname);
+			System.out.println("Surname: " + surname);
+
+			responseObserver.onNext(reply);
+		}
+
+		System.out.println("\nDisplay Booking Completed... ");
+		responseObserver.onCompleted();
+
 	}
 
 }

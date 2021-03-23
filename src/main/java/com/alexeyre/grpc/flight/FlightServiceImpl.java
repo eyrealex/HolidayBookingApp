@@ -25,6 +25,36 @@ public final class FlightServiceImpl {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_alexeyre_grpc_flight_ListResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_alexeyre_grpc_flight_SearchRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_alexeyre_grpc_flight_SearchRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_alexeyre_grpc_flight_SearchResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_alexeyre_grpc_flight_SearchResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_alexeyre_grpc_flight_DetailsRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_alexeyre_grpc_flight_DetailsRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_alexeyre_grpc_flight_DetailsResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_alexeyre_grpc_flight_DetailsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_alexeyre_grpc_flight_NumberRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_alexeyre_grpc_flight_NumberRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_alexeyre_grpc_flight_NumberResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_alexeyre_grpc_flight_NumberResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -35,25 +65,15 @@ public final class FlightServiceImpl {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_alexeyre_grpc_flight_BookingResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_alexeyre_grpc_flight_PeopleRequest_descriptor;
+    internal_static_com_alexeyre_grpc_flight_DisplayRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_alexeyre_grpc_flight_PeopleRequest_fieldAccessorTable;
+      internal_static_com_alexeyre_grpc_flight_DisplayRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_alexeyre_grpc_flight_PeopleResponse_descriptor;
+    internal_static_com_alexeyre_grpc_flight_DisplayResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_alexeyre_grpc_flight_PeopleResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_alexeyre_grpc_flight_PassengerRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_alexeyre_grpc_flight_PassengerRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_alexeyre_grpc_flight_PassengerResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_alexeyre_grpc_flight_PassengerResponse_fieldAccessorTable;
+      internal_static_com_alexeyre_grpc_flight_DisplayResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -64,31 +84,60 @@ public final class FlightServiceImpl {
   static {
     java.lang.String[] descriptorData = {
       "\n\014flight.proto\022\030com.alexeyre.grpc.flight" +
-      "\"Y\n\013ListRequest\022\021\n\tlocation1\030\001 \001(\t\022\021\n\tlo" +
-      "cation2\030\002 \001(\t\022\021\n\tlocation3\030\003 \001(\t\022\021\n\tloca" +
-      "tion4\030\004 \001(\t\"\036\n\014ListResponse\022\016\n\006result\030\001 " +
-      "\001(\t\"\037\n\016BookingRequest\022\r\n\005value\030\001 \001(\t\"\212\001\n" +
-      "\017BookingResponse\022\024\n\014responseCode\030\001 \001(\005\022\027" +
-      "\n\017responseMessage\030\002 \001(\t\022\016\n\006depart\030\003 \001(\t\022" +
-      "\022\n\ndepartDate\030\004 \001(\t\022\017\n\007arrival\030\005 \001(\t\022\023\n\013" +
-      "arrivalDate\030\006 \001(\t\"#\n\rPeopleRequest\022\022\n\npa" +
-      "ssengers\030\001 \001(\005\"$\n\016PeopleResponse\022\022\n\npass" +
-      "engers\030\001 \001(\005\"1\n\020PassengerRequest\022\014\n\004seat" +
-      "\030\001 \001(\t\022\017\n\007luggage\030\002 \001(\005\"2\n\021PassengerResp" +
-      "onse\022\014\n\004seat\030\001 \001(\t\022\017\n\007luggage\030\002 \001(\0052\261\003\n\r" +
-      "FlightService\022_\n\nflightList\022%.com.alexey" +
-      "re.grpc.flight.ListRequest\032&.com.alexeyr" +
-      "e.grpc.flight.ListResponse\"\0000\001\022h\n\rflight" +
-      "Booking\022(.com.alexeyre.grpc.flight.Booki" +
-      "ngRequest\032).com.alexeyre.grpc.flight.Boo" +
-      "kingResponse\"\000(\001\022c\n\014flightPeople\022\'.com.a" +
-      "lexeyre.grpc.flight.PeopleRequest\032(.com." +
-      "alexeyre.grpc.flight.PeopleResponse\"\000\022p\n" +
-      "\017flightPassenger\022*.com.alexeyre.grpc.fli" +
-      "ght.PassengerRequest\032+.com.alexeyre.grpc" +
-      ".flight.PassengerResponse\"\000(\0010\001B/\n\030com.a" +
-      "lexeyre.grpc.flightB\021FlightServiceImplP\001" +
-      "b\006proto3"
+      "\"\034\n\013ListRequest\022\r\n\005value\030\001 \001(\t\"\036\n\014ListRe" +
+      "sponse\022\016\n\006result\030\001 \001(\t\"\036\n\rSearchRequest\022" +
+      "\r\n\005value\030\001 \001(\t\"\235\001\n\016SearchResponse\022\024\n\014res" +
+      "ponseCode\030\001 \001(\005\022\027\n\017responseMessage\030\002 \001(\t" +
+      "\022\016\n\006depart\030\003 \001(\t\022\022\n\ndepartDate\030\004 \001(\t\022\017\n\007" +
+      "arrival\030\005 \001(\t\022\023\n\013arrivalDate\030\006 \001(\t\022\022\n\npa" +
+      "ssengers\030\007 \001(\005\"&\n\016DetailsRequest\022\024\n\014deta" +
+      "ilsValue\030\001 \001(\t\"\263\002\n\017DetailsResponse\022\023\n\013de" +
+      "stination\030\001 \001(\t\022\025\n\rdepartureDate\030\002 \001(\t\022\025" +
+      "\n\rdepartureTime\030\003 \001(\t\022\026\n\016flightDuration\030" +
+      "\004 \001(\t\022\023\n\013arrivalTime\030\005 \001(\t\022\024\n\014flightNumb" +
+      "er\030\006 \001(\t\022\026\n\016returnLocation\030\007 \001(\t\022\022\n\nretu" +
+      "rnDate\030\010 \001(\t\022\022\n\nreturnTime\030\t \001(\t\022\034\n\024flig" +
+      "htReturnDuration\030\n \001(\t\022\031\n\021returnArrivalT" +
+      "ime\030\013 \001(\t\022\022\n\npassengers\030\014 \001(\005\022\r\n\005price\030\r" +
+      " \001(\t\"%\n\rNumberRequest\022\024\n\014requestValue\030\001 " +
+      "\001(\t\"(\n\016NumberResponse\022\026\n\016responseResult\030" +
+      "\001 \001(\t\"p\n\016BookingRequest\022\024\n\014flightNumber\030" +
+      "\001 \001(\t\022\022\n\nticketType\030\002 \001(\t\022\021\n\tfirstname\030\003" +
+      " \001(\t\022\017\n\007surname\030\004 \001(\t\022\020\n\010seatPref\030\005 \001(\t\"" +
+      "q\n\017BookingResponse\022\024\n\014flightNumber\030\001 \001(\t" +
+      "\022\022\n\nticketType\030\002 \001(\t\022\020\n\010seatPref\030\003 \001(\t\022\021" +
+      "\n\tfirstname\030\004 \001(\t\022\017\n\007surname\030\005 \001(\t\"(\n\016Di" +
+      "splayRequest\022\026\n\016displayRequest\030\001 \001(\t\"\360\003\n" +
+      "\017DisplayResponse\022\032\n\022displayDestination\030\001" +
+      " \001(\t\022\034\n\024displayDepartureDate\030\002 \001(\t\022\034\n\024di" +
+      "splayDepartureTime\030\003 \001(\t\022\035\n\025displayFligh" +
+      "tDuration\030\004 \001(\t\022\032\n\022displayArrivalTime\030\005 " +
+      "\001(\t\022\027\n\017displayFlightId\030\006 \001(\t\022\035\n\025displayR" +
+      "eturnLocation\030\007 \001(\t\022\031\n\021displayReturnDate" +
+      "\030\010 \001(\t\022\031\n\021displayReturnTime\030\t \001(\t\022#\n\033dis" +
+      "playFlightReturnDuration\030\n \001(\t\022 \n\030displa" +
+      "yReturnArrivalTime\030\013 \001(\t\022\031\n\021displayPasse" +
+      "ngers\030\014 \001(\005\022\024\n\014displayPrice\030\r \001(\t\022\031\n\021dis" +
+      "playTicketType\030\016 \001(\t\022\027\n\017displaySeatPref\030" +
+      "\017 \001(\t\022\030\n\020displayFirstname\030\020 \001(\t\022\026\n\016displ" +
+      "aySurname\030\021 \001(\t2\374\004\n\rFlightService\022_\n\nfli" +
+      "ghtList\022%.com.alexeyre.grpc.flight.ListR" +
+      "equest\032&.com.alexeyre.grpc.flight.ListRe" +
+      "sponse\"\0000\001\022e\n\014flightSearch\022\'.com.alexeyr" +
+      "e.grpc.flight.SearchRequest\032(.com.alexey" +
+      "re.grpc.flight.SearchResponse\"\000(\001\022h\n\rfli" +
+      "ghtDetails\022(.com.alexeyre.grpc.flight.De" +
+      "tailsRequest\032).com.alexeyre.grpc.flight." +
+      "DetailsResponse\"\0000\001\022c\n\014flightNumber\022\'.co" +
+      "m.alexeyre.grpc.flight.NumberRequest\032(.c" +
+      "om.alexeyre.grpc.flight.NumberResponse\"\000" +
+      "\022j\n\rflightBooking\022(.com.alexeyre.grpc.fl" +
+      "ight.BookingRequest\032).com.alexeyre.grpc." +
+      "flight.BookingResponse\"\000(\0010\001\022h\n\rflightDi" +
+      "splay\022(.com.alexeyre.grpc.flight.Display" +
+      "Request\032).com.alexeyre.grpc.flight.Displ" +
+      "ayResponse\"\0000\001B/\n\030com.alexeyre.grpc.flig" +
+      "htB\021FlightServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -107,49 +156,73 @@ public final class FlightServiceImpl {
     internal_static_com_alexeyre_grpc_flight_ListRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_ListRequest_descriptor,
-        new java.lang.String[] { "Location1", "Location2", "Location3", "Location4", });
+        new java.lang.String[] { "Value", });
     internal_static_com_alexeyre_grpc_flight_ListResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_alexeyre_grpc_flight_ListResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_ListResponse_descriptor,
         new java.lang.String[] { "Result", });
-    internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor =
+    internal_static_com_alexeyre_grpc_flight_SearchRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_com_alexeyre_grpc_flight_SearchRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_alexeyre_grpc_flight_SearchRequest_descriptor,
+        new java.lang.String[] { "Value", });
+    internal_static_com_alexeyre_grpc_flight_SearchResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_com_alexeyre_grpc_flight_SearchResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_alexeyre_grpc_flight_SearchResponse_descriptor,
+        new java.lang.String[] { "ResponseCode", "ResponseMessage", "Depart", "DepartDate", "Arrival", "ArrivalDate", "Passengers", });
+    internal_static_com_alexeyre_grpc_flight_DetailsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_com_alexeyre_grpc_flight_DetailsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_alexeyre_grpc_flight_DetailsRequest_descriptor,
+        new java.lang.String[] { "DetailsValue", });
+    internal_static_com_alexeyre_grpc_flight_DetailsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_com_alexeyre_grpc_flight_DetailsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_alexeyre_grpc_flight_DetailsResponse_descriptor,
+        new java.lang.String[] { "Destination", "DepartureDate", "DepartureTime", "FlightDuration", "ArrivalTime", "FlightNumber", "ReturnLocation", "ReturnDate", "ReturnTime", "FlightReturnDuration", "ReturnArrivalTime", "Passengers", "Price", });
+    internal_static_com_alexeyre_grpc_flight_NumberRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_com_alexeyre_grpc_flight_NumberRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_alexeyre_grpc_flight_NumberRequest_descriptor,
+        new java.lang.String[] { "RequestValue", });
+    internal_static_com_alexeyre_grpc_flight_NumberResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_com_alexeyre_grpc_flight_NumberResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_alexeyre_grpc_flight_NumberResponse_descriptor,
+        new java.lang.String[] { "ResponseResult", });
+    internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
     internal_static_com_alexeyre_grpc_flight_BookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor,
-        new java.lang.String[] { "Value", });
+        new java.lang.String[] { "FlightNumber", "TicketType", "Firstname", "Surname", "SeatPref", });
     internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_com_alexeyre_grpc_flight_BookingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor,
-        new java.lang.String[] { "ResponseCode", "ResponseMessage", "Depart", "DepartDate", "Arrival", "ArrivalDate", });
-    internal_static_com_alexeyre_grpc_flight_PeopleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_com_alexeyre_grpc_flight_PeopleRequest_fieldAccessorTable = new
+        new java.lang.String[] { "FlightNumber", "TicketType", "SeatPref", "Firstname", "Surname", });
+    internal_static_com_alexeyre_grpc_flight_DisplayRequest_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_com_alexeyre_grpc_flight_DisplayRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_alexeyre_grpc_flight_PeopleRequest_descriptor,
-        new java.lang.String[] { "Passengers", });
-    internal_static_com_alexeyre_grpc_flight_PeopleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_com_alexeyre_grpc_flight_PeopleResponse_fieldAccessorTable = new
+        internal_static_com_alexeyre_grpc_flight_DisplayRequest_descriptor,
+        new java.lang.String[] { "DisplayRequest", });
+    internal_static_com_alexeyre_grpc_flight_DisplayResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_com_alexeyre_grpc_flight_DisplayResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_alexeyre_grpc_flight_PeopleResponse_descriptor,
-        new java.lang.String[] { "Passengers", });
-    internal_static_com_alexeyre_grpc_flight_PassengerRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_com_alexeyre_grpc_flight_PassengerRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_alexeyre_grpc_flight_PassengerRequest_descriptor,
-        new java.lang.String[] { "Seat", "Luggage", });
-    internal_static_com_alexeyre_grpc_flight_PassengerResponse_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_com_alexeyre_grpc_flight_PassengerResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_alexeyre_grpc_flight_PassengerResponse_descriptor,
-        new java.lang.String[] { "Seat", "Luggage", });
+        internal_static_com_alexeyre_grpc_flight_DisplayResponse_descriptor,
+        new java.lang.String[] { "DisplayDestination", "DisplayDepartureDate", "DisplayDepartureTime", "DisplayFlightDuration", "DisplayArrivalTime", "DisplayFlightId", "DisplayReturnLocation", "DisplayReturnDate", "DisplayReturnTime", "DisplayFlightReturnDuration", "DisplayReturnArrivalTime", "DisplayPassengers", "DisplayPrice", "DisplayTicketType", "DisplaySeatPref", "DisplayFirstname", "DisplaySurname", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

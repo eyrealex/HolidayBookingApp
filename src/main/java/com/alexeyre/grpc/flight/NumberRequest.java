@@ -4,19 +4,19 @@
 package com.alexeyre.grpc.flight;
 
 /**
- * Protobuf type {@code com.alexeyre.grpc.flight.PeopleResponse}
+ * Protobuf type {@code com.alexeyre.grpc.flight.NumberRequest}
  */
-public  final class PeopleResponse extends
+public  final class NumberRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:com.alexeyre.grpc.flight.PeopleResponse)
-    PeopleResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:com.alexeyre.grpc.flight.NumberRequest)
+    NumberRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use PeopleResponse.newBuilder() to construct.
-  private PeopleResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use NumberRequest.newBuilder() to construct.
+  private NumberRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private PeopleResponse() {
-    passengers_ = 0;
+  private NumberRequest() {
+    requestValue_ = "";
   }
 
   @java.lang.Override
@@ -24,7 +24,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private PeopleResponse(
+  private NumberRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -43,9 +43,10 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            passengers_ = input.readInt32();
+            requestValue_ = s;
             break;
           }
           default: {
@@ -69,24 +70,49 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PeopleResponse_descriptor;
+    return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_NumberRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PeopleResponse_fieldAccessorTable
+    return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_NumberRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.alexeyre.grpc.flight.PeopleResponse.class, com.alexeyre.grpc.flight.PeopleResponse.Builder.class);
+            com.alexeyre.grpc.flight.NumberRequest.class, com.alexeyre.grpc.flight.NumberRequest.Builder.class);
   }
 
-  public static final int PASSENGERS_FIELD_NUMBER = 1;
-  private int passengers_;
+  public static final int REQUESTVALUE_FIELD_NUMBER = 1;
+  private volatile java.lang.Object requestValue_;
   /**
-   * <code>int32 passengers = 1;</code>
+   * <code>string requestValue = 1;</code>
    */
-  public int getPassengers() {
-    return passengers_;
+  public java.lang.String getRequestValue() {
+    java.lang.Object ref = requestValue_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      requestValue_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string requestValue = 1;</code>
+   */
+  public com.google.protobuf.ByteString
+      getRequestValueBytes() {
+    java.lang.Object ref = requestValue_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      requestValue_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -103,8 +129,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (passengers_ != 0) {
-      output.writeInt32(1, passengers_);
+    if (!getRequestValueBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, requestValue_);
     }
     unknownFields.writeTo(output);
   }
@@ -115,9 +141,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (passengers_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, passengers_);
+    if (!getRequestValueBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, requestValue_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -129,14 +154,14 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.alexeyre.grpc.flight.PeopleResponse)) {
+    if (!(obj instanceof com.alexeyre.grpc.flight.NumberRequest)) {
       return super.equals(obj);
     }
-    com.alexeyre.grpc.flight.PeopleResponse other = (com.alexeyre.grpc.flight.PeopleResponse) obj;
+    com.alexeyre.grpc.flight.NumberRequest other = (com.alexeyre.grpc.flight.NumberRequest) obj;
 
     boolean result = true;
-    result = result && (getPassengers()
-        == other.getPassengers());
+    result = result && getRequestValue()
+        .equals(other.getRequestValue());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -148,76 +173,76 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + PASSENGERS_FIELD_NUMBER;
-    hash = (53 * hash) + getPassengers();
+    hash = (37 * hash) + REQUESTVALUE_FIELD_NUMBER;
+    hash = (53 * hash) + getRequestValue().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(byte[] data)
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(java.io.InputStream input)
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseDelimitedFrom(java.io.InputStream input)
+  public static com.alexeyre.grpc.flight.NumberRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseDelimitedFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.flight.PeopleResponse parseFrom(
+  public static com.alexeyre.grpc.flight.NumberRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -230,7 +255,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.alexeyre.grpc.flight.PeopleResponse prototype) {
+  public static Builder newBuilder(com.alexeyre.grpc.flight.NumberRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -246,26 +271,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code com.alexeyre.grpc.flight.PeopleResponse}
+   * Protobuf type {@code com.alexeyre.grpc.flight.NumberRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:com.alexeyre.grpc.flight.PeopleResponse)
-      com.alexeyre.grpc.flight.PeopleResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:com.alexeyre.grpc.flight.NumberRequest)
+      com.alexeyre.grpc.flight.NumberRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PeopleResponse_descriptor;
+      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_NumberRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PeopleResponse_fieldAccessorTable
+      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_NumberRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.alexeyre.grpc.flight.PeopleResponse.class, com.alexeyre.grpc.flight.PeopleResponse.Builder.class);
+              com.alexeyre.grpc.flight.NumberRequest.class, com.alexeyre.grpc.flight.NumberRequest.Builder.class);
     }
 
-    // Construct using com.alexeyre.grpc.flight.PeopleResponse.newBuilder()
+    // Construct using com.alexeyre.grpc.flight.NumberRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -283,7 +308,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      passengers_ = 0;
+      requestValue_ = "";
 
       return this;
     }
@@ -291,17 +316,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PeopleResponse_descriptor;
+      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_NumberRequest_descriptor;
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.flight.PeopleResponse getDefaultInstanceForType() {
-      return com.alexeyre.grpc.flight.PeopleResponse.getDefaultInstance();
+    public com.alexeyre.grpc.flight.NumberRequest getDefaultInstanceForType() {
+      return com.alexeyre.grpc.flight.NumberRequest.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.flight.PeopleResponse build() {
-      com.alexeyre.grpc.flight.PeopleResponse result = buildPartial();
+    public com.alexeyre.grpc.flight.NumberRequest build() {
+      com.alexeyre.grpc.flight.NumberRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -309,9 +334,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.flight.PeopleResponse buildPartial() {
-      com.alexeyre.grpc.flight.PeopleResponse result = new com.alexeyre.grpc.flight.PeopleResponse(this);
-      result.passengers_ = passengers_;
+    public com.alexeyre.grpc.flight.NumberRequest buildPartial() {
+      com.alexeyre.grpc.flight.NumberRequest result = new com.alexeyre.grpc.flight.NumberRequest(this);
+      result.requestValue_ = requestValue_;
       onBuilt();
       return result;
     }
@@ -350,18 +375,19 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.alexeyre.grpc.flight.PeopleResponse) {
-        return mergeFrom((com.alexeyre.grpc.flight.PeopleResponse)other);
+      if (other instanceof com.alexeyre.grpc.flight.NumberRequest) {
+        return mergeFrom((com.alexeyre.grpc.flight.NumberRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.alexeyre.grpc.flight.PeopleResponse other) {
-      if (other == com.alexeyre.grpc.flight.PeopleResponse.getDefaultInstance()) return this;
-      if (other.getPassengers() != 0) {
-        setPassengers(other.getPassengers());
+    public Builder mergeFrom(com.alexeyre.grpc.flight.NumberRequest other) {
+      if (other == com.alexeyre.grpc.flight.NumberRequest.getDefaultInstance()) return this;
+      if (!other.getRequestValue().isEmpty()) {
+        requestValue_ = other.requestValue_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -378,11 +404,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.alexeyre.grpc.flight.PeopleResponse parsedMessage = null;
+      com.alexeyre.grpc.flight.NumberRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.alexeyre.grpc.flight.PeopleResponse) e.getUnfinishedMessage();
+        parsedMessage = (com.alexeyre.grpc.flight.NumberRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -392,28 +418,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int passengers_ ;
+    private java.lang.Object requestValue_ = "";
     /**
-     * <code>int32 passengers = 1;</code>
+     * <code>string requestValue = 1;</code>
      */
-    public int getPassengers() {
-      return passengers_;
+    public java.lang.String getRequestValue() {
+      java.lang.Object ref = requestValue_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requestValue_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>int32 passengers = 1;</code>
+     * <code>string requestValue = 1;</code>
      */
-    public Builder setPassengers(int value) {
-      
-      passengers_ = value;
+    public com.google.protobuf.ByteString
+        getRequestValueBytes() {
+      java.lang.Object ref = requestValue_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        requestValue_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string requestValue = 1;</code>
+     */
+    public Builder setRequestValue(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      requestValue_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 passengers = 1;</code>
+     * <code>string requestValue = 1;</code>
      */
-    public Builder clearPassengers() {
+    public Builder clearRequestValue() {
       
-      passengers_ = 0;
+      requestValue_ = getDefaultInstance().getRequestValue();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string requestValue = 1;</code>
+     */
+    public Builder setRequestValueBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      requestValue_ = value;
       onChanged();
       return this;
     }
@@ -430,41 +499,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:com.alexeyre.grpc.flight.PeopleResponse)
+    // @@protoc_insertion_point(builder_scope:com.alexeyre.grpc.flight.NumberRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:com.alexeyre.grpc.flight.PeopleResponse)
-  private static final com.alexeyre.grpc.flight.PeopleResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:com.alexeyre.grpc.flight.NumberRequest)
+  private static final com.alexeyre.grpc.flight.NumberRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.alexeyre.grpc.flight.PeopleResponse();
+    DEFAULT_INSTANCE = new com.alexeyre.grpc.flight.NumberRequest();
   }
 
-  public static com.alexeyre.grpc.flight.PeopleResponse getDefaultInstance() {
+  public static com.alexeyre.grpc.flight.NumberRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<PeopleResponse>
-      PARSER = new com.google.protobuf.AbstractParser<PeopleResponse>() {
+  private static final com.google.protobuf.Parser<NumberRequest>
+      PARSER = new com.google.protobuf.AbstractParser<NumberRequest>() {
     @java.lang.Override
-    public PeopleResponse parsePartialFrom(
+    public NumberRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new PeopleResponse(input, extensionRegistry);
+      return new NumberRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<PeopleResponse> parser() {
+  public static com.google.protobuf.Parser<NumberRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<PeopleResponse> getParserForType() {
+  public com.google.protobuf.Parser<NumberRequest> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.alexeyre.grpc.flight.PeopleResponse getDefaultInstanceForType() {
+  public com.alexeyre.grpc.flight.NumberRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

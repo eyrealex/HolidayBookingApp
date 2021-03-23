@@ -4,20 +4,19 @@
 package com.alexeyre.grpc.flight;
 
 /**
- * Protobuf type {@code com.alexeyre.grpc.flight.PassengerRequest}
+ * Protobuf type {@code com.alexeyre.grpc.flight.DisplayRequest}
  */
-public  final class PassengerRequest extends
+public  final class DisplayRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:com.alexeyre.grpc.flight.PassengerRequest)
-    PassengerRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:com.alexeyre.grpc.flight.DisplayRequest)
+    DisplayRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use PassengerRequest.newBuilder() to construct.
-  private PassengerRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use DisplayRequest.newBuilder() to construct.
+  private DisplayRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private PassengerRequest() {
-    seat_ = "";
-    luggage_ = 0;
+  private DisplayRequest() {
+    displayRequest_ = "";
   }
 
   @java.lang.Override
@@ -25,7 +24,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private PassengerRequest(
+  private DisplayRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -47,12 +46,7 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            seat_ = s;
-            break;
-          }
-          case 16: {
-
-            luggage_ = input.readInt32();
+            displayRequest_ = s;
             break;
           }
           default: {
@@ -76,58 +70,49 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PassengerRequest_descriptor;
+    return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DisplayRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PassengerRequest_fieldAccessorTable
+    return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DisplayRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.alexeyre.grpc.flight.PassengerRequest.class, com.alexeyre.grpc.flight.PassengerRequest.Builder.class);
+            com.alexeyre.grpc.flight.DisplayRequest.class, com.alexeyre.grpc.flight.DisplayRequest.Builder.class);
   }
 
-  public static final int SEAT_FIELD_NUMBER = 1;
-  private volatile java.lang.Object seat_;
+  public static final int DISPLAYREQUEST_FIELD_NUMBER = 1;
+  private volatile java.lang.Object displayRequest_;
   /**
-   * <code>string seat = 1;</code>
+   * <code>string displayRequest = 1;</code>
    */
-  public java.lang.String getSeat() {
-    java.lang.Object ref = seat_;
+  public java.lang.String getDisplayRequest() {
+    java.lang.Object ref = displayRequest_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      seat_ = s;
+      displayRequest_ = s;
       return s;
     }
   }
   /**
-   * <code>string seat = 1;</code>
+   * <code>string displayRequest = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getSeatBytes() {
-    java.lang.Object ref = seat_;
+      getDisplayRequestBytes() {
+    java.lang.Object ref = displayRequest_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      seat_ = b;
+      displayRequest_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
-  }
-
-  public static final int LUGGAGE_FIELD_NUMBER = 2;
-  private int luggage_;
-  /**
-   * <code>int32 luggage = 2;</code>
-   */
-  public int getLuggage() {
-    return luggage_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -144,11 +129,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getSeatBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, seat_);
-    }
-    if (luggage_ != 0) {
-      output.writeInt32(2, luggage_);
+    if (!getDisplayRequestBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, displayRequest_);
     }
     unknownFields.writeTo(output);
   }
@@ -159,12 +141,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getSeatBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, seat_);
-    }
-    if (luggage_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, luggage_);
+    if (!getDisplayRequestBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, displayRequest_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -176,16 +154,14 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.alexeyre.grpc.flight.PassengerRequest)) {
+    if (!(obj instanceof com.alexeyre.grpc.flight.DisplayRequest)) {
       return super.equals(obj);
     }
-    com.alexeyre.grpc.flight.PassengerRequest other = (com.alexeyre.grpc.flight.PassengerRequest) obj;
+    com.alexeyre.grpc.flight.DisplayRequest other = (com.alexeyre.grpc.flight.DisplayRequest) obj;
 
     boolean result = true;
-    result = result && getSeat()
-        .equals(other.getSeat());
-    result = result && (getLuggage()
-        == other.getLuggage());
+    result = result && getDisplayRequest()
+        .equals(other.getDisplayRequest());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -197,78 +173,76 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + SEAT_FIELD_NUMBER;
-    hash = (53 * hash) + getSeat().hashCode();
-    hash = (37 * hash) + LUGGAGE_FIELD_NUMBER;
-    hash = (53 * hash) + getLuggage();
+    hash = (37 * hash) + DISPLAYREQUEST_FIELD_NUMBER;
+    hash = (53 * hash) + getDisplayRequest().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(byte[] data)
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(java.io.InputStream input)
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseDelimitedFrom(java.io.InputStream input)
+  public static com.alexeyre.grpc.flight.DisplayRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseDelimitedFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.alexeyre.grpc.flight.PassengerRequest parseFrom(
+  public static com.alexeyre.grpc.flight.DisplayRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -281,7 +255,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.alexeyre.grpc.flight.PassengerRequest prototype) {
+  public static Builder newBuilder(com.alexeyre.grpc.flight.DisplayRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -297,26 +271,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code com.alexeyre.grpc.flight.PassengerRequest}
+   * Protobuf type {@code com.alexeyre.grpc.flight.DisplayRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:com.alexeyre.grpc.flight.PassengerRequest)
-      com.alexeyre.grpc.flight.PassengerRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:com.alexeyre.grpc.flight.DisplayRequest)
+      com.alexeyre.grpc.flight.DisplayRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PassengerRequest_descriptor;
+      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DisplayRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PassengerRequest_fieldAccessorTable
+      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DisplayRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.alexeyre.grpc.flight.PassengerRequest.class, com.alexeyre.grpc.flight.PassengerRequest.Builder.class);
+              com.alexeyre.grpc.flight.DisplayRequest.class, com.alexeyre.grpc.flight.DisplayRequest.Builder.class);
     }
 
-    // Construct using com.alexeyre.grpc.flight.PassengerRequest.newBuilder()
+    // Construct using com.alexeyre.grpc.flight.DisplayRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -334,9 +308,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      seat_ = "";
-
-      luggage_ = 0;
+      displayRequest_ = "";
 
       return this;
     }
@@ -344,17 +316,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_PassengerRequest_descriptor;
+      return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_DisplayRequest_descriptor;
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.flight.PassengerRequest getDefaultInstanceForType() {
-      return com.alexeyre.grpc.flight.PassengerRequest.getDefaultInstance();
+    public com.alexeyre.grpc.flight.DisplayRequest getDefaultInstanceForType() {
+      return com.alexeyre.grpc.flight.DisplayRequest.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.flight.PassengerRequest build() {
-      com.alexeyre.grpc.flight.PassengerRequest result = buildPartial();
+    public com.alexeyre.grpc.flight.DisplayRequest build() {
+      com.alexeyre.grpc.flight.DisplayRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -362,10 +334,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.alexeyre.grpc.flight.PassengerRequest buildPartial() {
-      com.alexeyre.grpc.flight.PassengerRequest result = new com.alexeyre.grpc.flight.PassengerRequest(this);
-      result.seat_ = seat_;
-      result.luggage_ = luggage_;
+    public com.alexeyre.grpc.flight.DisplayRequest buildPartial() {
+      com.alexeyre.grpc.flight.DisplayRequest result = new com.alexeyre.grpc.flight.DisplayRequest(this);
+      result.displayRequest_ = displayRequest_;
       onBuilt();
       return result;
     }
@@ -404,22 +375,19 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.alexeyre.grpc.flight.PassengerRequest) {
-        return mergeFrom((com.alexeyre.grpc.flight.PassengerRequest)other);
+      if (other instanceof com.alexeyre.grpc.flight.DisplayRequest) {
+        return mergeFrom((com.alexeyre.grpc.flight.DisplayRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.alexeyre.grpc.flight.PassengerRequest other) {
-      if (other == com.alexeyre.grpc.flight.PassengerRequest.getDefaultInstance()) return this;
-      if (!other.getSeat().isEmpty()) {
-        seat_ = other.seat_;
+    public Builder mergeFrom(com.alexeyre.grpc.flight.DisplayRequest other) {
+      if (other == com.alexeyre.grpc.flight.DisplayRequest.getDefaultInstance()) return this;
+      if (!other.getDisplayRequest().isEmpty()) {
+        displayRequest_ = other.displayRequest_;
         onChanged();
-      }
-      if (other.getLuggage() != 0) {
-        setLuggage(other.getLuggage());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -436,11 +404,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.alexeyre.grpc.flight.PassengerRequest parsedMessage = null;
+      com.alexeyre.grpc.flight.DisplayRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.alexeyre.grpc.flight.PassengerRequest) e.getUnfinishedMessage();
+        parsedMessage = (com.alexeyre.grpc.flight.DisplayRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -450,97 +418,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object seat_ = "";
+    private java.lang.Object displayRequest_ = "";
     /**
-     * <code>string seat = 1;</code>
+     * <code>string displayRequest = 1;</code>
      */
-    public java.lang.String getSeat() {
-      java.lang.Object ref = seat_;
+    public java.lang.String getDisplayRequest() {
+      java.lang.Object ref = displayRequest_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        seat_ = s;
+        displayRequest_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string seat = 1;</code>
+     * <code>string displayRequest = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getSeatBytes() {
-      java.lang.Object ref = seat_;
+        getDisplayRequestBytes() {
+      java.lang.Object ref = displayRequest_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        seat_ = b;
+        displayRequest_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string seat = 1;</code>
+     * <code>string displayRequest = 1;</code>
      */
-    public Builder setSeat(
+    public Builder setDisplayRequest(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      seat_ = value;
+      displayRequest_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string seat = 1;</code>
+     * <code>string displayRequest = 1;</code>
      */
-    public Builder clearSeat() {
+    public Builder clearDisplayRequest() {
       
-      seat_ = getDefaultInstance().getSeat();
+      displayRequest_ = getDefaultInstance().getDisplayRequest();
       onChanged();
       return this;
     }
     /**
-     * <code>string seat = 1;</code>
+     * <code>string displayRequest = 1;</code>
      */
-    public Builder setSeatBytes(
+    public Builder setDisplayRequestBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      seat_ = value;
-      onChanged();
-      return this;
-    }
-
-    private int luggage_ ;
-    /**
-     * <code>int32 luggage = 2;</code>
-     */
-    public int getLuggage() {
-      return luggage_;
-    }
-    /**
-     * <code>int32 luggage = 2;</code>
-     */
-    public Builder setLuggage(int value) {
-      
-      luggage_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 luggage = 2;</code>
-     */
-    public Builder clearLuggage() {
-      
-      luggage_ = 0;
+      displayRequest_ = value;
       onChanged();
       return this;
     }
@@ -557,41 +499,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:com.alexeyre.grpc.flight.PassengerRequest)
+    // @@protoc_insertion_point(builder_scope:com.alexeyre.grpc.flight.DisplayRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:com.alexeyre.grpc.flight.PassengerRequest)
-  private static final com.alexeyre.grpc.flight.PassengerRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:com.alexeyre.grpc.flight.DisplayRequest)
+  private static final com.alexeyre.grpc.flight.DisplayRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.alexeyre.grpc.flight.PassengerRequest();
+    DEFAULT_INSTANCE = new com.alexeyre.grpc.flight.DisplayRequest();
   }
 
-  public static com.alexeyre.grpc.flight.PassengerRequest getDefaultInstance() {
+  public static com.alexeyre.grpc.flight.DisplayRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<PassengerRequest>
-      PARSER = new com.google.protobuf.AbstractParser<PassengerRequest>() {
+  private static final com.google.protobuf.Parser<DisplayRequest>
+      PARSER = new com.google.protobuf.AbstractParser<DisplayRequest>() {
     @java.lang.Override
-    public PassengerRequest parsePartialFrom(
+    public DisplayRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new PassengerRequest(input, extensionRegistry);
+      return new DisplayRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<PassengerRequest> parser() {
+  public static com.google.protobuf.Parser<DisplayRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<PassengerRequest> getParserForType() {
+  public com.google.protobuf.Parser<DisplayRequest> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.alexeyre.grpc.flight.PassengerRequest getDefaultInstanceForType() {
+  public com.alexeyre.grpc.flight.DisplayRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

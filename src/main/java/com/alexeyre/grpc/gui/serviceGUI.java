@@ -27,17 +27,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.alexeyre.grpc.flight.BookingRequest;
-import com.alexeyre.grpc.flight.BookingResponse;
 import com.alexeyre.grpc.flight.FlightServiceGrpc;
 import com.alexeyre.grpc.flight.FlightServiceGrpc.FlightServiceBlockingStub;
 import com.alexeyre.grpc.flight.FlightServiceGrpc.FlightServiceStub;
 import com.alexeyre.grpc.flight.ListRequest;
 import com.alexeyre.grpc.flight.ListResponse;
-import com.alexeyre.grpc.flight.PassengerRequest;
-import com.alexeyre.grpc.flight.PassengerResponse;
-import com.alexeyre.grpc.flight.PeopleRequest;
-import com.alexeyre.grpc.flight.PeopleResponse;
+import com.alexeyre.grpc.flight.SearchRequest;
+import com.alexeyre.grpc.flight.SearchResponse;
 import com.alexeyre.grpc.hotel.HotelAmenitiesRequest;
 import com.alexeyre.grpc.hotel.HotelAmenitiesResponse;
 import com.alexeyre.grpc.hotel.HotelBookingRequest;
@@ -289,8 +285,8 @@ public class serviceGUI {
 
 				// Setting each value in flightList requests to pre determined values for server
 				// side streaming
-				ListRequest req = ListRequest.newBuilder().setLocation1("London").setLocation2("Paris")
-						.setLocation3("Berlin").setLocation4("Madrid").build();
+				ListRequest req = ListRequest.newBuilder().setValue("London").setValue("Paris").setValue("Berlin")
+						.setValue("Madrid").build();
 
 				// Iterate through the response and print off all pre determined values at once
 				// using the blockingStub
@@ -347,10 +343,10 @@ public class serviceGUI {
 			public void actionPerformed(ActionEvent e) {
 
 				// Iterating through the stream of responses for flightBooking
-				StreamObserver<BookingResponse> responseObserver = new StreamObserver<BookingResponse>() {
+				StreamObserver<SearchResponse> responseObserver = new StreamObserver<SearchResponse>() {
 
 					@Override
-					public void onNext(BookingResponse value) {
+					public void onNext(SearchResponse value) {
 						location_date_ta.append("Depart: " + value.getDepart());
 						System.out.println("\nDepart: " + value.getDepart());
 						try {
@@ -402,7 +398,7 @@ public class serviceGUI {
 				} // end if for removing text from text fields
 
 				// Iterating through the stream of requests for flightBooking
-				StreamObserver<BookingRequest> requestObserver = asyncStub1.flightBooking(responseObserver);
+				StreamObserver<SearchRequest> requestObserver = asyncStub1.flightSearch(responseObserver);
 
 				// if the list of requests is greater than 3 do ...
 				if (booking.size() > 3) {
@@ -411,7 +407,7 @@ public class serviceGUI {
 					// this prevents overriding values for each user input
 					try {
 						for (int i = 0; i < booking.size(); i++) {
-							requestObserver.onNext(BookingRequest.newBuilder().setValue(booking.get(i)).build());
+							requestObserver.onNext(SearchRequest.newBuilder().setValue(booking.get(i)).build());
 							Thread.sleep(500);
 						} // end for loop
 
@@ -458,128 +454,128 @@ public class serviceGUI {
 		JScrollPane scrollPane2 = new JScrollPane(no_of_passengers_ta);
 		people_flight_panel.add(scrollPane2);
 
-		// creating action when btnSubmit is clicked
-		btnPassengers.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				String input = no_of_passengers_tf.getText();
-				int num = 0;
-
-				if (!input.matches("[\\-]?[1-8]+")) {
-					no_of_passengers_ta.append("ERROR, 1-8 passengers per booking" + "\n");
-					System.out.println("\nERROR, 1-8 passengers per booking");
-					no_of_passengers_ta.setText("");
-
-				} else {
-					num = Integer.parseInt(no_of_passengers_tf.getText());
-					PeopleRequest peopleReq = PeopleRequest.newBuilder().setPassengers(num).build();
-					position = num;
-					PeopleResponse peopleRes = blockingStub1.flightPeople(peopleReq);
-
-					btnPassengers.setEnabled(false);
-					System.out.println("\nNumber of people booked:" + peopleRes.getPassengers());
-					no_of_passengers_ta.append("Number of people booked: " + peopleRes.getPassengers());
-				}
-
-			}// end btnSubmit2 action performed
-
-		});// end btnSubmit2 action listener
-
-		/*
-		 * 
-		 * EVERYTHING TO DO WITH FLIGHT PASSENGERS PREFERENCE PANEL
-		 * 
-		 */
-
-		tabPanel1.add(passengers_flight_panel);
-
-		// Configuring buttons, labels and text fields for booking flight panel
-		JLabel JLabel4 = new JLabel("(Bi-directional) Seat preference: ");
-		JLabel JLabel5 = new JLabel("Amount of luggage: ");
-		passengers_flight_panel.add(JLabel4);
-		seat_pref_tf = new JTextField();
-		passengers_flight_panel.add(seat_pref_tf);
-		seat_pref_tf.setColumns(10);
-
-		passengers_flight_panel.add(JLabel5);
-		luggage_tf = new JTextField();
-		passengers_flight_panel.add(luggage_tf);
-		luggage_tf.setColumns(10);
-
-		JButton btnSeatLuggage = new JButton("Submit");
-		passengers_flight_panel.add(btnSeatLuggage);
-
-		seat_luggage_ta = new JTextArea(3, 15);
-		passengers_flight_panel.add(seat_luggage_ta);
-		seat_luggage_ta.setLineWrap(true);
-		seat_luggage_ta.setWrapStyleWord(true);
-		JScrollPane scrollPane3 = new JScrollPane(seat_luggage_ta);
-		passengers_flight_panel.add(scrollPane3);
-
-		btnSeatLuggage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				StreamObserver<PassengerResponse> responseObserver = new StreamObserver<PassengerResponse>() {
-
-					@Override
-					public void onNext(PassengerResponse value) {
-						System.out.println("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
-								+ value.getLuggage() + "\n");
-
-						seat_luggage_ta.append("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
-								+ value.getLuggage() + "\n");
-
-					}
-
-					@Override
-					public void onError(Throwable t) {
-						t.printStackTrace();
-
-					}
-
-					@Override
-					public void onCompleted() {
-
-					}
-
-				};
-
-				StreamObserver<PassengerRequest> requestObserver = asyncStub1.flightPassenger(responseObserver);
-
-				String seat = "";
-				int luggage = Integer.parseInt(luggage_tf.getText());
-				seat = seat_pref_tf.getText();
-				list.add(seat);
-
-				if (list.size() <= position) {
-
-					try {
-
-						requestObserver.onNext(PassengerRequest.newBuilder().setSeat(seat).setLuggage(luggage).build());
-
-						if (list.size() >= position) {
-							requestObserver.onCompleted();
-							System.out.println("All passengers seat preference and luggage have been booked" + "\n");
-							seat_luggage_ta
-									.append("All passengers seat preference and luggage have been booked" + "\n");
-							btnSeatLuggage.setEnabled(false);
-						}
-
-						Thread.sleep(1000);
-						// Mark the end of requests
-
-					} catch (RuntimeException e1) {
-						e1.printStackTrace();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-				}
-
-			}
-
-		});
+//		// creating action when btnSubmit is clicked
+//		btnPassengers.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//
+//				String input = no_of_passengers_tf.getText();
+//				int num = 0;
+//
+//				if (!input.matches("[\\-]?[1-8]+")) {
+//					no_of_passengers_ta.append("ERROR, 1-8 passengers per booking" + "\n");
+//					System.out.println("\nERROR, 1-8 passengers per booking");
+//					no_of_passengers_ta.setText("");
+//
+//				} else {
+//					num = Integer.parseInt(no_of_passengers_tf.getText());
+//					PeopleRequest peopleReq = PeopleRequest.newBuilder().setPassengers(num).build();
+//					position = num;
+//					PeopleResponse peopleRes = blockingStub1.flightPeople(peopleReq);
+//
+//					btnPassengers.setEnabled(false);
+//					System.out.println("\nNumber of people booked:" + peopleRes.getPassengers());
+//					no_of_passengers_ta.append("Number of people booked: " + peopleRes.getPassengers());
+//				}
+//
+//			}// end btnSubmit2 action performed
+//
+//		});// end btnSubmit2 action listener
+//
+//		/*
+//		 * 
+//		 * EVERYTHING TO DO WITH FLIGHT PASSENGERS PREFERENCE PANEL
+//		 * 
+//		 */
+//
+//		tabPanel1.add(passengers_flight_panel);
+//
+//		// Configuring buttons, labels and text fields for booking flight panel
+//		JLabel JLabel4 = new JLabel("(Bi-directional) Seat preference: ");
+//		JLabel JLabel5 = new JLabel("Amount of luggage: ");
+//		passengers_flight_panel.add(JLabel4);
+//		seat_pref_tf = new JTextField();
+//		passengers_flight_panel.add(seat_pref_tf);
+//		seat_pref_tf.setColumns(10);
+//
+//		passengers_flight_panel.add(JLabel5);
+//		luggage_tf = new JTextField();
+//		passengers_flight_panel.add(luggage_tf);
+//		luggage_tf.setColumns(10);
+//
+//		JButton btnSeatLuggage = new JButton("Submit");
+//		passengers_flight_panel.add(btnSeatLuggage);
+//
+//		seat_luggage_ta = new JTextArea(3, 15);
+//		passengers_flight_panel.add(seat_luggage_ta);
+//		seat_luggage_ta.setLineWrap(true);
+//		seat_luggage_ta.setWrapStyleWord(true);
+//		JScrollPane scrollPane3 = new JScrollPane(seat_luggage_ta);
+//		passengers_flight_panel.add(scrollPane3);
+//
+//		btnSeatLuggage.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//
+//				StreamObserver<PassengerResponse> responseObserver = new StreamObserver<PassengerResponse>() {
+//
+//					@Override
+//					public void onNext(PassengerResponse value) {
+//						System.out.println("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
+//								+ value.getLuggage() + "\n");
+//
+//						seat_luggage_ta.append("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
+//								+ value.getLuggage() + "\n");
+//
+//					}
+//
+//					@Override
+//					public void onError(Throwable t) {
+//						t.printStackTrace();
+//
+//					}
+//
+//					@Override
+//					public void onCompleted() {
+//
+//					}
+//
+//				};
+//
+//				StreamObserver<PassengerRequest> requestObserver = asyncStub1.flightPassenger(responseObserver);
+//
+//				String seat = "";
+//				int luggage = Integer.parseInt(luggage_tf.getText());
+//				seat = seat_pref_tf.getText();
+//				list.add(seat);
+//
+//				if (list.size() <= position) {
+//
+//					try {
+//
+//						requestObserver.onNext(PassengerRequest.newBuilder().setSeat(seat).setLuggage(luggage).build());
+//
+//						if (list.size() >= position) {
+//							requestObserver.onCompleted();
+//							System.out.println("All passengers seat preference and luggage have been booked" + "\n");
+//							seat_luggage_ta
+//									.append("All passengers seat preference and luggage have been booked" + "\n");
+//							btnSeatLuggage.setEnabled(false);
+//						}
+//
+//						Thread.sleep(1000);
+//						// Mark the end of requests
+//
+//					} catch (RuntimeException e1) {
+//						e1.printStackTrace();
+//					} catch (InterruptedException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//
+//				}
+//
+//			}
+//
+//		});
 
 		/*
 		 * 

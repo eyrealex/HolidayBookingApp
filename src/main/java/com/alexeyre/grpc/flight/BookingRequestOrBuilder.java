@@ -8,12 +8,52 @@ public interface BookingRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string value = 1;</code>
+   * <code>string flightNumber = 1;</code>
    */
-  java.lang.String getValue();
+  java.lang.String getFlightNumber();
   /**
-   * <code>string value = 1;</code>
+   * <code>string flightNumber = 1;</code>
    */
   com.google.protobuf.ByteString
-      getValueBytes();
+      getFlightNumberBytes();
+
+  /**
+   * <code>string ticketType = 2;</code>
+   */
+  java.lang.String getTicketType();
+  /**
+   * <code>string ticketType = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getTicketTypeBytes();
+
+  /**
+   * <code>string firstname = 3;</code>
+   */
+  java.lang.String getFirstname();
+  /**
+   * <code>string firstname = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getFirstnameBytes();
+
+  /**
+   * <code>string surname = 4;</code>
+   */
+  java.lang.String getSurname();
+  /**
+   * <code>string surname = 4;</code>
+   */
+  com.google.protobuf.ByteString
+      getSurnameBytes();
+
+  /**
+   * <code>string seatPref = 5;</code>
+   */
+  java.lang.String getSeatPref();
+  /**
+   * <code>string seatPref = 5;</code>
+   */
+  com.google.protobuf.ByteString
+      getSeatPrefBytes();
 }
