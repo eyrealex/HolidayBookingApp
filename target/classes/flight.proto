@@ -69,19 +69,18 @@ message NumberResponse{
 }
 
 message BookingRequest{
-	string flightNumber = 1;
-	string ticketType = 2;
+	string ticketType = 1;
+	string seatPref = 2;
 	string firstname = 3;
 	string surname = 4;
-	string seatPref = 5;
+	
 }
 
 message BookingResponse{
-	string flightNumber = 1;
-	string ticketType = 2;
-	string seatPref = 3;
-	string firstname = 4;
-	string surname = 5;
+	string ticketType = 1;
+	string seatPref = 2;
+	string firstname = 3;
+	string surname = 4;
 }
 
 message DisplayRequest{

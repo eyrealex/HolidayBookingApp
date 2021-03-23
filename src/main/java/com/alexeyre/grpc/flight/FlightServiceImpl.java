@@ -101,43 +101,42 @@ public final class FlightServiceImpl {
       "ime\030\013 \001(\t\022\022\n\npassengers\030\014 \001(\005\022\r\n\005price\030\r" +
       " \001(\t\"%\n\rNumberRequest\022\024\n\014requestValue\030\001 " +
       "\001(\t\"(\n\016NumberResponse\022\026\n\016responseResult\030" +
-      "\001 \001(\t\"p\n\016BookingRequest\022\024\n\014flightNumber\030" +
-      "\001 \001(\t\022\022\n\nticketType\030\002 \001(\t\022\021\n\tfirstname\030\003" +
-      " \001(\t\022\017\n\007surname\030\004 \001(\t\022\020\n\010seatPref\030\005 \001(\t\"" +
-      "q\n\017BookingResponse\022\024\n\014flightNumber\030\001 \001(\t" +
-      "\022\022\n\nticketType\030\002 \001(\t\022\020\n\010seatPref\030\003 \001(\t\022\021" +
-      "\n\tfirstname\030\004 \001(\t\022\017\n\007surname\030\005 \001(\t\"(\n\016Di" +
-      "splayRequest\022\026\n\016displayRequest\030\001 \001(\t\"\360\003\n" +
-      "\017DisplayResponse\022\032\n\022displayDestination\030\001" +
-      " \001(\t\022\034\n\024displayDepartureDate\030\002 \001(\t\022\034\n\024di" +
-      "splayDepartureTime\030\003 \001(\t\022\035\n\025displayFligh" +
-      "tDuration\030\004 \001(\t\022\032\n\022displayArrivalTime\030\005 " +
-      "\001(\t\022\027\n\017displayFlightId\030\006 \001(\t\022\035\n\025displayR" +
-      "eturnLocation\030\007 \001(\t\022\031\n\021displayReturnDate" +
-      "\030\010 \001(\t\022\031\n\021displayReturnTime\030\t \001(\t\022#\n\033dis" +
-      "playFlightReturnDuration\030\n \001(\t\022 \n\030displa" +
-      "yReturnArrivalTime\030\013 \001(\t\022\031\n\021displayPasse" +
-      "ngers\030\014 \001(\005\022\024\n\014displayPrice\030\r \001(\t\022\031\n\021dis" +
-      "playTicketType\030\016 \001(\t\022\027\n\017displaySeatPref\030" +
-      "\017 \001(\t\022\030\n\020displayFirstname\030\020 \001(\t\022\026\n\016displ" +
-      "aySurname\030\021 \001(\t2\374\004\n\rFlightService\022_\n\nfli" +
-      "ghtList\022%.com.alexeyre.grpc.flight.ListR" +
-      "equest\032&.com.alexeyre.grpc.flight.ListRe" +
-      "sponse\"\0000\001\022e\n\014flightSearch\022\'.com.alexeyr" +
-      "e.grpc.flight.SearchRequest\032(.com.alexey" +
-      "re.grpc.flight.SearchResponse\"\000(\001\022h\n\rfli" +
-      "ghtDetails\022(.com.alexeyre.grpc.flight.De" +
-      "tailsRequest\032).com.alexeyre.grpc.flight." +
-      "DetailsResponse\"\0000\001\022c\n\014flightNumber\022\'.co" +
-      "m.alexeyre.grpc.flight.NumberRequest\032(.c" +
-      "om.alexeyre.grpc.flight.NumberResponse\"\000" +
-      "\022j\n\rflightBooking\022(.com.alexeyre.grpc.fl" +
-      "ight.BookingRequest\032).com.alexeyre.grpc." +
-      "flight.BookingResponse\"\000(\0010\001\022h\n\rflightDi" +
-      "splay\022(.com.alexeyre.grpc.flight.Display" +
-      "Request\032).com.alexeyre.grpc.flight.Displ" +
-      "ayResponse\"\0000\001B/\n\030com.alexeyre.grpc.flig" +
-      "htB\021FlightServiceImplP\001b\006proto3"
+      "\001 \001(\t\"Z\n\016BookingRequest\022\022\n\nticketType\030\001 " +
+      "\001(\t\022\020\n\010seatPref\030\002 \001(\t\022\021\n\tfirstname\030\003 \001(\t" +
+      "\022\017\n\007surname\030\004 \001(\t\"[\n\017BookingResponse\022\022\n\n" +
+      "ticketType\030\001 \001(\t\022\020\n\010seatPref\030\002 \001(\t\022\021\n\tfi" +
+      "rstname\030\003 \001(\t\022\017\n\007surname\030\004 \001(\t\"(\n\016Displa" +
+      "yRequest\022\026\n\016displayRequest\030\001 \001(\t\"\360\003\n\017Dis" +
+      "playResponse\022\032\n\022displayDestination\030\001 \001(\t" +
+      "\022\034\n\024displayDepartureDate\030\002 \001(\t\022\034\n\024displa" +
+      "yDepartureTime\030\003 \001(\t\022\035\n\025displayFlightDur" +
+      "ation\030\004 \001(\t\022\032\n\022displayArrivalTime\030\005 \001(\t\022" +
+      "\027\n\017displayFlightId\030\006 \001(\t\022\035\n\025displayRetur" +
+      "nLocation\030\007 \001(\t\022\031\n\021displayReturnDate\030\010 \001" +
+      "(\t\022\031\n\021displayReturnTime\030\t \001(\t\022#\n\033display" +
+      "FlightReturnDuration\030\n \001(\t\022 \n\030displayRet" +
+      "urnArrivalTime\030\013 \001(\t\022\031\n\021displayPassenger" +
+      "s\030\014 \001(\005\022\024\n\014displayPrice\030\r \001(\t\022\031\n\021display" +
+      "TicketType\030\016 \001(\t\022\027\n\017displaySeatPref\030\017 \001(" +
+      "\t\022\030\n\020displayFirstname\030\020 \001(\t\022\026\n\016displaySu" +
+      "rname\030\021 \001(\t2\374\004\n\rFlightService\022_\n\nflightL" +
+      "ist\022%.com.alexeyre.grpc.flight.ListReque" +
+      "st\032&.com.alexeyre.grpc.flight.ListRespon" +
+      "se\"\0000\001\022e\n\014flightSearch\022\'.com.alexeyre.gr" +
+      "pc.flight.SearchRequest\032(.com.alexeyre.g" +
+      "rpc.flight.SearchResponse\"\000(\001\022h\n\rflightD" +
+      "etails\022(.com.alexeyre.grpc.flight.Detail" +
+      "sRequest\032).com.alexeyre.grpc.flight.Deta" +
+      "ilsResponse\"\0000\001\022c\n\014flightNumber\022\'.com.al" +
+      "exeyre.grpc.flight.NumberRequest\032(.com.a" +
+      "lexeyre.grpc.flight.NumberResponse\"\000\022j\n\r" +
+      "flightBooking\022(.com.alexeyre.grpc.flight" +
+      ".BookingRequest\032).com.alexeyre.grpc.flig" +
+      "ht.BookingResponse\"\000(\0010\001\022h\n\rflightDispla" +
+      "y\022(.com.alexeyre.grpc.flight.DisplayRequ" +
+      "est\032).com.alexeyre.grpc.flight.DisplayRe" +
+      "sponse\"\0000\001B/\n\030com.alexeyre.grpc.flightB\021" +
+      "FlightServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -204,13 +203,13 @@ public final class FlightServiceImpl {
     internal_static_com_alexeyre_grpc_flight_BookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_BookingRequest_descriptor,
-        new java.lang.String[] { "FlightNumber", "TicketType", "Firstname", "Surname", "SeatPref", });
+        new java.lang.String[] { "TicketType", "SeatPref", "Firstname", "Surname", });
     internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_com_alexeyre_grpc_flight_BookingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_alexeyre_grpc_flight_BookingResponse_descriptor,
-        new java.lang.String[] { "FlightNumber", "TicketType", "SeatPref", "Firstname", "Surname", });
+        new java.lang.String[] { "TicketType", "SeatPref", "Firstname", "Surname", });
     internal_static_com_alexeyre_grpc_flight_DisplayRequest_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_com_alexeyre_grpc_flight_DisplayRequest_fieldAccessorTable = new

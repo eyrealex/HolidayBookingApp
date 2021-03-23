@@ -22,6 +22,7 @@ public class FlightServer extends FlightServiceImplBase {
 
 	private static int position;
 	private static ArrayList<String> booking_list = new ArrayList();
+	ArrayList<PassengerHelper> phelper = new ArrayList<>();
 
 	private static String depart, arrival;
 	private static String depart_date, arrival_date;
@@ -59,13 +60,8 @@ public class FlightServer extends FlightServiceImplBase {
 	private static String randomNumber3 = Long.toHexString(Double.doubleToLongBits(Math.random()));
 
 	private static String firstname, surname, seatNo, ticketType, flightNumber;
-	private static PassengerHelper[] phelper;
-	private static FlightHelper[] fhelper;
 
 	public static void main(String[] args) {
-
-		fhelper = new FlightHelper[3];
-		phelper = new PassengerHelper[3];
 
 		FlightServer flightserver = new FlightServer();
 		Properties prop = flightserver.getProperties();
@@ -332,46 +328,43 @@ public class FlightServer extends FlightServiceImplBase {
 
 	@Override
 	public StreamObserver<BookingRequest> flightBooking(StreamObserver<BookingResponse> responseObserver) {
+
+		ArrayList<String> temp = new ArrayList();
+
 		return new StreamObserver<BookingRequest>() {
 
 			BookingResponse bookingResponse;
 
 			@Override
 			public void onNext(BookingRequest value) {
-				ticketType = value.getTicketType();
+				ticketType = null;
+				firstname = null;
+				surname = null;
+				seatNo = null;
 				booking_list.add(ticketType);
-				firstname = value.getFirstname();
-				surname = value.getSurname();
-				seatNo = value.getSeatPref();
 
 				if (booking_list.size() <= position) {
 					System.out.println("\nMaking booking for passenger:" + "\n" + "Ticket type: "
 							+ value.getTicketType() + "\n" + "Seat Preference: " + value.getSeatPref() + "\n"
 							+ "Firstname: " + value.getFirstname() + "\n" + "Surname: " + value.getSurname());
 
-					System.out.println("phelper size" + phelper.length);
-					if (booking_list.size() == 1) {
-						phelper[0] = new PassengerHelper(ticketType, seatNo, firstname, surname);
+					ticketType = value.getTicketType();
+					seatNo = value.getSeatPref();
+					firstname = value.getFirstname();
+					surname = value.getSurname();
 
-						bookingResponse = BookingResponse.newBuilder().setTicketType(phelper[0].getTType())
-								.setSeatPref(phelper[0].getSPref()).setFirstname(phelper[0].getFName())
-								.setSurname(phelper[0].getSName()).build();
+					phelper.add(new PassengerHelper(ticketType, seatNo, firstname, surname));
 
-					} else if (booking_list.size() == 2) {
-						phelper[1] = new PassengerHelper(ticketType, seatNo, firstname, surname);
+					for (int i = 0; i < phelper.size(); i++) {
+						bookingResponse = BookingResponse.newBuilder().setTicketType(phelper.get(i).getTType())
+								.setSeatPref(phelper.get(i).getSPref()).setFirstname(phelper.get(i).getFName())
+								.setSurname(phelper.get(i).getSName()).build();
 
-						bookingResponse = BookingResponse.newBuilder().setTicketType(phelper[1].getTType())
-								.setSeatPref(phelper[1].getSPref()).setFirstname(phelper[1].getFName())
-								.setSurname(phelper[1].getSName()).build();
-
-					} else if (booking_list.size() == 3) {
-						phelper[2] = new PassengerHelper(ticketType, seatNo, firstname, surname);
-						bookingResponse = BookingResponse.newBuilder().setTicketType(phelper[2].getTType())
-								.setSeatPref(phelper[2].getSPref()).setFirstname(phelper[2].getFName())
-								.setSurname(phelper[2].getSName()).build();
 					}
 
 					responseObserver.onNext(bookingResponse);
+
+
 				} else {
 					onCompleted();
 				}
@@ -403,7 +396,7 @@ public class FlightServer extends FlightServiceImplBase {
 
 		ArrayList<String> display_list = new ArrayList();
 
-		for (int i = 0; i < position; i++) {
+		for (int i = 0; i < phelper.size(); i++) {
 
 			DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDepartureDate(depart_date)
 					.setDisplayDepartureTime(depart_time1).setDisplayFlightDuration(depart_duration1)
@@ -412,10 +405,10 @@ public class FlightServer extends FlightServiceImplBase {
 					.setDisplayReturnTime(return_time1).setDisplayFlightReturnDuration(return_duration1)
 					.setDisplayReturnArrivalTime(return_arrival_time1).setDisplayPassengers(passengers)
 					.setDisplayPrice(price1)
-					
-					
-					.setDisplayTicketType(phelper[i].getTType()).setDisplaySeatPref(phelper[i].getSPref())
-					.setDisplayFirstname(phelper[i].getFName()).setDisplaySurname(phelper[i].getSName()).build();
+
+					.setDisplayTicketType(phelper.get(i).getTType()).setDisplaySeatPref(phelper.get(i).getSPref())
+					.setDisplayFirstname(phelper.get(i).getFName()).setDisplaySurname(phelper.get(i).getSName())
+					.build();
 
 			System.out.println("\nDeparture: " + depart);
 			System.out.println("Depart date: " + depart_date);
@@ -430,10 +423,10 @@ public class FlightServer extends FlightServiceImplBase {
 			System.out.println("Return arrival time: " + return_arrival_time1);
 			System.out.println("No. of passengers: " + passengers);
 			System.out.println("Price per passenger: " + price1);
-			System.out.println("Ticket type: " + ticketType);
-			System.out.println("Seat preference: " + seatNo);
-			System.out.println("Firstname: " + firstname);
-			System.out.println("Surname: " + surname);
+			System.out.println("Ticket type: " + phelper.get(i).getTType());
+			System.out.println("Seat preference: " + phelper.get(i).getSPref());
+			System.out.println("Firstname: " + phelper.get(i).getFName());
+			System.out.println("Surname: " + phelper.get(i).getSName());
 
 			responseObserver.onNext(reply);
 		}

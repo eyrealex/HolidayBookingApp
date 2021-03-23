@@ -16,7 +16,6 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private BookingResponse() {
-    flightNumber_ = "";
     ticketType_ = "";
     seatPref_ = "";
     firstname_ = "";
@@ -50,28 +49,22 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            flightNumber_ = s;
+            ticketType_ = s;
             break;
           }
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            ticketType_ = s;
+            seatPref_ = s;
             break;
           }
           case 26: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            seatPref_ = s;
-            break;
-          }
-          case 34: {
-            java.lang.String s = input.readStringRequireUtf8();
-
             firstname_ = s;
             break;
           }
-          case 42: {
+          case 34: {
             java.lang.String s = input.readStringRequireUtf8();
 
             surname_ = s;
@@ -109,44 +102,10 @@ private static final long serialVersionUID = 0L;
             com.alexeyre.grpc.flight.BookingResponse.class, com.alexeyre.grpc.flight.BookingResponse.Builder.class);
   }
 
-  public static final int FLIGHTNUMBER_FIELD_NUMBER = 1;
-  private volatile java.lang.Object flightNumber_;
-  /**
-   * <code>string flightNumber = 1;</code>
-   */
-  public java.lang.String getFlightNumber() {
-    java.lang.Object ref = flightNumber_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      flightNumber_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string flightNumber = 1;</code>
-   */
-  public com.google.protobuf.ByteString
-      getFlightNumberBytes() {
-    java.lang.Object ref = flightNumber_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      flightNumber_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
-  }
-
-  public static final int TICKETTYPE_FIELD_NUMBER = 2;
+  public static final int TICKETTYPE_FIELD_NUMBER = 1;
   private volatile java.lang.Object ticketType_;
   /**
-   * <code>string ticketType = 2;</code>
+   * <code>string ticketType = 1;</code>
    */
   public java.lang.String getTicketType() {
     java.lang.Object ref = ticketType_;
@@ -161,7 +120,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string ticketType = 2;</code>
+   * <code>string ticketType = 1;</code>
    */
   public com.google.protobuf.ByteString
       getTicketTypeBytes() {
@@ -177,10 +136,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int SEATPREF_FIELD_NUMBER = 3;
+  public static final int SEATPREF_FIELD_NUMBER = 2;
   private volatile java.lang.Object seatPref_;
   /**
-   * <code>string seatPref = 3;</code>
+   * <code>string seatPref = 2;</code>
    */
   public java.lang.String getSeatPref() {
     java.lang.Object ref = seatPref_;
@@ -195,7 +154,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string seatPref = 3;</code>
+   * <code>string seatPref = 2;</code>
    */
   public com.google.protobuf.ByteString
       getSeatPrefBytes() {
@@ -211,10 +170,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int FIRSTNAME_FIELD_NUMBER = 4;
+  public static final int FIRSTNAME_FIELD_NUMBER = 3;
   private volatile java.lang.Object firstname_;
   /**
-   * <code>string firstname = 4;</code>
+   * <code>string firstname = 3;</code>
    */
   public java.lang.String getFirstname() {
     java.lang.Object ref = firstname_;
@@ -229,7 +188,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string firstname = 4;</code>
+   * <code>string firstname = 3;</code>
    */
   public com.google.protobuf.ByteString
       getFirstnameBytes() {
@@ -245,10 +204,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int SURNAME_FIELD_NUMBER = 5;
+  public static final int SURNAME_FIELD_NUMBER = 4;
   private volatile java.lang.Object surname_;
   /**
-   * <code>string surname = 5;</code>
+   * <code>string surname = 4;</code>
    */
   public java.lang.String getSurname() {
     java.lang.Object ref = surname_;
@@ -263,7 +222,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string surname = 5;</code>
+   * <code>string surname = 4;</code>
    */
   public com.google.protobuf.ByteString
       getSurnameBytes() {
@@ -293,20 +252,17 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getFlightNumberBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, flightNumber_);
-    }
     if (!getTicketTypeBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ticketType_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ticketType_);
     }
     if (!getSeatPrefBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, seatPref_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, seatPref_);
     }
     if (!getFirstnameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, firstname_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, firstname_);
     }
     if (!getSurnameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, surname_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, surname_);
     }
     unknownFields.writeTo(output);
   }
@@ -317,20 +273,17 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getFlightNumberBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, flightNumber_);
-    }
     if (!getTicketTypeBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ticketType_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ticketType_);
     }
     if (!getSeatPrefBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, seatPref_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, seatPref_);
     }
     if (!getFirstnameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, firstname_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, firstname_);
     }
     if (!getSurnameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, surname_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, surname_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -348,8 +301,6 @@ private static final long serialVersionUID = 0L;
     com.alexeyre.grpc.flight.BookingResponse other = (com.alexeyre.grpc.flight.BookingResponse) obj;
 
     boolean result = true;
-    result = result && getFlightNumber()
-        .equals(other.getFlightNumber());
     result = result && getTicketType()
         .equals(other.getTicketType());
     result = result && getSeatPref()
@@ -369,8 +320,6 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + FLIGHTNUMBER_FIELD_NUMBER;
-    hash = (53 * hash) + getFlightNumber().hashCode();
     hash = (37 * hash) + TICKETTYPE_FIELD_NUMBER;
     hash = (53 * hash) + getTicketType().hashCode();
     hash = (37 * hash) + SEATPREF_FIELD_NUMBER;
@@ -512,8 +461,6 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      flightNumber_ = "";
-
       ticketType_ = "";
 
       seatPref_ = "";
@@ -548,7 +495,6 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.alexeyre.grpc.flight.BookingResponse buildPartial() {
       com.alexeyre.grpc.flight.BookingResponse result = new com.alexeyre.grpc.flight.BookingResponse(this);
-      result.flightNumber_ = flightNumber_;
       result.ticketType_ = ticketType_;
       result.seatPref_ = seatPref_;
       result.firstname_ = firstname_;
@@ -601,10 +547,6 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.alexeyre.grpc.flight.BookingResponse other) {
       if (other == com.alexeyre.grpc.flight.BookingResponse.getDefaultInstance()) return this;
-      if (!other.getFlightNumber().isEmpty()) {
-        flightNumber_ = other.flightNumber_;
-        onChanged();
-      }
       if (!other.getTicketType().isEmpty()) {
         ticketType_ = other.ticketType_;
         onChanged();
@@ -650,78 +592,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object flightNumber_ = "";
-    /**
-     * <code>string flightNumber = 1;</code>
-     */
-    public java.lang.String getFlightNumber() {
-      java.lang.Object ref = flightNumber_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        flightNumber_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <code>string flightNumber = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFlightNumberBytes() {
-      java.lang.Object ref = flightNumber_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        flightNumber_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string flightNumber = 1;</code>
-     */
-    public Builder setFlightNumber(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      flightNumber_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string flightNumber = 1;</code>
-     */
-    public Builder clearFlightNumber() {
-      
-      flightNumber_ = getDefaultInstance().getFlightNumber();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string flightNumber = 1;</code>
-     */
-    public Builder setFlightNumberBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      flightNumber_ = value;
-      onChanged();
-      return this;
-    }
-
     private java.lang.Object ticketType_ = "";
     /**
-     * <code>string ticketType = 2;</code>
+     * <code>string ticketType = 1;</code>
      */
     public java.lang.String getTicketType() {
       java.lang.Object ref = ticketType_;
@@ -736,7 +609,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string ticketType = 2;</code>
+     * <code>string ticketType = 1;</code>
      */
     public com.google.protobuf.ByteString
         getTicketTypeBytes() {
@@ -752,7 +625,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string ticketType = 2;</code>
+     * <code>string ticketType = 1;</code>
      */
     public Builder setTicketType(
         java.lang.String value) {
@@ -765,7 +638,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string ticketType = 2;</code>
+     * <code>string ticketType = 1;</code>
      */
     public Builder clearTicketType() {
       
@@ -774,7 +647,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string ticketType = 2;</code>
+     * <code>string ticketType = 1;</code>
      */
     public Builder setTicketTypeBytes(
         com.google.protobuf.ByteString value) {
@@ -790,7 +663,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object seatPref_ = "";
     /**
-     * <code>string seatPref = 3;</code>
+     * <code>string seatPref = 2;</code>
      */
     public java.lang.String getSeatPref() {
       java.lang.Object ref = seatPref_;
@@ -805,7 +678,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string seatPref = 3;</code>
+     * <code>string seatPref = 2;</code>
      */
     public com.google.protobuf.ByteString
         getSeatPrefBytes() {
@@ -821,7 +694,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string seatPref = 3;</code>
+     * <code>string seatPref = 2;</code>
      */
     public Builder setSeatPref(
         java.lang.String value) {
@@ -834,7 +707,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string seatPref = 3;</code>
+     * <code>string seatPref = 2;</code>
      */
     public Builder clearSeatPref() {
       
@@ -843,7 +716,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string seatPref = 3;</code>
+     * <code>string seatPref = 2;</code>
      */
     public Builder setSeatPrefBytes(
         com.google.protobuf.ByteString value) {
@@ -859,7 +732,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object firstname_ = "";
     /**
-     * <code>string firstname = 4;</code>
+     * <code>string firstname = 3;</code>
      */
     public java.lang.String getFirstname() {
       java.lang.Object ref = firstname_;
@@ -874,7 +747,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string firstname = 4;</code>
+     * <code>string firstname = 3;</code>
      */
     public com.google.protobuf.ByteString
         getFirstnameBytes() {
@@ -890,7 +763,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string firstname = 4;</code>
+     * <code>string firstname = 3;</code>
      */
     public Builder setFirstname(
         java.lang.String value) {
@@ -903,7 +776,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string firstname = 4;</code>
+     * <code>string firstname = 3;</code>
      */
     public Builder clearFirstname() {
       
@@ -912,7 +785,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string firstname = 4;</code>
+     * <code>string firstname = 3;</code>
      */
     public Builder setFirstnameBytes(
         com.google.protobuf.ByteString value) {
@@ -928,7 +801,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object surname_ = "";
     /**
-     * <code>string surname = 5;</code>
+     * <code>string surname = 4;</code>
      */
     public java.lang.String getSurname() {
       java.lang.Object ref = surname_;
@@ -943,7 +816,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string surname = 5;</code>
+     * <code>string surname = 4;</code>
      */
     public com.google.protobuf.ByteString
         getSurnameBytes() {
@@ -959,7 +832,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string surname = 5;</code>
+     * <code>string surname = 4;</code>
      */
     public Builder setSurname(
         java.lang.String value) {
@@ -972,7 +845,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string surname = 5;</code>
+     * <code>string surname = 4;</code>
      */
     public Builder clearSurname() {
       
@@ -981,7 +854,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string surname = 5;</code>
+     * <code>string surname = 4;</code>
      */
     public Builder setSurnameBytes(
         com.google.protobuf.ByteString value) {

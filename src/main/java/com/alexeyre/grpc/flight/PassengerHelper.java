@@ -4,9 +4,6 @@ public class PassengerHelper {
 
 	private String tType, sPref, fName, sName;
 
-	public PassengerHelper() {
-	}
-
 	public PassengerHelper(String tType, String sPref, String fName, String sName) {
 		super();
 		this.tType = tType;
