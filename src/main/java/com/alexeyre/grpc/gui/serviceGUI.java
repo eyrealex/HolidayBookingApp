@@ -1,6 +1,7 @@
 package com.alexeyre.grpc.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -10,9 +11,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Iterator;
-import java.util.Random;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
@@ -27,7 +26,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import com.alexeyre.grpc.flight.BookingRequest;
 import com.alexeyre.grpc.flight.BookingResponse;
@@ -40,18 +38,20 @@ import com.alexeyre.grpc.flight.PassengerRequest;
 import com.alexeyre.grpc.flight.PassengerResponse;
 import com.alexeyre.grpc.flight.PeopleRequest;
 import com.alexeyre.grpc.flight.PeopleResponse;
+import com.alexeyre.grpc.hotel.HotelAmenitiesRequest;
+import com.alexeyre.grpc.hotel.HotelAmenitiesResponse;
+import com.alexeyre.grpc.hotel.HotelBookingRequest;
+import com.alexeyre.grpc.hotel.HotelBookingResponse;
+import com.alexeyre.grpc.hotel.HotelListRequest;
+import com.alexeyre.grpc.hotel.HotelListResponse;
 import com.alexeyre.grpc.hotel.HotelServiceGrpc;
 import com.alexeyre.grpc.hotel.HotelServiceGrpc.HotelServiceBlockingStub;
 import com.alexeyre.grpc.hotel.HotelServiceGrpc.HotelServiceStub;
-import com.alexeyre.grpc.rental.RentalServiceGrpc;
-import com.alexeyre.grpc.rental.RentalServiceGrpc.RentalServiceBlockingStub;
-import com.alexeyre.grpc.rental.RentalServiceGrpc.RentalServiceStub;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
-import java.awt.Color;
 
 public class serviceGUI {
 
@@ -59,15 +59,17 @@ public class serviceGUI {
 	private static FlightServiceStub asyncStub1;
 	private static HotelServiceBlockingStub blockingStub2;
 	private static HotelServiceStub asyncStub2;
-	private static RentalServiceBlockingStub blockingStub3;
-	private static RentalServiceStub asyncStub3;
+
 	private static ServiceInfo serviceInfo;
 	private JFrame jFrame;
 	private JTabbedPane tabbedPane;
-	private JTextArea flight_list_ta, location_date_ta, no_of_passengers_ta, seat_luggage_ta;
-	private JTextField location_date_tf, no_of_passengers_tf, seat_pref_tf, luggage_tf;
+	private JTextArea flight_list_ta, location_date_ta, no_of_passengers_ta, seat_luggage_ta, hotel_list_ta,
+			hotel_booking_ta, amenities_ta;
+	private JTextField location_date_tf, no_of_passengers_tf, seat_pref_tf, luggage_tf, hotel_booking_tf, breakfast_tf,
+			gym_tf;
 	private static int position;
 	ArrayList<String> list = new ArrayList();
+	ArrayList<String> hotel_booking = new ArrayList();
 	ArrayList<String> booking = new ArrayList();
 
 	public static void main(String[] args) {
@@ -90,17 +92,16 @@ public class serviceGUI {
 		discoverFlightService(service_type);
 
 		String host = serviceInfo.getHostAddresses()[0];
-		int port = serviceInfo.getPort();
 
-		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+		ManagedChannel channel1 = ManagedChannelBuilder.forAddress(host, 60001).usePlaintext().build();
+		ManagedChannel channel2 = ManagedChannelBuilder.forAddress(host, 60002).usePlaintext().build();
+		ManagedChannel channel3 = ManagedChannelBuilder.forAddress(host, 60003).usePlaintext().build();
 
 		// stubs -- generate from proto
-		blockingStub1 = FlightServiceGrpc.newBlockingStub(channel);
-		asyncStub1 = FlightServiceGrpc.newStub(channel);
-		blockingStub2 = HotelServiceGrpc.newBlockingStub(channel);
-		asyncStub2 = HotelServiceGrpc.newStub(channel);
-		blockingStub3 = RentalServiceGrpc.newBlockingStub(channel);
-		asyncStub3 = RentalServiceGrpc.newStub(channel);
+		blockingStub1 = FlightServiceGrpc.newBlockingStub(channel1);
+		asyncStub1 = FlightServiceGrpc.newStub(channel1);
+		blockingStub2 = HotelServiceGrpc.newBlockingStub(channel2);
+		asyncStub2 = HotelServiceGrpc.newStub(channel2);
 
 		initGUI();
 		ServiceController();
@@ -163,7 +164,7 @@ public class serviceGUI {
 	public void initGUI() {
 		jFrame = new JFrame();
 		jFrame.setTitle("Holiday Booking App");
-		jFrame.setBounds(400, 400, 600, 550);
+		jFrame.setBounds(400, 400, 757, 742);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
@@ -178,10 +179,6 @@ public class serviceGUI {
 		JPanel tabPanel2 = new JPanel(false);
 		JPanel tabPanel3 = new JPanel(false);
 
-		// panels for tab 2
-		JPanel p4 = new JPanel();
-		JPanel p5 = new JPanel();
-		JPanel p6 = new JPanel();
 		// panels for tab 3
 		JPanel p7 = new JPanel();
 		JPanel p8 = new JPanel();
@@ -210,6 +207,18 @@ public class serviceGUI {
 		JPanel passengers_flight_panel = new JPanel();
 		passengers_flight_panel.setBackground(Color.LIGHT_GRAY);
 
+		// Configurations for tab 2
+		JPanel list_hotel_panel = new JPanel();
+		list_hotel_panel.setBackground(new Color(128, 128, 128));
+
+		// Panel 2
+		JPanel booking_hotel_panel = new JPanel();
+		booking_hotel_panel.setBackground(Color.LIGHT_GRAY);
+
+		// Panel 3
+		JPanel amenities_hotel_panel = new JPanel();
+		amenities_hotel_panel.setBackground(new Color(128, 128, 128));
+
 		// Adding tab 1 Frame
 		tabPanel1.setLayout(b1);
 		tabbedPane.addTab("Flight", null, tabPanel1, "Tab 1 tooltip");
@@ -236,12 +245,12 @@ public class serviceGUI {
 		passengers_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 
 		// Formatting panels for tab 2
-		p4.setAlignmentX(0.6f);
-		p4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		p5.setAlignmentX(0.6f);
-		p5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		p6.setAlignmentX(0.6f);
-		p6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		list_hotel_panel.setAlignmentX(0.6f);
+		list_hotel_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		booking_hotel_panel.setAlignmentX(0.6f);
+		booking_hotel_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		amenities_hotel_panel.setAlignmentX(0.6f);
+		amenities_hotel_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		// Formatting panels for tab 3
 		p7.setAlignmentX(0.6f);
@@ -270,7 +279,7 @@ public class serviceGUI {
 		list_flights_panel.add(flight_list_ta);
 		flight_list_ta.setLineWrap(true);
 		flight_list_ta.setWrapStyleWord(true);
-		
+
 		JScrollPane scrollPane = new JScrollPane(flight_list_ta);
 		list_flights_panel.add(scrollPane);
 
@@ -548,6 +557,14 @@ public class serviceGUI {
 
 						requestObserver.onNext(PassengerRequest.newBuilder().setSeat(seat).setLuggage(luggage).build());
 
+						if (list.size() >= position) {
+							requestObserver.onCompleted();
+							System.out.println("All passengers seat preference and luggage have been booked" + "\n");
+							seat_luggage_ta
+									.append("All passengers seat preference and luggage have been booked" + "\n");
+							btnSeatLuggage.setEnabled(false);
+						}
+
 						Thread.sleep(1000);
 						// Mark the end of requests
 
@@ -558,22 +575,245 @@ public class serviceGUI {
 						e1.printStackTrace();
 					}
 
-				} else {
-					requestObserver.onCompleted();
-					System.out.println("All passengers seat preference and luggage have been booked" + "\n");
-					seat_luggage_ta.append("All passengers seat preference and luggage have been booked" + "\n");
-					btnSeatLuggage.setEnabled(false);
-
 				}
 
 			}
 
 		});
 
-		// adding the sections to the second tab
-		tabPanel2.add(p4);
-		tabPanel2.add(p5);
-		tabPanel2.add(p6);
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH HOTEL LIST PANEL
+		 * 
+		 */
+
+		tabPanel2.add(list_hotel_panel);
+		// Configuring buttons, labels and text fields for booking flight panel
+		JLabel hotel_list_label = new JLabel("(Server-side) Get a list of Hotels: ");
+		list_hotel_panel.add(hotel_list_label);
+		JButton btnHotelList = new JButton("Submit");
+		list_hotel_panel.add(btnHotelList);
+		hotel_list_ta = new JTextArea(3, 20);
+		list_hotel_panel.add(hotel_list_ta);
+		hotel_list_ta.setLineWrap(true);
+		hotel_list_ta.setWrapStyleWord(true);
+		JScrollPane hotel_list_scrollpane = new JScrollPane(hotel_list_ta);
+		list_hotel_panel.add(hotel_list_scrollpane);
+
+		// creating action when btnHotelList is clicked
+		btnHotelList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				// Setting each value in hotelList requests to pre determined values for server
+				// side streaming
+				HotelListRequest hotel_list_req = HotelListRequest.newBuilder().setHotel1("Marriot International")
+						.setHotel2("Hilton Hotel").setHotel3("Wyndham Hotel & Resort").setHotel4("Best Western Hotel")
+						.build();
+
+				// Iterate through the response and print off all pre determined values at once
+				// using the blockingStub
+				try {
+					Iterator<HotelListResponse> hotel_list_res = blockingStub2.hotelList(hotel_list_req);
+					System.out.println("\nGetting list of holdiay destinations from the GUI");
+
+					// while there is another response.. print off the values to the console and
+					// text area
+					while (hotel_list_res.hasNext()) {
+						HotelListResponse temp = hotel_list_res.next();
+						hotel_list_ta.append("Hotel: " + temp.getResult() + "\n");
+						System.out.println("Location: " + temp.getResult());
+						btnHotelList.setEnabled(false);
+					} // end while
+
+				} catch (StatusRuntimeException f) {
+					f.printStackTrace();
+				} // end catch
+
+			}// end action performed for btnHotelList
+		}); // end action listener for btnHotelList
+
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH HOTEL BOOKING PANEL
+		 * 
+		 */
+
+		tabPanel2.add(booking_hotel_panel);
+		// Configuring buttons, labels and text fields for booking flight panel
+		JLabel hotel_booking_label = new JLabel("(Client-side) Hotel/Room type/Dates: ");
+		booking_hotel_panel.add(hotel_booking_label);
+
+		hotel_booking_tf = new JTextField();
+		booking_hotel_panel.add(hotel_booking_tf);
+		hotel_booking_tf.setColumns(10);
+
+		JButton btnHotelBooking = new JButton("Submit");
+		booking_hotel_panel.add(btnHotelBooking);
+		hotel_booking_ta = new JTextArea(3, 20);
+		booking_hotel_panel.add(hotel_booking_ta);
+		hotel_booking_ta.setLineWrap(true);
+		hotel_booking_ta.setWrapStyleWord(true);
+		JScrollPane hotel_booking_scrollpane = new JScrollPane(hotel_booking_ta);
+		booking_hotel_panel.add(hotel_booking_scrollpane);
+
+		// creating action when btnSubmit is clicked
+		btnHotelBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				// Iterating through the stream of responses for hotelBooking
+				StreamObserver<HotelBookingResponse> responseObserver = new StreamObserver<HotelBookingResponse>() {
+
+					@Override
+					public void onNext(HotelBookingResponse value) {
+						hotel_booking_ta.append("Hotel: " + value.getHotel());
+						System.out.println("\nGetting hotel, room and dates from client gui");
+						System.out.println("Hotel: " + value.getHotel());
+						try {
+							Thread.sleep(800);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						hotel_booking_ta.append("\nRoom type: " + value.getRoomType());
+						System.out.println("Room type: " + value.getRoomType());
+						try {
+							Thread.sleep(800);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						hotel_booking_ta.append("\nCheck in date: " + value.getArrivalDate());
+						System.out.println("Check in date: " + value.getArrivalDate());
+						try {
+							Thread.sleep(800);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						hotel_booking_ta.append("\nCheck out date: " + value.getLeavingDate());
+						System.out.println("Check out date: " + value.getLeavingDate());
+						try {
+							Thread.sleep(800);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}// end on next
+
+					@Override
+					public void onError(Throwable t) {
+						t.printStackTrace();
+					}// end on error
+
+					@Override
+					public void onCompleted() {
+						System.out.println("\nCompleted hotel booking");
+					}// end on completed
+				}; // end Iterating through the stream of responses for hotelBooking
+
+				String value = hotel_booking_tf.getText();
+				if (hotel_booking.add(value)) {
+					hotel_booking_tf.setText("");
+				} // end if for removing text from text fields
+
+				// Iterating through the stream of requests for flightBooking
+				StreamObserver<HotelBookingRequest> requestObserver = asyncStub2.hotelBooking(responseObserver);
+
+				// if the list of requests is greater than 3 do ...
+				if (hotel_booking.size() > 3) {
+					btnHotelBooking.setEnabled(false);
+
+					// loop through the list size and for each position set the value in the request
+					// this prevents overriding values for each user input
+					try {
+						for (int i = 0; i < hotel_booking.size(); i++) {
+							requestObserver
+									.onNext(HotelBookingRequest.newBuilder().setValue(hotel_booking.get(i)).build());
+							Thread.sleep(500);
+						} // end for loop
+
+						// Mark the end of requests
+						requestObserver.onCompleted();
+						btnLocation.setEnabled(false);
+
+						Thread.sleep(3000);
+
+					} catch (RuntimeException e1) {
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+
+				} // end if the list of requests is greater than 3 do ...
+
+			}// end btnSubmit action performed
+		}); // end btnSubmit action listener
+
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH HOTEL AMENITIIES PANEL
+		 * 
+		 */
+
+		// Adding panel 2 to tab 1
+		tabPanel2.add(amenities_hotel_panel);
+
+		// Configuring buttons, labels and text fields for booking flight panel
+		JLabel amenities_hotel_label = new JLabel("(Unary call) Breakfast included: ");
+		amenities_hotel_panel.add(amenities_hotel_label);
+		breakfast_tf = new JTextField();
+		amenities_hotel_panel.add(breakfast_tf);
+		breakfast_tf.setColumns(10);
+		JLabel amenities_hotel_label2 = new JLabel("Gym included: ");
+		amenities_hotel_panel.add(amenities_hotel_label2);
+		gym_tf = new JTextField();
+		amenities_hotel_panel.add(gym_tf);
+		gym_tf.setColumns(10);
+
+		JButton btnAmenities = new JButton("Submit");
+		amenities_hotel_panel.add(btnAmenities);
+
+		amenities_ta = new JTextArea(3, 15);
+		amenities_hotel_panel.add(amenities_ta);
+		amenities_ta.setLineWrap(true);
+		amenities_ta.setWrapStyleWord(true);
+		JScrollPane amenities_scroll = new JScrollPane(amenities_ta);
+		amenities_hotel_panel.add(amenities_scroll);
+
+		// creating action when btnSubmit is clicked
+		btnAmenities.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String breakfast = breakfast_tf.getText();
+				String gym = gym_tf.getText();
+
+				while (!(breakfast.equals("")) && !(gym.equals(""))) {
+					if (breakfast.equals("yes") || breakfast.equals("no") && gym.equals("yes") || gym.equals("no")) {
+						HotelAmenitiesRequest AmenitiesReq = HotelAmenitiesRequest.newBuilder().setBreakfast(breakfast)
+								.setGym(gym).build();
+						HotelAmenitiesResponse AmenitiesRes = blockingStub2.hotelAmenities(AmenitiesReq);
+
+						System.out.println("\nAmenties booking has been complete");
+						System.out.println("Breakfast included: " + AmenitiesRes.getBreakfast() + "\nGym included: "
+								+ AmenitiesRes.getGym());
+						amenities_ta.append("Breakfast included: " + AmenitiesRes.getBreakfast() + "\nGym included: "
+								+ AmenitiesRes.getGym());
+
+						// btnAmenities.setEnabled(false);
+					} else {
+
+						System.out.println("Error yes or no only");
+						amenities_ta.append("Error yes or no only" + "\n");
+
+					}
+
+					break;
+
+				}
+
+			}// end btnAmenities action performed
+
+		});// end btnAmenities action listener
 
 		// adding the sections to the third tab
 		tabPanel3.add(p7);

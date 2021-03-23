@@ -189,19 +189,26 @@ public class HotelServer extends HotelServiceImplBase {
 
 	@Override
 	public void hotelAmenities(HotelAmenitiesRequest request, StreamObserver<HotelAmenitiesResponse> responseObserver) {
-		
+
 		String breakfast = request.getBreakfast();
 		String gym = request.getGym();
+
+		while (!(breakfast.equals("")) && !(gym.equals(""))) {
+			if (breakfast.equals("yes") || breakfast.equals("no") && gym.equals("yes") || gym.equals("no")) {
+				System.out.println("\nReceiving amenities ... " + "\nDo you want breakfast: " + breakfast
+						+ "\nDo you want to use the gym: " + gym);
+				HotelAmenitiesResponse response = HotelAmenitiesResponse.newBuilder().setBreakfast(breakfast)
+						.setGym(gym).build();
+
+				responseObserver.onNext(response);
+				responseObserver.onCompleted();
+			} else {
+				System.out.println("Error yes or no only");
+			}
+			break;
+		}
 		
-		System.out.println("\nReceiving amenities ... " + "\nDo you want breakfast: " + breakfast + "\nDo you want to use the gym: " + gym);
-		HotelAmenitiesResponse response = HotelAmenitiesResponse.newBuilder().setBreakfast(breakfast).setGym(gym).build();
 
-		responseObserver.onNext(response);
-		responseObserver.onCompleted();
 	}
-	
-	
-
-	
 
 }

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.alexeyre.grpc.rental";
+option java_outer_classname = "RentalServiceImpl";
+option objc_class_prefix = "HLW";
+
+package RentalService;
+
+service RentalService {
+
+	rpc rentalList(RentalListRequest) returns (stream RentalListResponse) {}
+	rpc rentalBooking(stream RentalBookingRequest) returns (RentalBookingResponse) {}
+
+	
+}
+
+message RentalListRequest{
+	string value = 1;
+}
+
+message RentalListResponse{
+	string result = 1;
+}
+
+message RentalBookingRequest{
+	string text = 1;
+}
+
+message RentalBookingResponse{
+	string car = 1;
+	string rentalDate = 2;
+	string returnDate = 3;
+}
+
+
+
+
+
