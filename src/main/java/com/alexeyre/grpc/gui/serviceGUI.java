@@ -27,6 +27,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.alexeyre.grpc.flight.BookingRequest;
+import com.alexeyre.grpc.flight.BookingResponse;
 import com.alexeyre.grpc.flight.DetailsRequest;
 import com.alexeyre.grpc.flight.DetailsResponse;
 import com.alexeyre.grpc.flight.FlightServiceGrpc;
@@ -36,6 +38,7 @@ import com.alexeyre.grpc.flight.ListRequest;
 import com.alexeyre.grpc.flight.ListResponse;
 import com.alexeyre.grpc.flight.NumberRequest;
 import com.alexeyre.grpc.flight.NumberResponse;
+import com.alexeyre.grpc.flight.PassengerHelper;
 import com.alexeyre.grpc.flight.SearchRequest;
 import com.alexeyre.grpc.flight.SearchResponse;
 import com.alexeyre.grpc.hotel.HotelAmenitiesRequest;
@@ -64,11 +67,16 @@ public class serviceGUI {
 	ArrayList<String> list = new ArrayList();
 	ArrayList<String> hotel_booking = new ArrayList();
 	ArrayList<String> booking = new ArrayList();
+	private static ArrayList<String> booking_list = new ArrayList();
+	ArrayList<PassengerHelper> phelper = new ArrayList<>();
 
 	// variables for checking flight availability
 	private static String depart, arrival;
 	private static String depart_date, arrival_date;
 	private static int passengers;
+
+	private static String ticket, seat, fname, sname;
+	private int count = 0;
 
 	// variables to create a random flight ID
 	private static String randomNumber1 = Long.toHexString(Double.doubleToLongBits(Math.random()));
@@ -108,12 +116,14 @@ public class serviceGUI {
 	private static String return_arrival_time3 = "18:55";
 	private static String price3 = "€207.99";
 
+	// variables for booking panel
+
 	private JFrame jFrame;
 	private JTabbedPane tabbedPane;
 	private JTextArea flight_list_ta, location_date_ta, no_of_passengers_ta, seat_luggage_ta, hotel_list_ta,
-			hotel_booking_ta, amenities_ta, letter_ta;
+			hotel_booking_ta, amenities_ta, letter_ta, booking_ta;
 	private JTextField location_date_tf, no_of_passengers_tf, seat_pref_tf, luggage_tf, hotel_booking_tf, breakfast_tf,
-			gym_tf, letter_tf;
+			gym_tf, letter_tf, ticket_tf, seat_tf, fname_tf, sname_tf;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -250,6 +260,10 @@ public class serviceGUI {
 		JPanel letter_flight_panel = new JPanel();
 		letter_flight_panel.setBackground(Color.LIGHT_GRAY);
 
+		// Panel 5
+		JPanel booking_flight_panel = new JPanel();
+		booking_flight_panel.setBackground(new Color(128, 128, 128));
+
 		// Configurations for tab 2
 		JPanel list_hotel_panel = new JPanel();
 		list_hotel_panel.setBackground(new Color(128, 128, 128));
@@ -282,11 +296,12 @@ public class serviceGUI {
 		list_flights_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 		search_flight_panel.setAlignmentX(0.6f);
 		search_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
-
 		details_flight_panel.setAlignmentX(0.6f);
 		details_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 		letter_flight_panel.setAlignmentX(0.6f);
 		letter_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
+		booking_flight_panel.setAlignmentX(0.6f);
+		booking_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 
 		// Formatting panels for tab 2
 		list_hotel_panel.setAlignmentX(0.6f);
@@ -432,9 +447,10 @@ public class serviceGUI {
 							e.printStackTrace();
 						}
 						location_date_ta.append("\nNo. of passengers: " + value.getPassengers());
-						System.out.println("Arrival date: " + value.getPassengers());
+						System.out.println("No. of passengers: " + value.getPassengers());
 						passengers = value.getPassengers();
 						str_passengers = Integer.toString(value.getPassengers());
+						position = Integer.parseInt(str_passengers);
 						try {
 							Thread.sleep(800);
 						} catch (InterruptedException e) {
@@ -450,7 +466,7 @@ public class serviceGUI {
 
 					@Override
 					public void onCompleted() {
-						System.out.println("\nCompleted stream");
+						System.out.println("Completed stream");
 					}// end on completed
 				}; // end Iterating through the stream of responses for flightBooking
 
@@ -600,49 +616,139 @@ public class serviceGUI {
 					NumberResponse numberResponse = blockingStub1.flightNumber(numberRequest);
 
 					System.out.println("Flight letter has been chosen: " + option);
-					amenities_ta.append("Flight letter has been chosen: " + option);
+					letter_ta.append("Flight letter has been chosen: " + option);
 
 					btnLetter.setEnabled(false);
 
 				} else {
 					System.out.println("Error, option A, B or C only.");
-					amenities_ta.append("Error, option A, B or C only." + "\n");
+					letter_ta.append("Error, option A, B or C only." + "\n");
 				}
 
 			}
 		});
 
-//
-//		/*
-//		 * 
-//		 * EVERYTHING TO DO WITH FLIGHT PASSENGERS PREFERENCE PANEL
-//		 * 
-//		 */
-//
-//		tabPanel1.add(passengers_flight_panel);
-//
-//		// Configuring buttons, labels and text fields for booking flight panel
-//		JLabel JLabel4 = new JLabel("(Bi-directional) Seat preference: ");
-//		JLabel JLabel5 = new JLabel("Amount of luggage: ");
-//		passengers_flight_panel.add(JLabel4);
-//		seat_pref_tf = new JTextField();
-//		passengers_flight_panel.add(seat_pref_tf);
-//		seat_pref_tf.setColumns(10);
-//
-//		passengers_flight_panel.add(JLabel5);
-//		luggage_tf = new JTextField();
-//		passengers_flight_panel.add(luggage_tf);
-//		luggage_tf.setColumns(10);
-//
-//		JButton btnSeatLuggage = new JButton("Submit");
-//		passengers_flight_panel.add(btnSeatLuggage);
-//
-//		seat_luggage_ta = new JTextArea(3, 15);
-//		passengers_flight_panel.add(seat_luggage_ta);
-//		seat_luggage_ta.setLineWrap(true);
-//		seat_luggage_ta.setWrapStyleWord(true);
-//		JScrollPane scrollPane3 = new JScrollPane(seat_luggage_ta);
-//		passengers_flight_panel.add(scrollPane3);
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH FLIGHT BOOKING PANEL
+		 * 
+		 */
+
+		// Adding panel 2 to tab 1
+		tabPanel1.add(booking_flight_panel);
+
+		// Configuring buttons, labels and text fields for booking flight panel
+		JLabel booking_label1 = new JLabel("(Bi-directional) Choose a ticket type (Standard or Premium): ");
+		booking_flight_panel.add(booking_label1);
+		ticket_tf = new JTextField();
+		booking_flight_panel.add(ticket_tf);
+		ticket_tf.setColumns(10);
+
+		JLabel booking_label2 = new JLabel("Seat pref (Between A1-A9 and P1 - P9: ");
+		booking_flight_panel.add(booking_label2);
+		seat_tf = new JTextField();
+		booking_flight_panel.add(seat_tf);
+		seat_tf.setColumns(10);
+
+		JLabel booking_label3 = new JLabel("First name: ");
+		booking_flight_panel.add(booking_label3);
+		fname_tf = new JTextField();
+		booking_flight_panel.add(fname_tf);
+		fname_tf.setColumns(10);
+
+		JLabel booking_label4 = new JLabel("Surname: ");
+		booking_flight_panel.add(booking_label4);
+		sname_tf = new JTextField();
+		booking_flight_panel.add(sname_tf);
+		sname_tf.setColumns(10);
+
+		JButton btnBooking = new JButton("Submit");
+		booking_flight_panel.add(btnBooking);
+
+		booking_ta = new JTextArea(4, 20);
+		booking_flight_panel.add(booking_ta);
+		booking_ta.setLineWrap(true);
+		booking_ta.setWrapStyleWord(true);
+		JScrollPane booking_scroll = new JScrollPane(booking_ta);
+		booking_flight_panel.add(booking_scroll);
+
+		btnBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				StreamObserver<BookingResponse> responseObserver = new StreamObserver<BookingResponse>() {
+
+					@Override
+					public void onNext(BookingResponse value) {
+						System.out.println("\nPassenger " + count + "\nTicket Type: " + value.getTicketType() + "\n"
+								+ "Seat Preference: " + value.getSeatPref() + "\n" + "First name: "
+								+ value.getFirstname() + "\n" + "Surname: " + value.getSurname() + "\n");
+
+						booking_ta.append("\nPassenger " + count + "Ticket Type: " + value.getTicketType() + "\n" + "Seat Preference: "
+								+ value.getSeatPref() + "\n" + "First name: " + value.getFirstname() + "\n" + "Surname: "
+								+ value.getSurname() + "\n");
+
+					}
+
+					@Override
+					public void onError(Throwable t) {
+						t.printStackTrace();
+
+					}
+
+					@Override
+					public void onCompleted() {
+						System.out.println("\nBooking completed ... ");
+
+					}
+
+				};
+
+				StreamObserver<BookingRequest> requestObserver = asyncStub1.flightBooking(responseObserver);
+
+				ticket = "";
+				seat = "";
+				fname = "";
+				sname = "";
+
+				booking_list.add(ticket);
+				if (booking_list.size() <= position) {
+
+					ticket = ticket_tf.getText();
+					seat = seat_tf.getText();
+					fname = fname_tf.getText();
+					sname = sname_tf.getText();
+
+					phelper.add(new PassengerHelper(ticket, seat, fname, sname));
+
+					try {
+
+						requestObserver.onNext(BookingRequest.newBuilder().setTicketType(ticket).setSeatPref(seat)
+								.setFirstname(fname).setSurname(sname).build());
+
+						count++;
+
+						Thread.sleep(1000);
+						// Mark the end of requests
+
+					} catch (RuntimeException e1) {
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				} else {
+					requestObserver.onCompleted();
+					System.out.println("All passengers details and ticket info booked" + "\n");
+					booking_ta.append("\nAll passengers detials and ticket info booked" + "\n");
+					btnBooking.setEnabled(false);
+
+				}
+
+			}
+
+		});
+
 //
 //		btnSeatLuggage.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
