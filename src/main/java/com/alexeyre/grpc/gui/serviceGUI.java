@@ -34,6 +34,8 @@ import com.alexeyre.grpc.flight.FlightServiceGrpc.FlightServiceBlockingStub;
 import com.alexeyre.grpc.flight.FlightServiceGrpc.FlightServiceStub;
 import com.alexeyre.grpc.flight.ListRequest;
 import com.alexeyre.grpc.flight.ListResponse;
+import com.alexeyre.grpc.flight.NumberRequest;
+import com.alexeyre.grpc.flight.NumberResponse;
 import com.alexeyre.grpc.flight.SearchRequest;
 import com.alexeyre.grpc.flight.SearchResponse;
 import com.alexeyre.grpc.hotel.HotelAmenitiesRequest;
@@ -77,6 +79,8 @@ public class serviceGUI {
 	private static int position;
 	private static String str_passengers = Integer.toString(passengers);
 
+	private static String option;
+
 	// variables for flight A
 	private static String depart_time1 = "06.55";
 	private static String depart_duration1 = "40Mins";
@@ -107,9 +111,9 @@ public class serviceGUI {
 	private JFrame jFrame;
 	private JTabbedPane tabbedPane;
 	private JTextArea flight_list_ta, location_date_ta, no_of_passengers_ta, seat_luggage_ta, hotel_list_ta,
-			hotel_booking_ta, amenities_ta;
+			hotel_booking_ta, amenities_ta, letter_ta;
 	private JTextField location_date_tf, no_of_passengers_tf, seat_pref_tf, luggage_tf, hotel_booking_tf, breakfast_tf,
-			gym_tf;
+			gym_tf, letter_tf;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -243,8 +247,8 @@ public class serviceGUI {
 		details_flight_panel.setBackground(new Color(128, 128, 128));
 
 		// Panel 4
-		JPanel passengers_flight_panel = new JPanel();
-		passengers_flight_panel.setBackground(Color.LIGHT_GRAY);
+		JPanel letter_flight_panel = new JPanel();
+		letter_flight_panel.setBackground(Color.LIGHT_GRAY);
 
 		// Configurations for tab 2
 		JPanel list_hotel_panel = new JPanel();
@@ -281,8 +285,8 @@ public class serviceGUI {
 
 		details_flight_panel.setAlignmentX(0.6f);
 		details_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
-		passengers_flight_panel.setAlignmentX(0.6f);
-		passengers_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
+		letter_flight_panel.setAlignmentX(0.6f);
+		letter_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 
 		// Formatting panels for tab 2
 		list_hotel_panel.setAlignmentX(0.6f);
@@ -507,7 +511,6 @@ public class serviceGUI {
 		details_ta.setWrapStyleWord(true);
 		JScrollPane details_scrollpane = new JScrollPane(details_ta);
 		details_flight_panel.add(details_scrollpane);
-		int count = 0;
 
 		// creating action when btnSubmit is clicked
 		btnDetails.addActionListener(new ActionListener() {
@@ -523,17 +526,17 @@ public class serviceGUI {
 				try {
 					Iterator<DetailsResponse> detailsResponse = blockingStub1.flightDetails(detailsRequest);
 					System.out.println("\nGetting flight availability from the GUI");
-					System.out.println("\n\nFlight A, B and C");
+					details_ta.append("Flight A, B and C");
 
 					while (detailsResponse.hasNext()) {
 						DetailsResponse temp = detailsResponse.next();
-						details_ta.append("\n" + "Destination: " + temp.getDestination()
-								+ "\n" + "Departure date: " + temp.getDepartureDate() + "\n" + "Departure time: "
-								+ temp.getDepartureTime() + "\n" + "Flight duration: " + temp.getFlightDuration() + "\n"
-								+ "Arrival time: " + temp.getArrivalTime() + "\n" + "Flight ID: "
-								+ temp.getFlightNumber() + "\n" + "Return location: " + temp.getReturnLocation() + "\n"
-								+ "Return date: " + temp.getReturnDate() + "\n" + "Return time: " + temp.getReturnTime()
-								+ "\n" + "Flight duration: " + temp.getFlightReturnDuration() + "\n" + "Arrival time: "
+						details_ta.append("\n" + "Destination: " + temp.getDestination() + "\n" + "Departure date: "
+								+ temp.getDepartureDate() + "\n" + "Departure time: " + temp.getDepartureTime() + "\n"
+								+ "Flight duration: " + temp.getFlightDuration() + "\n" + "Arrival time: "
+								+ temp.getArrivalTime() + "\n" + "Flight ID: " + temp.getFlightNumber() + "\n"
+								+ "Return location: " + temp.getReturnLocation() + "\n" + "Return date: "
+								+ temp.getReturnDate() + "\n" + "Return time: " + temp.getReturnTime() + "\n"
+								+ "Flight duration: " + temp.getFlightReturnDuration() + "\n" + "Arrival time: "
 								+ temp.getReturnArrivalTime() + "\n" + "Passengers: " + temp.getPassengers() + "\n"
 								+ "Price per person: " + temp.getPrice() + "\n");
 
@@ -555,6 +558,58 @@ public class serviceGUI {
 
 			}// end action performed
 
+		});
+
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH FLIGHT LETTER PANEL
+		 * 
+		 */
+
+		// Adding panel 2 to tab 1
+		tabPanel1.add(letter_flight_panel);
+
+		// Configuring buttons, labels and text fields for booking flight panel
+		JLabel letter_label = new JLabel("(Unary call) Choose flight A/B or C: ");
+		letter_flight_panel.add(letter_label);
+		letter_tf = new JTextField();
+		letter_flight_panel.add(letter_tf);
+		letter_tf.setColumns(10);
+
+		JButton btnLetter = new JButton("Submit");
+		letter_flight_panel.add(btnLetter);
+
+		letter_ta = new JTextArea(4, 20);
+		letter_flight_panel.add(letter_ta);
+		letter_ta.setLineWrap(true);
+		letter_ta.setWrapStyleWord(true);
+		JScrollPane letter_scroll = new JScrollPane(letter_ta);
+		letter_flight_panel.add(letter_scroll);
+
+		// creating action when btnSubmit is clicked
+		btnLetter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String text = letter_tf.getText();
+				option = letter_tf.getText();
+
+				if (option.equals("A") || option.equals("a") || option.equals("B") || option.equals("b")
+						|| option.equals("C") || option.equals("c")) {
+
+					NumberRequest numberRequest = NumberRequest.newBuilder().setRequestValue(option).build();
+					NumberResponse numberResponse = blockingStub1.flightNumber(numberRequest);
+
+					System.out.println("Flight letter has been chosen: " + option);
+					amenities_ta.append("Flight letter has been chosen: " + option);
+
+					btnLetter.setEnabled(false);
+
+				} else {
+					System.out.println("Error, option A, B or C only.");
+					amenities_ta.append("Error, option A, B or C only." + "\n");
+				}
+
+			}
 		});
 
 //
@@ -873,7 +928,7 @@ public class serviceGUI {
 						amenities_ta.append("Breakfast included: " + AmenitiesRes.getBreakfast() + "\nGym included: "
 								+ AmenitiesRes.getGym());
 
-						// btnAmenities.setEnabled(false);
+						btnAmenities.setEnabled(false);
 					} else {
 
 						System.out.println("Error yes or no only");
