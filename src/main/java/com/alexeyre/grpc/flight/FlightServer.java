@@ -514,11 +514,12 @@ public class FlightServer extends FlightServiceImplBase {
 			// apart from passenger info
 
 			if (flightLetter.equals("A") || flightLetter.equals("a")) {
-				DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDepartureDate(depart_date)
-						.setDisplayDepartureTime(depart_time1).setDisplayFlightDuration(depart_duration1)
-						.setDisplayArrivalTime(arrival_time1).setDisplayFlightId(randomNumber)
-						.setDisplayReturnLocation(arrival).setDisplayReturnDate(arrival_date)
-						.setDisplayReturnTime(return_time1).setDisplayFlightReturnDuration(return_duration1)
+				DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDestination(depart)
+						.setDisplayDepartureDate(depart_date).setDisplayDepartureTime(depart_time1)
+						.setDisplayFlightDuration(depart_duration1).setDisplayArrivalTime(arrival_time1)
+						.setDisplayFlightId(randomNumber).setDisplayReturnLocation(arrival)
+						.setDisplayReturnDate(arrival_date).setDisplayReturnTime(return_time1)
+						.setDisplayFlightReturnDuration(return_duration1)
 						.setDisplayReturnArrivalTime(return_arrival_time1).setDisplayPassengers(passengers)
 						.setDisplayPrice(price1)
 

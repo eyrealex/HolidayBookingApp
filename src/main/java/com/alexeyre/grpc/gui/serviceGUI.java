@@ -21,6 +21,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -31,6 +32,8 @@ import com.alexeyre.grpc.flight.BookingRequest;
 import com.alexeyre.grpc.flight.BookingResponse;
 import com.alexeyre.grpc.flight.DetailsRequest;
 import com.alexeyre.grpc.flight.DetailsResponse;
+import com.alexeyre.grpc.flight.DisplayRequest;
+import com.alexeyre.grpc.flight.DisplayResponse;
 import com.alexeyre.grpc.flight.FlightServiceGrpc;
 import com.alexeyre.grpc.flight.FlightServiceGrpc.FlightServiceBlockingStub;
 import com.alexeyre.grpc.flight.FlightServiceGrpc.FlightServiceStub;
@@ -77,6 +80,7 @@ public class serviceGUI {
 
 	private static String ticket, seat, fname, sname;
 	private int count = 0;
+	private int ticketcount = 0;
 
 	// variables to create a random flight ID
 	private static String randomNumber1 = Long.toHexString(Double.doubleToLongBits(Math.random()));
@@ -121,7 +125,7 @@ public class serviceGUI {
 	private JFrame jFrame;
 	private JTabbedPane tabbedPane;
 	private JTextArea flight_list_ta, location_date_ta, no_of_passengers_ta, seat_luggage_ta, hotel_list_ta,
-			hotel_booking_ta, amenities_ta, letter_ta, booking_ta;
+			hotel_booking_ta, amenities_ta, letter_ta, booking_ta, display_ta;
 	private JTextField location_date_tf, no_of_passengers_tf, seat_pref_tf, luggage_tf, hotel_booking_tf, breakfast_tf,
 			gym_tf, letter_tf, ticket_tf, seat_tf, fname_tf, sname_tf;
 
@@ -232,18 +236,13 @@ public class serviceGUI {
 		JPanel tabPanel2 = new JPanel(false);
 		JPanel tabPanel3 = new JPanel(false);
 
-		// panels for tab 3
-		JPanel p7 = new JPanel();
-		JPanel p8 = new JPanel();
-		JPanel p9 = new JPanel();
-
 		// Setting the tabs to a box layout
 		BoxLayout b1 = new BoxLayout(tabPanel1, BoxLayout.Y_AXIS);
 		BoxLayout b2 = new BoxLayout(tabPanel2, BoxLayout.Y_AXIS);
-		BoxLayout b3 = new BoxLayout(tabPanel3, BoxLayout.Y_AXIS);
 
+		////////////////////////////////////////
 		// Configurations for tab 1
-
+		///////////////////////////////////////
 		// Panel 1
 		JPanel list_flights_panel = new JPanel();
 		list_flights_panel.setBackground(new Color(128, 128, 128));
@@ -264,7 +263,13 @@ public class serviceGUI {
 		JPanel booking_flight_panel = new JPanel();
 		booking_flight_panel.setBackground(new Color(128, 128, 128));
 
+		// Panel 6
+		JPanel display_flight_panel = new JPanel();
+		display_flight_panel.setBackground(Color.LIGHT_GRAY);
+
+		/////////////////////////////////////////
 		// Configurations for tab 2
+		////////////////////////////////////////
 		JPanel list_hotel_panel = new JPanel();
 		list_hotel_panel.setBackground(new Color(128, 128, 128));
 
@@ -286,11 +291,6 @@ public class serviceGUI {
 		tabbedPane.addTab("Hotel", null, tabPanel2, "Tab 2 tooltip");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);
 
-		// Adding tab 3 Frame
-		tabPanel3.setLayout(b3);
-		tabbedPane.addTab("Rental", null, tabPanel3, "Tab 3 tooltip");
-		tabbedPane.setMnemonicAt(0, KeyEvent.VK_3);
-
 		// Formatting panels for tab 1
 		list_flights_panel.setAlignmentX(0.6f);
 		list_flights_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
@@ -302,6 +302,8 @@ public class serviceGUI {
 		letter_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 		booking_flight_panel.setAlignmentX(0.6f);
 		booking_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
+		display_flight_panel.setAlignmentX(0.6f);
+		display_flight_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
 
 		// Formatting panels for tab 2
 		list_hotel_panel.setAlignmentX(0.6f);
@@ -310,14 +312,6 @@ public class serviceGUI {
 		booking_hotel_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		amenities_hotel_panel.setAlignmentX(0.6f);
 		amenities_hotel_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		// Formatting panels for tab 3
-		p7.setAlignmentX(0.6f);
-		p7.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		p8.setAlignmentX(0.6f);
-		p8.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		p9.setAlignmentX(0.6f);
-		p9.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		/*
 		 * 
@@ -413,6 +407,7 @@ public class serviceGUI {
 						location_date_ta.append("Depart: " + value.getDepart());
 						System.out.println("\nDepart: " + value.getDepart());
 						depart = value.getDepart();
+
 						try {
 							Thread.sleep(800);
 						} catch (InterruptedException e) {
@@ -471,9 +466,13 @@ public class serviceGUI {
 				}; // end Iterating through the stream of responses for flightBooking
 
 				String value = location_date_tf.getText();
-				if (booking.add(value)) {
+
+				if (!(value.equals(""))) {
+					booking.add(value);
 					location_date_tf.setText("");
-				} // end if for removing text from text fields
+				} else {
+					JOptionPane.showMessageDialog(jFrame, "Error, field cannot be empty!!!");
+				}
 
 				// Iterating through the stream of requests for flightBooking
 				StreamObserver<SearchRequest> requestObserver = asyncStub1.flightSearch(responseObserver);
@@ -623,6 +622,7 @@ public class serviceGUI {
 				} else {
 					System.out.println("Error, option A, B or C only.");
 					letter_ta.append("Error, option A, B or C only." + "\n");
+					letter_tf.setText("");
 				}
 
 			}
@@ -683,9 +683,9 @@ public class serviceGUI {
 								+ "Seat Preference: " + value.getSeatPref() + "\n" + "First name: "
 								+ value.getFirstname() + "\n" + "Surname: " + value.getSurname() + "\n");
 
-						booking_ta.append("\nPassenger " + count + "Ticket Type: " + value.getTicketType() + "\n" + "Seat Preference: "
-								+ value.getSeatPref() + "\n" + "First name: " + value.getFirstname() + "\n" + "Surname: "
-								+ value.getSurname() + "\n");
+						booking_ta.append("Passenger " + count + "\nTicket Type: " + value.getTicketType() + "\n"
+								+ "Seat Preference: " + value.getSeatPref() + "\n" + "First name: "
+								+ value.getFirstname() + "\n" + "Surname: " + value.getSurname() + "\n");
 
 					}
 
@@ -705,115 +705,132 @@ public class serviceGUI {
 
 				StreamObserver<BookingRequest> requestObserver = asyncStub1.flightBooking(responseObserver);
 
-				ticket = "";
-				seat = "";
-				fname = "";
-				sname = "";
+				ticket = ticket_tf.getText();
+				seat = seat_tf.getText();
+				fname = fname_tf.getText();
+				sname = sname_tf.getText();
 
-				booking_list.add(ticket);
-				if (booking_list.size() <= position) {
+				if (!(ticket.equals("") && (!(seat.equals("")))) && (!(fname.equals(""))) && (!(sname.equals("")))) {
+					booking_list.add(ticket);
 
-					ticket = ticket_tf.getText();
-					seat = seat_tf.getText();
-					fname = fname_tf.getText();
-					sname = sname_tf.getText();
+					if (booking_list.size() <= position) {
 
-					phelper.add(new PassengerHelper(ticket, seat, fname, sname));
+						phelper.add(new PassengerHelper(ticket, seat, fname, sname));
 
-					try {
+						try {
 
-						requestObserver.onNext(BookingRequest.newBuilder().setTicketType(ticket).setSeatPref(seat)
-								.setFirstname(fname).setSurname(sname).build());
+							requestObserver.onNext(BookingRequest.newBuilder().setTicketType(ticket).setSeatPref(seat)
+									.setFirstname(fname).setSurname(sname).build());
 
-						count++;
+							count++;
 
-						Thread.sleep(1000);
-						// Mark the end of requests
+							Thread.sleep(1000);
+							// Mark the end of requests
 
-					} catch (RuntimeException e1) {
-						e1.printStackTrace();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						} catch (RuntimeException e1) {
+							e1.printStackTrace();
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+					} else {
+						requestObserver.onCompleted();
+						System.out.println("All passengers details and ticket info booked" + "\n");
+						booking_ta.append("All passengers details and ticket info booked" + "\n");
+						btnBooking.setEnabled(false);
+
 					}
-
 				} else {
-					requestObserver.onCompleted();
-					System.out.println("All passengers details and ticket info booked" + "\n");
-					booking_ta.append("\nAll passengers detials and ticket info booked" + "\n");
-					btnBooking.setEnabled(false);
-
+					JOptionPane.showMessageDialog(jFrame, "Error, field(s) cannot be empty!!!");
 				}
 
 			}
 
 		});
 
-//
-//		btnSeatLuggage.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//
-//				StreamObserver<PassengerResponse> responseObserver = new StreamObserver<PassengerResponse>() {
-//
-//					@Override
-//					public void onNext(PassengerResponse value) {
-//						System.out.println("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
-//								+ value.getLuggage() + "\n");
-//
-//						seat_luggage_ta.append("Passenger seat preference: " + value.getSeat() + " and luggage taken: "
-//								+ value.getLuggage() + "\n");
-//
-//					}
-//
-//					@Override
-//					public void onError(Throwable t) {
-//						t.printStackTrace();
-//
-//					}
-//
-//					@Override
-//					public void onCompleted() {
-//
-//					}
-//
-//				};
-//
-//				StreamObserver<PassengerRequest> requestObserver = asyncStub1.flightPassenger(responseObserver);
-//
-//				String seat = "";
-//				int luggage = Integer.parseInt(luggage_tf.getText());
-//				seat = seat_pref_tf.getText();
-//				list.add(seat);
-//
-//				if (list.size() <= position) {
-//
-//					try {
-//
-//						requestObserver.onNext(PassengerRequest.newBuilder().setSeat(seat).setLuggage(luggage).build());
-//
-//						if (list.size() >= position) {
-//							requestObserver.onCompleted();
-//							System.out.println("All passengers seat preference and luggage have been booked" + "\n");
-//							seat_luggage_ta
-//									.append("All passengers seat preference and luggage have been booked" + "\n");
-//							btnSeatLuggage.setEnabled(false);
-//						}
-//
-//						Thread.sleep(1000);
-//						// Mark the end of requests
-//
-//					} catch (RuntimeException e1) {
-//						e1.printStackTrace();
-//					} catch (InterruptedException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//
-//				}
-//
-//			}
-//
-//		});
+		/*
+		 * 
+		 * EVERYTHING TO DO WITH DISPLAY PEOPLE PANEL
+		 * 
+		 */
+
+		tabPanel1.add(display_flight_panel);
+
+		// Configuring buttons, labels and text fields for booking flight panel
+		JLabel display_label = new JLabel("(Server-side streaming) Display finalized booking: ");
+		display_flight_panel.add(display_label);
+
+		JButton btnDisplay = new JButton("Submit");
+		display_flight_panel.add(btnDisplay);
+
+		JTextArea display_ta = new JTextArea(15, 20);
+		display_flight_panel.add(display_ta);
+		display_ta.setLineWrap(true);
+		display_ta.setWrapStyleWord(true);
+		JScrollPane display_scrollpane = new JScrollPane(display_ta);
+		display_flight_panel.add(display_scrollpane);
+
+		btnDisplay.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				if (option.equals("A") || option.equals("a")) {
+					DisplayRequest displayRequest = DisplayRequest.newBuilder().setDisplayRequest(depart)
+							.setDisplayRequest(depart_date).setDisplayRequest(depart_time1)
+							.setDisplayRequest(depart_duration1).setDisplayRequest(arrival_time1)
+							.setDisplayRequest(randomNumber1).setDisplayRequest(arrival).setDisplayRequest(arrival_date)
+							.setDisplayRequest(return_time1).setDisplayRequest(return_duration1)
+							.setDisplayRequest(return_arrival_time1).setDisplayRequest(str_passengers)
+							.setDisplayRequest(price1).setDisplayRequest(ticket).setDisplayRequest(seat)
+							.setDisplayRequest(fname).setDisplayRequest(sname).build();
+
+					try {
+						Iterator<DisplayResponse> displayResponse = blockingStub1.flightDisplay(displayRequest);
+						System.out.println("\nDisplaying finalized booking");
+						display_ta.append("Displaying finalized ticket bookings for each passenger.");
+
+						while (displayResponse.hasNext()) {
+							DisplayResponse temp = displayResponse.next();
+							display_ta.append("\nDestination: " + temp.getDisplayDestination() + "\n"
+									+ "Departure date: " + temp.getDisplayDepartureDate() + "\n" + "Departure time: "
+									+ temp.getDisplayDepartureTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayArrivalTime() + "\n" + "Flight ID: " + temp.getDisplayFlightId()
+									+ "\n" + "Return location: " + temp.getDisplayReturnLocation() + "\n"
+									+ "Return date: " + temp.getDisplayReturnDate() + "\n" + "Return time: "
+									+ temp.getDisplayReturnTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightReturnDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayReturnArrivalTime() + "\n" + "Price per person: "
+									+ temp.getDisplayPrice() + "\n" + "Ticket type: " + temp.getDisplayTicketType()
+									+ "\n" + "Seat Preference: " + temp.getDisplaySeatPref() + "\n" + "Firstname: "
+									+ temp.getDisplayFirstname() + "\n" + "Surname: " + temp.getDisplaySurname()
+									+ "\n");
+
+							System.out.println("\nDestination: " + temp.getDisplayDestination() + "\n"
+									+ "Departure date: " + temp.getDisplayDepartureDate() + "\n" + "Departure time: "
+									+ temp.getDisplayDepartureTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayArrivalTime() + "\n" + "Flight ID: " + temp.getDisplayFlightId()
+									+ "\n" + "Return location: " + temp.getDisplayReturnLocation() + "\n"
+									+ "Return date: " + temp.getDisplayReturnDate() + "\n" + "Return time: "
+									+ temp.getDisplayReturnTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightReturnDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayReturnArrivalTime() + "\n" + "Price per person: "
+									+ temp.getDisplayPrice() + "\n" + "Ticket type: " + temp.getDisplayTicketType()
+									+ "\n" + "Seat Preference: " + temp.getDisplaySeatPref() + "\n" + "Firstname: "
+									+ temp.getDisplayFirstname() + "\n" + "Surname: " + temp.getDisplaySurname()
+									+ "\n");
+
+						}
+					} catch (StatusRuntimeException f) {
+
+						f.printStackTrace();
+					} // end catch
+				} // end if option equals A or a
+			}// end action performed
+
+		});
 
 		/*
 		 * 
@@ -825,9 +842,11 @@ public class serviceGUI {
 		// Configuring buttons, labels and text fields for booking flight panel
 		JLabel hotel_list_label = new JLabel("(Server-side) Get a list of Hotels: ");
 		list_hotel_panel.add(hotel_list_label);
+
 		JButton btnHotelList = new JButton("Submit");
 		list_hotel_panel.add(btnHotelList);
-		hotel_list_ta = new JTextArea(3, 20);
+
+		hotel_list_ta = new JTextArea(5, 15);
 		list_hotel_panel.add(hotel_list_ta);
 		hotel_list_ta.setLineWrap(true);
 		hotel_list_ta.setWrapStyleWord(true);
@@ -884,7 +903,8 @@ public class serviceGUI {
 
 		JButton btnHotelBooking = new JButton("Submit");
 		booking_hotel_panel.add(btnHotelBooking);
-		hotel_booking_ta = new JTextArea(3, 20);
+
+		hotel_booking_ta = new JTextArea(5, 15);
 		booking_hotel_panel.add(hotel_booking_ta);
 		hotel_booking_ta.setLineWrap(true);
 		hotel_booking_ta.setWrapStyleWord(true);
@@ -1008,7 +1028,7 @@ public class serviceGUI {
 		JButton btnAmenities = new JButton("Submit");
 		amenities_hotel_panel.add(btnAmenities);
 
-		amenities_ta = new JTextArea(3, 15);
+		amenities_ta = new JTextArea(4, 15);
 		amenities_hotel_panel.add(amenities_ta);
 		amenities_ta.setLineWrap(true);
 		amenities_ta.setWrapStyleWord(true);
@@ -1049,11 +1069,6 @@ public class serviceGUI {
 			}// end btnAmenities action performed
 
 		});// end btnAmenities action listener
-
-		// adding the sections to the third tab
-		tabPanel3.add(p7);
-		tabPanel3.add(p8);
-		tabPanel3.add(p9);
 
 		// show the frame border
 		jFrame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
