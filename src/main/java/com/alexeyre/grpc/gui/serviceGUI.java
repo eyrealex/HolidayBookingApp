@@ -466,24 +466,77 @@ public class serviceGUI {
 				}; // end Iterating through the stream of responses for flightBooking
 
 				String value = location_date_tf.getText();
+				// error validation for empty string in textfield
+				if (!(value.isEmpty())) {
+					// validate array position 0 to be one of the 4 countries
+					if (booking.size() == 0) {
+						if (value.equals("Paris") || value.equals("paris") || value.equals("London")
+								|| value.equals("london") || value.equals("Berlin") || value.equals("berlin")
+								|| value.equals("Madrid") || value.equals("madrid")) {
+							booking.add(value);
+						} else {
+							JOptionPane.showMessageDialog(jFrame,
+									"Error, enter one of the four countries listed as your departure ");
+						}
+						// validate array position 2 to be dublin as the return location
+					} else if (booking.size() == 2) {
+						if ((value.equals("Dublin")) || (value.equals("dublin"))) {
+							booking.add(value);
+						} else {
+							JOptionPane.showMessageDialog(jFrame, "Error, enter Dublin as return location");
+						}
 
-				if (!(value.equals(""))) {
-					booking.add(value);
+					}
+					// validate array position 4 to be an integer and less that 6
+					else if (booking.size() == 4) {
+
+						//try to catch when a user inputs a string instead of an integer
+						try {
+							//parse value to an integer
+							int x = Integer.parseInt(value);
+							Boolean size = false;
+							while (x < 6) {
+								//if the value of x is an integer add value to the array
+								if ((x == (int) x)) {
+									booking.add(value);
+									size = true;
+								}
+								break;
+							}
+
+							//boolean to validate if size is < 6
+							if (size == false) {
+								JOptionPane.showMessageDialog(jFrame, "Error, 5 passengers or less per booking");
+							}
+
+						} catch (NumberFormatException y) {
+							JOptionPane.showMessageDialog(jFrame, "Error, please enter a number value for passengers");
+						}
+
+					}
+
+					//add value to array if not validating for specific parameters
+					else {
+						booking.add(value);
+					}
+
+					//reset text field after every input
 					location_date_tf.setText("");
 				} else {
-					JOptionPane.showMessageDialog(jFrame, "Error, field cannot be empty!!!");
+					JOptionPane.showMessageDialog(jFrame, "Error, field(s) cannot be empty");
 				}
 
 				// Iterating through the stream of requests for flightBooking
 				StreamObserver<SearchRequest> requestObserver = asyncStub1.flightSearch(responseObserver);
 
-				// if the list of requests is greater than 3 do ...
+				// ensure the array list can run for the 5 input values
 				if (booking.size() > 4) {
 
 					// loop through the list size and for each position set the value in the request
 					// this prevents overriding values for each user input
 					try {
 						for (int i = 0; i < booking.size(); i++) {
+
 							requestObserver.onNext(SearchRequest.newBuilder().setValue(booking.get(i)).build());
 							Thread.sleep(500);
 						} // end for loop
@@ -500,7 +553,7 @@ public class serviceGUI {
 						e1.printStackTrace();
 					}
 
-				} // end if the list of requests is greater than 4 do ...
+				} //end if 
 
 			}// end btnSubmit action performed
 		}); // end btnSubmit action listener
