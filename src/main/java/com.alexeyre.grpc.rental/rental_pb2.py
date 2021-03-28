@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\030com.alexeyre.grpc.rentalB\021RentalServiceImplP\001\242\002\003HLW',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0crental.proto\x12\rRentalService\"\"\n\x11RentalListRequest\x12\r\n\x05value\x18\x01 \x01(\t\"$\n\x12RentalListResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"$\n\x14RentalBookingRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"L\n\x15RentalBookingResponse\x12\x0b\n\x03\x63\x61r\x18\x01 \x01(\t\x12\x12\n\nrentalDate\x18\x02 \x01(\t\x12\x12\n\nreturnDate\x18\x03 \x01(\t2\xc6\x01\n\rRentalService\x12U\n\nrentalList\x12 .RentalService.RentalListRequest\x1a!.RentalService.RentalListResponse\"\x00\x30\x01\x12^\n\rrentalBooking\x12#.RentalService.RentalBookingRequest\x1a$.RentalService.RentalBookingResponse\"\x00(\x01\x42\x35\n\x18\x63om.alexeyre.grpc.rentalB\x11RentalServiceImplP\x01\xa2\x02\x03HLWb\x06proto3'
+  serialized_pb=b'\n\x0crental.proto\x12\rRentalService\"\"\n\x11RentalListRequest\x12\r\n\x05value\x18\x01 \x01(\t\"$\n\x12RentalListResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"$\n\x14RentalBookingRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\\\n\x15RentalBookingResponse\x12\x0e\n\x06rental\x18\x01 \x01(\t\x12\x0b\n\x03\x63\x61r\x18\x02 \x01(\t\x12\x12\n\nrentalDate\x18\x03 \x01(\t\x12\x12\n\nreturnDate\x18\x04 \x01(\t2\xc6\x01\n\rRentalService\x12U\n\nrentalList\x12 .RentalService.RentalListRequest\x1a!.RentalService.RentalListResponse\"\x00\x30\x01\x12^\n\rrentalBooking\x12#.RentalService.RentalBookingRequest\x1a$.RentalService.RentalBookingResponse\"\x00(\x01\x42\x35\n\x18\x63om.alexeyre.grpc.rentalB\x11RentalServiceImplP\x01\xa2\x02\x03HLWb\x06proto3'
 )
 
 
@@ -130,22 +130,29 @@ _RENTALBOOKINGRESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='car', full_name='RentalService.RentalBookingResponse.car', index=0,
+      name='rental', full_name='RentalService.RentalBookingResponse.rental', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='rentalDate', full_name='RentalService.RentalBookingResponse.rentalDate', index=1,
+      name='car', full_name='RentalService.RentalBookingResponse.car', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='returnDate', full_name='RentalService.RentalBookingResponse.returnDate', index=2,
+      name='rentalDate', full_name='RentalService.RentalBookingResponse.rentalDate', index=2,
       number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='returnDate', full_name='RentalService.RentalBookingResponse.returnDate', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -163,7 +170,7 @@ _RENTALBOOKINGRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=143,
-  serialized_end=219,
+  serialized_end=235,
 )
 
 DESCRIPTOR.message_types_by_name['RentalListRequest'] = _RENTALLISTREQUEST
@@ -210,8 +217,8 @@ _RENTALSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=222,
-  serialized_end=420,
+  serialized_start=238,
+  serialized_end=436,
   methods=[
   _descriptor.MethodDescriptor(
     name='rentalList',

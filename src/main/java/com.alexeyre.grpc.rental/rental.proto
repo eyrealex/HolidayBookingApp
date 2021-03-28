@@ -28,9 +28,10 @@ message RentalBookingRequest{
 }
 
 message RentalBookingResponse{
-	string car = 1;
-	string rentalDate = 2;
-	string returnDate = 3;
+	string rental = 1;
+	string car = 2;
+	string rentalDate = 3;
+	string returnDate = 4;
 }
 
 

@@ -588,51 +588,52 @@ public class serviceGUI {
 
 				if (position == 0) {
 					JOptionPane.showMessageDialog(jFrame, "Error, must complete previous services");
+				} else {
+					// set the details values using the static variables
+					DetailsRequest detailsRequest = DetailsRequest.newBuilder().setDetailsValue(depart)
+							.setDetailsValue(depart_date).setDetailsValue(depart_time1)
+							.setDetailsValue(depart_duration1).setDetailsValue(arrival_time1)
+							.setDetailsValue(randomNumber1).setDetailsValue(arrival).setDetailsValue(arrival_date)
+							.setDetailsValue(arrival_time1).setDetailsValue(return_duration1)
+							.setDetailsValue(return_arrival_time1).setDetailsValue(str_passengers)
+							.setDetailsValue(price1).build();
+
+					try {
+						Iterator<DetailsResponse> detailsResponse = blockingStub1.flightDetails(detailsRequest);
+						System.out.println("\nGetting flight availability from the GUI");
+						details_ta.append("Flight A, B and C");
+
+						// for all the different flights A,B and C get the static variables
+						while (detailsResponse.hasNext()) {
+							DetailsResponse temp = detailsResponse.next();
+							details_ta.append("\n" + "Destination: " + temp.getDestination() + "\n" + "Departure date: "
+									+ temp.getDepartureDate() + "\n" + "Departure time: " + temp.getDepartureTime()
+									+ "\n" + "Flight duration: " + temp.getFlightDuration() + "\n" + "Arrival time: "
+									+ temp.getArrivalTime() + "\n" + "Flight ID: " + temp.getFlightNumber() + "\n"
+									+ "Return location: " + temp.getReturnLocation() + "\n" + "Return date: "
+									+ temp.getReturnDate() + "\n" + "Return time: " + temp.getReturnTime() + "\n"
+									+ "Flight duration: " + temp.getFlightReturnDuration() + "\n" + "Arrival time: "
+									+ temp.getReturnArrivalTime() + "\n" + "Passengers: " + temp.getPassengers() + "\n"
+									+ "Price per person: " + temp.getPrice() + "\n");
+
+							System.out.println("Destination: " + temp.getDestination() + "\n" + "Departure date: "
+									+ temp.getDepartureDate() + "\n" + "Departure time: " + temp.getDepartureTime()
+									+ "\n" + "Flight duration: " + temp.getFlightDuration() + "\n" + "Arrival time: "
+									+ temp.getArrivalTime() + "\n" + "Flight ID: " + temp.getFlightNumber() + "\n"
+									+ "Return location: " + temp.getReturnLocation() + "\n" + "Return date: "
+									+ temp.getReturnDate() + "\n" + "Return time: " + temp.getReturnTime() + "\n"
+									+ "Flight duration: " + temp.getFlightReturnDuration() + "\n" + "Arrival time: "
+									+ temp.getReturnArrivalTime() + "\n" + "Passengers: " + temp.getPassengers() + "\n"
+									+ "Price per person: " + temp.getPrice() + "\n");
+
+							btnDetails.setEnabled(false);
+
+						}
+					} catch (StatusRuntimeException f) {
+
+						f.printStackTrace();
+					} // end catch
 				}
-
-				// set the details values using the static variables
-				DetailsRequest detailsRequest = DetailsRequest.newBuilder().setDetailsValue(depart)
-						.setDetailsValue(depart_date).setDetailsValue(depart_time1).setDetailsValue(depart_duration1)
-						.setDetailsValue(arrival_time1).setDetailsValue(randomNumber1).setDetailsValue(arrival)
-						.setDetailsValue(arrival_date).setDetailsValue(arrival_time1).setDetailsValue(return_duration1)
-						.setDetailsValue(return_arrival_time1).setDetailsValue(str_passengers).setDetailsValue(price1)
-						.build();
-
-				try {
-					Iterator<DetailsResponse> detailsResponse = blockingStub1.flightDetails(detailsRequest);
-					System.out.println("\nGetting flight availability from the GUI");
-					details_ta.append("Flight A, B and C");
-
-					// for all the different flights A,B and C get the static variables
-					while (detailsResponse.hasNext()) {
-						DetailsResponse temp = detailsResponse.next();
-						details_ta.append("\n" + "Destination: " + temp.getDestination() + "\n" + "Departure date: "
-								+ temp.getDepartureDate() + "\n" + "Departure time: " + temp.getDepartureTime() + "\n"
-								+ "Flight duration: " + temp.getFlightDuration() + "\n" + "Arrival time: "
-								+ temp.getArrivalTime() + "\n" + "Flight ID: " + temp.getFlightNumber() + "\n"
-								+ "Return location: " + temp.getReturnLocation() + "\n" + "Return date: "
-								+ temp.getReturnDate() + "\n" + "Return time: " + temp.getReturnTime() + "\n"
-								+ "Flight duration: " + temp.getFlightReturnDuration() + "\n" + "Arrival time: "
-								+ temp.getReturnArrivalTime() + "\n" + "Passengers: " + temp.getPassengers() + "\n"
-								+ "Price per person: " + temp.getPrice() + "\n");
-
-						System.out.println("Destination: " + temp.getDestination() + "\n" + "Departure date: "
-								+ temp.getDepartureDate() + "\n" + "Departure time: " + temp.getDepartureTime() + "\n"
-								+ "Flight duration: " + temp.getFlightDuration() + "\n" + "Arrival time: "
-								+ temp.getArrivalTime() + "\n" + "Flight ID: " + temp.getFlightNumber() + "\n"
-								+ "Return location: " + temp.getReturnLocation() + "\n" + "Return date: "
-								+ temp.getReturnDate() + "\n" + "Return time: " + temp.getReturnTime() + "\n"
-								+ "Flight duration: " + temp.getFlightReturnDuration() + "\n" + "Arrival time: "
-								+ temp.getReturnArrivalTime() + "\n" + "Passengers: " + temp.getPassengers() + "\n"
-								+ "Price per person: " + temp.getPrice() + "\n");
-
-						btnDetails.setEnabled(false);
-
-					}
-				} catch (StatusRuntimeException f) {
-
-					f.printStackTrace();
-				} // end catch
 
 			}// end action performed
 
@@ -684,7 +685,6 @@ public class serviceGUI {
 					btnLetter.setEnabled(false);
 
 				} else {
-					System.out.println("Error, option A, B or C only.");
 					JOptionPane.showMessageDialog(jFrame, "Error, enter A, B or C");
 					letter_tf.setText("");
 				}

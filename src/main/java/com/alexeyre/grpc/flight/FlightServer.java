@@ -23,7 +23,7 @@ public class FlightServer extends FlightServiceImplBase {
 	// setting static variables so variables can be accesses in multiple methods
 
 	// variable to get the number of passengers in an array
-	private static int position;
+	private static int position = 0;
 
 	// init array list and array list for setting an object for passengers
 	private static ArrayList<String> booking_list = new ArrayList();
@@ -37,9 +37,10 @@ public class FlightServer extends FlightServiceImplBase {
 	// variables to convert ints to strings and to choose which flight the user
 	// should go on (a,b,c)
 	private static String str_passengers = Integer.toString(passengers);
-	private static String flightLetter;
+	private static String flightLetter = "";
 	private static int newtemp;
-	private static int count;
+	private static int count = 0;
+	private static int newcount = 1;
 
 	// variables for flight A
 	private static String depart_time1 = "06.55";
@@ -331,79 +332,87 @@ public class FlightServer extends FlightServiceImplBase {
 	@Override
 	public void flightDetails(DetailsRequest request, StreamObserver<DetailsResponse> responseObserver) {
 
-		System.out.println("Getting Available flights ...");
+		if (position == 0) {
+			System.out.println("\nError, no. of passengers must be submitted first in FlightSearch");
+		} else {
+			System.out.println("Getting Available flights ...");
 
-		ArrayList<String> detail_list = new ArrayList();
+			ArrayList<String> detail_list = new ArrayList();
 
-		// set the size of the list to three and loop through each of the 3 variables
-		for (int i = 0; i <= 3; i++) {
+			// set the size of the list to three and loop through each of the 3 variables
+			for (int i = 0; i <= 3; i++) {
 
-			if (i == 0) {
-				// if the position of the list is 0 print of holiday A
-				DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
-						.setDepartureDate(depart_date).setDepartureTime(depart_time1)
-						.setFlightDuration(depart_duration1).setArrivalTime(arrival_time1).setFlightNumber(randomNumber)
-						.setReturnLocation(arrival).setReturnDate(arrival_date).setReturnTime(return_time1)
-						.setFlightReturnDuration(return_duration1).setReturnArrivalTime(return_arrival_time1)
-						.setPassengers(Integer.parseInt(str_passengers)).setPrice(price1).build();
+				if (i == 0) {
+					// if the position of the list is 0 print of holiday A
+					DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
+							.setDepartureDate(depart_date).setDepartureTime(depart_time1)
+							.setFlightDuration(depart_duration1).setArrivalTime(arrival_time1)
+							.setFlightNumber(randomNumber).setReturnLocation(arrival).setReturnDate(arrival_date)
+							.setReturnTime(return_time1).setFlightReturnDuration(return_duration1)
+							.setReturnArrivalTime(return_arrival_time1).setPassengers(Integer.parseInt(str_passengers))
+							.setPrice(price1).build();
 
-				System.out.println("\nFlight A: " + "\n" + "Destination: " + reply.getDestination() + "\n"
-						+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
-						+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
-						+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: " + reply.getFlightNumber()
-						+ "\n" + "Return location: " + reply.getReturnLocation() + "\n" + "Return date: "
-						+ reply.getReturnDate() + "\n" + "Return departure time: " + reply.getReturnTime() + "\n"
-						+ "Return duration: " + reply.getFlightReturnDuration() + "\n" + "Return arrival time: "
-						+ reply.getReturnArrivalTime() + "\n" + "No. of passengers: " + reply.getPassengers() + "\n"
-						+ "Price per person: " + reply.getPrice());
-				responseObserver.onNext(reply);
-			} else if (i == 1) {
-				// if the position of the list is 1 print of holiday B
-				DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
-						.setDepartureDate(depart_date).setDepartureTime(depart_time2)
-						.setFlightDuration(depart_duration2).setArrivalTime(arrival_time2)
-						.setFlightNumber(randomNumber2).setReturnLocation(arrival).setReturnDate(arrival_date)
-						.setReturnTime(return_time2).setFlightReturnDuration(return_duration2)
-						.setReturnArrivalTime(return_arrival_time2).setPassengers(Integer.parseInt(str_passengers))
-						.setPrice(price2).build();
+					System.out.println("\nFlight A: " + "\n" + "Destination: " + reply.getDestination() + "\n"
+							+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
+							+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
+							+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: "
+							+ reply.getFlightNumber() + "\n" + "Return location: " + reply.getReturnLocation() + "\n"
+							+ "Return date: " + reply.getReturnDate() + "\n" + "Return departure time: "
+							+ reply.getReturnTime() + "\n" + "Return duration: " + reply.getFlightReturnDuration()
+							+ "\n" + "Return arrival time: " + reply.getReturnArrivalTime() + "\n"
+							+ "No. of passengers: " + reply.getPassengers() + "\n" + "Price per person: "
+							+ reply.getPrice());
+					responseObserver.onNext(reply);
+				} else if (i == 1) {
+					// if the position of the list is 1 print of holiday B
+					DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
+							.setDepartureDate(depart_date).setDepartureTime(depart_time2)
+							.setFlightDuration(depart_duration2).setArrivalTime(arrival_time2)
+							.setFlightNumber(randomNumber2).setReturnLocation(arrival).setReturnDate(arrival_date)
+							.setReturnTime(return_time2).setFlightReturnDuration(return_duration2)
+							.setReturnArrivalTime(return_arrival_time2).setPassengers(Integer.parseInt(str_passengers))
+							.setPrice(price2).build();
 
-				System.out.println("\nFlight B: " + "\n" + "Destination: " + reply.getDestination() + "\n"
-						+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
-						+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
-						+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: " + reply.getFlightNumber()
-						+ "\n" + "Return location: " + reply.getReturnLocation() + "\n" + "Return date: "
-						+ reply.getReturnDate() + "\n" + "Return departure time: " + reply.getReturnTime() + "\n"
-						+ "Return duration: " + reply.getFlightReturnDuration() + "\n" + "Return arrival time: "
-						+ reply.getReturnArrivalTime() + "\n" + "No. of passengers: " + reply.getPassengers() + "\n"
-						+ "Price per person: " + reply.getPrice());
-				responseObserver.onNext(reply);
-			} else if (i == 2) {
-				// if the position of the list is 2 print of holiday C
-				DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
-						.setDepartureDate(depart_date).setDepartureTime(depart_time3)
-						.setFlightDuration(depart_duration3).setArrivalTime(arrival_time3)
-						.setFlightNumber(randomNumber3).setReturnLocation(arrival).setReturnDate(arrival_date)
-						.setReturnTime(return_time3).setFlightReturnDuration(return_duration3)
-						.setReturnArrivalTime(return_arrival_time3).setPassengers(Integer.parseInt(str_passengers))
-						.setPrice(price3).build();
+					System.out.println("\nFlight B: " + "\n" + "Destination: " + reply.getDestination() + "\n"
+							+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
+							+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
+							+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: "
+							+ reply.getFlightNumber() + "\n" + "Return location: " + reply.getReturnLocation() + "\n"
+							+ "Return date: " + reply.getReturnDate() + "\n" + "Return departure time: "
+							+ reply.getReturnTime() + "\n" + "Return duration: " + reply.getFlightReturnDuration()
+							+ "\n" + "Return arrival time: " + reply.getReturnArrivalTime() + "\n"
+							+ "No. of passengers: " + reply.getPassengers() + "\n" + "Price per person: "
+							+ reply.getPrice());
+					responseObserver.onNext(reply);
+				} else if (i == 2) {
+					// if the position of the list is 2 print of holiday C
+					DetailsResponse reply = DetailsResponse.newBuilder().setDestination(depart)
+							.setDepartureDate(depart_date).setDepartureTime(depart_time3)
+							.setFlightDuration(depart_duration3).setArrivalTime(arrival_time3)
+							.setFlightNumber(randomNumber3).setReturnLocation(arrival).setReturnDate(arrival_date)
+							.setReturnTime(return_time3).setFlightReturnDuration(return_duration3)
+							.setReturnArrivalTime(return_arrival_time3).setPassengers(Integer.parseInt(str_passengers))
+							.setPrice(price3).build();
 
-				System.out.println("\nFlight C: " + "\n" + "Destination: " + reply.getDestination() + "\n"
-						+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
-						+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
-						+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: " + reply.getFlightNumber()
-						+ "\n" + "Return location: " + reply.getReturnLocation() + "\n" + "Return date: "
-						+ reply.getReturnDate() + "\n" + "Return departure time: " + reply.getReturnTime() + "\n"
-						+ "Return duration: " + reply.getFlightReturnDuration() + "\n" + "Return arrival time: "
-						+ reply.getReturnArrivalTime() + "\n" + "No. of passengers: " + reply.getPassengers() + "\n"
-						+ "Price per person: " + reply.getPrice());
-				responseObserver.onNext(reply);
+					System.out.println("\nFlight C: " + "\n" + "Destination: " + reply.getDestination() + "\n"
+							+ "Departure date: " + reply.getDepartureDate() + "\n" + "Departure time: "
+							+ reply.getDepartureTime() + "\n" + "Flight duration: " + reply.getFlightDuration() + "\n"
+							+ "Arrival time: " + reply.getArrivalTime() + "\n" + "Flight number: "
+							+ reply.getFlightNumber() + "\n" + "Return location: " + reply.getReturnLocation() + "\n"
+							+ "Return date: " + reply.getReturnDate() + "\n" + "Return departure time: "
+							+ reply.getReturnTime() + "\n" + "Return duration: " + reply.getFlightReturnDuration()
+							+ "\n" + "Return arrival time: " + reply.getReturnArrivalTime() + "\n"
+							+ "No. of passengers: " + reply.getPassengers() + "\n" + "Price per person: "
+							+ reply.getPrice());
+					responseObserver.onNext(reply);
+				}
+
 			}
 
+			System.out.println("\nAll available flights for your given booking completed... "
+					+ "\nPlease choose one of the available flights in the next stream to finalise the booking");
+			responseObserver.onCompleted();
 		}
-
-		System.out.println("\nAll available flights for your given booking completed... "
-				+ "\nPlease choose one of the available flights in the next stream to finalise the booking");
-		responseObserver.onCompleted();
 
 	}
 
@@ -458,7 +467,7 @@ public class FlightServer extends FlightServiceImplBase {
 
 					// if the list is less or equal to the amount of passengers
 					if (booking_list.size() <= position) {
-						System.out.println("\nMaking booking for passenger:" + count + "\n" + "Ticket type: "
+						System.out.println("\nMaking booking for passenger:" + newcount + "\n" + "Ticket type: "
 								+ value.getTicketType() + "\n" + "Seat Preference: " + value.getSeatPref() + "\n"
 								+ "Firstname: " + value.getFirstname() + "\n" + "Surname: " + value.getSurname());
 
@@ -473,6 +482,7 @@ public class FlightServer extends FlightServiceImplBase {
 									.setSeatPref(phelper.get(i).getSPref()).setFirstname(phelper.get(i).getFName())
 									.setSurname(phelper.get(i).getSName()).build();
 
+							newcount++;
 							count++;
 
 						}
@@ -488,7 +498,7 @@ public class FlightServer extends FlightServiceImplBase {
 					}
 
 				} else {
-					System.out.println("Error");
+					System.out.println("Error, passenger details shoult not match bloom defaults");
 				}
 
 			}
@@ -517,7 +527,7 @@ public class FlightServer extends FlightServiceImplBase {
 	@Override
 	public void flightDisplay(DisplayRequest request, StreamObserver<DisplayResponse> responseObserver) {
 
-		if ((count == 0) && (flightLetter.equals(""))){
+		if ((count == 0) && (flightLetter.equals(""))) {
 			System.out.println("Error, ensure flight number and passenger booking details have been chosen");
 		} else {
 			System.out.print("\nDisplaying finalized booking");
