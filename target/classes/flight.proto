@@ -31,8 +31,6 @@ message SearchRequest{
 }
 
 message SearchResponse{
-	int32 responseCode = 1;
-	string responseMessage = 2;
 	string depart = 3;
 	string departDate = 4;
 	string arrival = 5;

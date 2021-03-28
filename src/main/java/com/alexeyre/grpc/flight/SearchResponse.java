@@ -16,8 +16,6 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private SearchResponse() {
-    responseCode_ = 0;
-    responseMessage_ = "";
     depart_ = "";
     departDate_ = "";
     arrival_ = "";
@@ -49,17 +47,6 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
-
-            responseCode_ = input.readInt32();
-            break;
-          }
-          case 18: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            responseMessage_ = s;
-            break;
-          }
           case 26: {
             java.lang.String s = input.readStringRequireUtf8();
 
@@ -119,49 +106,6 @@ private static final long serialVersionUID = 0L;
     return com.alexeyre.grpc.flight.FlightServiceImpl.internal_static_com_alexeyre_grpc_flight_SearchResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             com.alexeyre.grpc.flight.SearchResponse.class, com.alexeyre.grpc.flight.SearchResponse.Builder.class);
-  }
-
-  public static final int RESPONSECODE_FIELD_NUMBER = 1;
-  private int responseCode_;
-  /**
-   * <code>int32 responseCode = 1;</code>
-   */
-  public int getResponseCode() {
-    return responseCode_;
-  }
-
-  public static final int RESPONSEMESSAGE_FIELD_NUMBER = 2;
-  private volatile java.lang.Object responseMessage_;
-  /**
-   * <code>string responseMessage = 2;</code>
-   */
-  public java.lang.String getResponseMessage() {
-    java.lang.Object ref = responseMessage_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      responseMessage_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string responseMessage = 2;</code>
-   */
-  public com.google.protobuf.ByteString
-      getResponseMessageBytes() {
-    java.lang.Object ref = responseMessage_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      responseMessage_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
   }
 
   public static final int DEPART_FIELD_NUMBER = 3;
@@ -323,12 +267,6 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (responseCode_ != 0) {
-      output.writeInt32(1, responseCode_);
-    }
-    if (!getResponseMessageBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, responseMessage_);
-    }
     if (!getDepartBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, depart_);
     }
@@ -353,13 +291,6 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (responseCode_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, responseCode_);
-    }
-    if (!getResponseMessageBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, responseMessage_);
-    }
     if (!getDepartBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, depart_);
     }
@@ -392,10 +323,6 @@ private static final long serialVersionUID = 0L;
     com.alexeyre.grpc.flight.SearchResponse other = (com.alexeyre.grpc.flight.SearchResponse) obj;
 
     boolean result = true;
-    result = result && (getResponseCode()
-        == other.getResponseCode());
-    result = result && getResponseMessage()
-        .equals(other.getResponseMessage());
     result = result && getDepart()
         .equals(other.getDepart());
     result = result && getDepartDate()
@@ -417,10 +344,6 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + RESPONSECODE_FIELD_NUMBER;
-    hash = (53 * hash) + getResponseCode();
-    hash = (37 * hash) + RESPONSEMESSAGE_FIELD_NUMBER;
-    hash = (53 * hash) + getResponseMessage().hashCode();
     hash = (37 * hash) + DEPART_FIELD_NUMBER;
     hash = (53 * hash) + getDepart().hashCode();
     hash = (37 * hash) + DEPARTDATE_FIELD_NUMBER;
@@ -564,10 +487,6 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      responseCode_ = 0;
-
-      responseMessage_ = "";
-
       depart_ = "";
 
       departDate_ = "";
@@ -604,8 +523,6 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.alexeyre.grpc.flight.SearchResponse buildPartial() {
       com.alexeyre.grpc.flight.SearchResponse result = new com.alexeyre.grpc.flight.SearchResponse(this);
-      result.responseCode_ = responseCode_;
-      result.responseMessage_ = responseMessage_;
       result.depart_ = depart_;
       result.departDate_ = departDate_;
       result.arrival_ = arrival_;
@@ -659,13 +576,6 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.alexeyre.grpc.flight.SearchResponse other) {
       if (other == com.alexeyre.grpc.flight.SearchResponse.getDefaultInstance()) return this;
-      if (other.getResponseCode() != 0) {
-        setResponseCode(other.getResponseCode());
-      }
-      if (!other.getResponseMessage().isEmpty()) {
-        responseMessage_ = other.responseMessage_;
-        onChanged();
-      }
       if (!other.getDepart().isEmpty()) {
         depart_ = other.depart_;
         onChanged();
@@ -711,101 +621,6 @@ private static final long serialVersionUID = 0L;
           mergeFrom(parsedMessage);
         }
       }
-      return this;
-    }
-
-    private int responseCode_ ;
-    /**
-     * <code>int32 responseCode = 1;</code>
-     */
-    public int getResponseCode() {
-      return responseCode_;
-    }
-    /**
-     * <code>int32 responseCode = 1;</code>
-     */
-    public Builder setResponseCode(int value) {
-      
-      responseCode_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 responseCode = 1;</code>
-     */
-    public Builder clearResponseCode() {
-      
-      responseCode_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object responseMessage_ = "";
-    /**
-     * <code>string responseMessage = 2;</code>
-     */
-    public java.lang.String getResponseMessage() {
-      java.lang.Object ref = responseMessage_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        responseMessage_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <code>string responseMessage = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getResponseMessageBytes() {
-      java.lang.Object ref = responseMessage_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        responseMessage_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string responseMessage = 2;</code>
-     */
-    public Builder setResponseMessage(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      responseMessage_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string responseMessage = 2;</code>
-     */
-    public Builder clearResponseMessage() {
-      
-      responseMessage_ = getDefaultInstance().getResponseMessage();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string responseMessage = 2;</code>
-     */
-    public Builder setResponseMessageBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      responseMessage_ = value;
-      onChanged();
       return this;
     }
 

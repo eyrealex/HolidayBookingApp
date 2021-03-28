@@ -8,21 +8,6 @@ public interface SearchResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 responseCode = 1;</code>
-   */
-  int getResponseCode();
-
-  /**
-   * <code>string responseMessage = 2;</code>
-   */
-  java.lang.String getResponseMessage();
-  /**
-   * <code>string responseMessage = 2;</code>
-   */
-  com.google.protobuf.ByteString
-      getResponseMessageBytes();
-
-  /**
    * <code>string depart = 3;</code>
    */
   java.lang.String getDepart();
