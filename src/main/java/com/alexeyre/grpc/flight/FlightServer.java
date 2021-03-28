@@ -38,6 +38,8 @@ public class FlightServer extends FlightServiceImplBase {
 	// should go on (a,b,c)
 	private static String str_passengers = Integer.toString(passengers);
 	private static String flightLetter;
+	private static int newtemp;
+	private static int count;
 
 	// variables for flight A
 	private static String depart_time1 = "06.55";
@@ -251,27 +253,40 @@ public class FlightServer extends FlightServiceImplBase {
 					// it to the array list to move to position 4
 				} else if (bookinglist.size() == 3) {
 					System.out.println("\nReturn date: " + value.getValue());
-					System.out.println("Please enter the number of passengers to be booked: ");
+					System.out.println("Please enter the number of passengers to be booked: " + "\n");
 					arrival_date = value.getValue();
 					bookinglist.add(arrival_date);
 				}
 				// if array is position 4, have the user enter in number for amount of
 				// passengers for the booking. Add it to the array then end
 				else if (bookinglist.size() == 4) {
-					System.out.println("Amount of passengers to book: " + value.getValue());
+
 					str_passengers = value.getValue();
-					int limit = Integer.parseInt(str_passengers);
-					// limit the user to only allow the booking of 4 passengers per booking
-					if (limit < 5) {
-						bookinglist.add(str_passengers);
-						position = Integer.parseInt(str_passengers);
-					} else {
-						System.out.println("\nError 4 or less passengers per booking");
+
+					try {
+						int x = Integer.parseInt(str_passengers);
+						Boolean size = false;
+						while (x < 6) {
+							if ((x == (int) x)) {
+								bookinglist.add(str_passengers);
+								System.out.println("\nAmount of passengers to book: " + value.getValue());
+								position = Integer.parseInt(str_passengers);
+								size = true;
+							}
+							break;
+						}
+						if (size == false) {
+							System.out.println("Error, 5 passengers or less per booking");
+						}
+
+					} catch (NumberFormatException y) {
+						System.out.println("Error, please enter a number value for passengers");
 					}
-				} // end else if
+
+				} // end else if == 4
 
 				else {
-
+					System.out.println("Error, array list should not have reached this");
 				}
 
 				// if the array position is greater than 4, cut it off and send it to the
@@ -429,48 +444,51 @@ public class FlightServer extends FlightServiceImplBase {
 			@Override
 			public void onNext(BookingRequest value) {
 
-				// init variables used
-				ticketType = null;
-				firstname = null;
-				surname = null;
-				seatNo = null;
+				// set the variables to the user input
+				ticketType = value.getTicketType();
+				seatNo = value.getSeatPref();
+				firstname = value.getFirstname();
+				surname = value.getSurname();
 
-				// add the ticket type to the array list so we can limit amount of inputs
-				booking_list.add(ticketType);
+				if (!(ticketType.equals("Hello")) && (!(seatNo.equals("Hello")))
+						&& (!(firstname.equals("Hello")) && (!(surname.equals("Hello"))))) {
 
-				// if the list is less or equal to the amount of passengers
-				if (booking_list.size() <= position) {
-					System.out.println("\nMaking booking for passenger:" + "\n" + "Ticket type: "
-							+ value.getTicketType() + "\n" + "Seat Preference: " + value.getSeatPref() + "\n"
-							+ "Firstname: " + value.getFirstname() + "\n" + "Surname: " + value.getSurname());
+					// add the ticket type to the array list so we can limit amount of inputs
+					booking_list.add(ticketType);
 
-					// set the variables to the user input
-					ticketType = value.getTicketType();
-					seatNo = value.getSeatPref();
-					firstname = value.getFirstname();
-					surname = value.getSurname();
+					// if the list is less or equal to the amount of passengers
+					if (booking_list.size() <= position) {
+						System.out.println("\nMaking booking for passenger:" + count + "\n" + "Ticket type: "
+								+ value.getTicketType() + "\n" + "Seat Preference: " + value.getSeatPref() + "\n"
+								+ "Firstname: " + value.getFirstname() + "\n" + "Surname: " + value.getSurname());
 
-					// create a new instance of the PassengerHelper class and add the variables the
-					// user has inputed into the list
-					phelper.add(new PassengerHelper(ticketType, seatNo, firstname, surname));
+						// create a new instance of the PassengerHelper class and add the variables the
+						// user has inputed into the list
+						phelper.add(new PassengerHelper(ticketType, seatNo, firstname, surname));
 
-					// loop through the size of the array and for each passenger set the variables
-					// and increment until the varaibles have been set for all the passengers
-					for (int i = 0; i < phelper.size(); i++) {
-						bookingResponse = BookingResponse.newBuilder().setTicketType(phelper.get(i).getTType())
-								.setSeatPref(phelper.get(i).getSPref()).setFirstname(phelper.get(i).getFName())
-								.setSurname(phelper.get(i).getSName()).build();
+						// loop through the size of the array and for each passenger set the variables
+						// and increment until the varaibles have been set for all the passengers
+						for (int i = 0; i < phelper.size(); i++) {
+							bookingResponse = BookingResponse.newBuilder().setTicketType(phelper.get(i).getTType())
+									.setSeatPref(phelper.get(i).getSPref()).setFirstname(phelper.get(i).getFName())
+									.setSurname(phelper.get(i).getSName()).build();
+
+							count++;
+
+						}
+
+						// send the response of the set variables to the on next which will check if the
+						// list is less or equal to the limit again
+						responseObserver.onNext(bookingResponse);
 
 					}
+					// if the list is greater than the amount of passengers end the method
+					else {
+						onCompleted();
+					}
 
-					// send the response of the set variables to the on next which will check if the
-					// list is less or equal to the limit again
-					responseObserver.onNext(bookingResponse);
-
-				}
-				// if the list is greater than the amount of passengers end the method
-				else {
-					onCompleted();
+				} else {
+					System.out.println("Error");
 				}
 
 			}
@@ -499,143 +517,150 @@ public class FlightServer extends FlightServiceImplBase {
 	@Override
 	public void flightDisplay(DisplayRequest request, StreamObserver<DisplayResponse> responseObserver) {
 
-		System.out.print("\nDisplaying finalized booking");
+		if ((count == 0) && (flightLetter.equals(""))){
+			System.out.println("Error, ensure flight number and passenger booking details have been chosen");
+		} else {
+			System.out.print("\nDisplaying finalized booking");
 
-		// create an array list to loop through the amount of displays to show
-		ArrayList<String> display_list = new ArrayList();
+			// create an array list to loop through the amount of displays to show
+			ArrayList<String> display_list = new ArrayList();
 
-		// for loop to go through all the passengers books onto flight
-		for (int i = 0; i < phelper.size(); i++) {
+			// for loop to go through all the passengers books onto flight
+			for (int i = 0; i < phelper.size(); i++) {
 
-			// if the user entered A as their flight choice, print of all the relevant
-			// details to that particular flight
-			// this flight display will be duplicated to each of the passengers booked on to
-			// the flight previously, shown in multiple responses, all contain same info
-			// apart from passenger info
+				// if the user entered A as their flight choice, print of all the relevant
+				// details to that particular flight
+				// this flight display will be duplicated to each of the passengers booked on to
+				// the flight previously, shown in multiple responses, all contain same info
+				// apart from passenger info
 
-			if (flightLetter.equals("A") || flightLetter.equals("a")) {
-				DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDestination(depart)
-						.setDisplayDepartureDate(depart_date).setDisplayDepartureTime(depart_time1)
-						.setDisplayFlightDuration(depart_duration1).setDisplayArrivalTime(arrival_time1)
-						.setDisplayFlightId(randomNumber).setDisplayReturnLocation(arrival)
-						.setDisplayReturnDate(arrival_date).setDisplayReturnTime(return_time1)
-						.setDisplayFlightReturnDuration(return_duration1)
-						.setDisplayReturnArrivalTime(return_arrival_time1).setDisplayPassengers(passengers)
-						.setDisplayPrice(price1)
+				if (flightLetter.equals("A") || flightLetter.equals("a")) {
+					DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDestination(depart)
+							.setDisplayDepartureDate(depart_date).setDisplayDepartureTime(depart_time1)
+							.setDisplayFlightDuration(depart_duration1).setDisplayArrivalTime(arrival_time1)
+							.setDisplayFlightId(randomNumber).setDisplayReturnLocation(arrival)
+							.setDisplayReturnDate(arrival_date).setDisplayReturnTime(return_time1)
+							.setDisplayFlightReturnDuration(return_duration1)
+							.setDisplayReturnArrivalTime(return_arrival_time1).setDisplayPassengers(passengers)
+							.setDisplayPrice(price1)
 
-						.setDisplayTicketType(phelper.get(i).getTType()).setDisplaySeatPref(phelper.get(i).getSPref())
-						.setDisplayFirstname(phelper.get(i).getFName()).setDisplaySurname(phelper.get(i).getSName())
-						.build();
+							.setDisplayTicketType(phelper.get(i).getTType())
+							.setDisplaySeatPref(phelper.get(i).getSPref())
+							.setDisplayFirstname(phelper.get(i).getFName()).setDisplaySurname(phelper.get(i).getSName())
+							.build();
 
-				System.out.println("\nDeparture: " + depart);
-				System.out.println("Depart date: " + depart_date);
-				System.out.println("Depart time: " + depart_time1);
-				System.out.println("Depart duration : " + depart_duration1);
-				System.out.println("Arrival time: " + arrival_time1);
-				System.out.println("Flight id: " + randomNumber);
-				System.out.println("Return location: " + arrival);
-				System.out.println("Return date: " + arrival_date);
-				System.out.println("Return departure time: " + return_time1);
-				System.out.println("Return flight duration: " + return_duration1);
-				System.out.println("Return arrival time: " + return_arrival_time1);
-				System.out.println("No. of passengers: " + passengers);
-				System.out.println("Price per passenger: " + price1);
-				System.out.println("Ticket type: " + phelper.get(i).getTType());
-				System.out.println("Seat preference: " + phelper.get(i).getSPref());
-				System.out.println("Firstname: " + phelper.get(i).getFName());
-				System.out.println("Surname: " + phelper.get(i).getSName());
+					System.out.println("\nDeparture: " + depart);
+					System.out.println("Depart date: " + depart_date);
+					System.out.println("Depart time: " + depart_time1);
+					System.out.println("Depart duration : " + depart_duration1);
+					System.out.println("Arrival time: " + arrival_time1);
+					System.out.println("Flight id: " + randomNumber);
+					System.out.println("Return location: " + arrival);
+					System.out.println("Return date: " + arrival_date);
+					System.out.println("Return departure time: " + return_time1);
+					System.out.println("Return flight duration: " + return_duration1);
+					System.out.println("Return arrival time: " + return_arrival_time1);
+					System.out.println("No. of passengers: " + passengers);
+					System.out.println("Price per passenger: " + price1);
+					System.out.println("Ticket type: " + phelper.get(i).getTType());
+					System.out.println("Seat preference: " + phelper.get(i).getSPref());
+					System.out.println("Firstname: " + phelper.get(i).getFName());
+					System.out.println("Surname: " + phelper.get(i).getSName());
 
-				responseObserver.onNext(reply);
+					responseObserver.onNext(reply);
+
+				}
+				// if the user entered B as their flight choice, print of all the relevant
+				// details to that particular flight
+				// this flight display will be duplicated to each of the passengers booked on to
+				// the flight previously, shown in multiple responses, all contain same info
+				// apart from passenger info
+
+				else if (flightLetter.equals("B") || flightLetter.equals("b")) {
+					DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDepartureDate(depart_date)
+							.setDisplayDepartureTime(depart_time2).setDisplayFlightDuration(depart_duration2)
+							.setDisplayArrivalTime(arrival_time2).setDisplayFlightId(randomNumber)
+							.setDisplayReturnLocation(arrival).setDisplayReturnDate(arrival_date)
+							.setDisplayReturnTime(return_time2).setDisplayFlightReturnDuration(return_duration2)
+							.setDisplayReturnArrivalTime(return_arrival_time1).setDisplayPassengers(passengers)
+							.setDisplayPrice(price2)
+
+							.setDisplayTicketType(phelper.get(i).getTType())
+							.setDisplaySeatPref(phelper.get(i).getSPref())
+							.setDisplayFirstname(phelper.get(i).getFName()).setDisplaySurname(phelper.get(i).getSName())
+							.build();
+
+					System.out.println("\nDeparture: " + depart);
+					System.out.println("Depart date: " + depart_date);
+					System.out.println("Depart time: " + depart_time2);
+					System.out.println("Depart duration : " + depart_duration2);
+					System.out.println("Arrival time: " + arrival_time2);
+					System.out.println("Flight id: " + randomNumber);
+					System.out.println("Return location: " + arrival);
+					System.out.println("Return date: " + arrival_date);
+					System.out.println("Return departure time: " + return_time2);
+					System.out.println("Return flight duration: " + return_duration2);
+					System.out.println("Return arrival time: " + return_arrival_time2);
+					System.out.println("No. of passengers: " + passengers);
+					System.out.println("Price per passenger: " + price2);
+					System.out.println("Ticket type: " + phelper.get(i).getTType());
+					System.out.println("Seat preference: " + phelper.get(i).getSPref());
+					System.out.println("Firstname: " + phelper.get(i).getFName());
+					System.out.println("Surname: " + phelper.get(i).getSName());
+
+					responseObserver.onNext(reply);
+				}
+				// if the user entered C as their flight choice, print of all the relevant
+				// details to that particular flight
+				// this flight display will be duplicated to each of the passengers booked on to
+				// the flight previously, shown in multiple responses, all contain same info
+				// apart from passenger info
+				else if (flightLetter.equals("C") || flightLetter.equals("c")) {
+					DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDepartureDate(depart_date)
+							.setDisplayDepartureTime(depart_time3).setDisplayFlightDuration(depart_duration3)
+							.setDisplayArrivalTime(arrival_time3).setDisplayFlightId(randomNumber)
+							.setDisplayReturnLocation(arrival).setDisplayReturnDate(arrival_date)
+							.setDisplayReturnTime(return_time3).setDisplayFlightReturnDuration(return_duration3)
+							.setDisplayReturnArrivalTime(return_arrival_time3).setDisplayPassengers(passengers)
+							.setDisplayPrice(price3)
+
+							.setDisplayTicketType(phelper.get(i).getTType())
+							.setDisplaySeatPref(phelper.get(i).getSPref())
+							.setDisplayFirstname(phelper.get(i).getFName()).setDisplaySurname(phelper.get(i).getSName())
+							.build();
+
+					System.out.println("\nDeparture: " + depart);
+					System.out.println("Depart date: " + depart_date);
+					System.out.println("Depart time: " + depart_time3);
+					System.out.println("Depart duration : " + depart_duration3);
+					System.out.println("Arrival time: " + arrival_time3);
+					System.out.println("Flight id: " + randomNumber);
+					System.out.println("Return location: " + arrival);
+					System.out.println("Return date: " + arrival_date);
+					System.out.println("Return departure time: " + return_time3);
+					System.out.println("Return flight duration: " + return_duration3);
+					System.out.println("Return arrival time: " + return_arrival_time3);
+					System.out.println("No. of passengers: " + passengers);
+					System.out.println("Price per passenger: " + price3);
+					System.out.println("Ticket type: " + phelper.get(i).getTType());
+					System.out.println("Seat preference: " + phelper.get(i).getSPref());
+					System.out.println("Firstname: " + phelper.get(i).getFName());
+					System.out.println("Surname: " + phelper.get(i).getSName());
+
+					responseObserver.onNext(reply);
+				}
+				// if there has been no flight number selected previously return an error
+				// message
+				else {
+
+					System.out.println("Error has occured when choosing flight number");
+				}
 
 			}
-			// if the user entered B as their flight choice, print of all the relevant
-			// details to that particular flight
-			// this flight display will be duplicated to each of the passengers booked on to
-			// the flight previously, shown in multiple responses, all contain same info
-			// apart from passenger info
 
-			else if (flightLetter.equals("B") || flightLetter.equals("b")) {
-				DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDepartureDate(depart_date)
-						.setDisplayDepartureTime(depart_time2).setDisplayFlightDuration(depart_duration2)
-						.setDisplayArrivalTime(arrival_time2).setDisplayFlightId(randomNumber)
-						.setDisplayReturnLocation(arrival).setDisplayReturnDate(arrival_date)
-						.setDisplayReturnTime(return_time2).setDisplayFlightReturnDuration(return_duration2)
-						.setDisplayReturnArrivalTime(return_arrival_time1).setDisplayPassengers(passengers)
-						.setDisplayPrice(price2)
-
-						.setDisplayTicketType(phelper.get(i).getTType()).setDisplaySeatPref(phelper.get(i).getSPref())
-						.setDisplayFirstname(phelper.get(i).getFName()).setDisplaySurname(phelper.get(i).getSName())
-						.build();
-
-				System.out.println("\nDeparture: " + depart);
-				System.out.println("Depart date: " + depart_date);
-				System.out.println("Depart time: " + depart_time2);
-				System.out.println("Depart duration : " + depart_duration2);
-				System.out.println("Arrival time: " + arrival_time2);
-				System.out.println("Flight id: " + randomNumber);
-				System.out.println("Return location: " + arrival);
-				System.out.println("Return date: " + arrival_date);
-				System.out.println("Return departure time: " + return_time2);
-				System.out.println("Return flight duration: " + return_duration2);
-				System.out.println("Return arrival time: " + return_arrival_time2);
-				System.out.println("No. of passengers: " + passengers);
-				System.out.println("Price per passenger: " + price2);
-				System.out.println("Ticket type: " + phelper.get(i).getTType());
-				System.out.println("Seat preference: " + phelper.get(i).getSPref());
-				System.out.println("Firstname: " + phelper.get(i).getFName());
-				System.out.println("Surname: " + phelper.get(i).getSName());
-
-				responseObserver.onNext(reply);
-			}
-			// if the user entered C as their flight choice, print of all the relevant
-			// details to that particular flight
-			// this flight display will be duplicated to each of the passengers booked on to
-			// the flight previously, shown in multiple responses, all contain same info
-			// apart from passenger info
-			else if (flightLetter.equals("C") || flightLetter.equals("c")) {
-				DisplayResponse reply = DisplayResponse.newBuilder().setDisplayDepartureDate(depart_date)
-						.setDisplayDepartureTime(depart_time3).setDisplayFlightDuration(depart_duration3)
-						.setDisplayArrivalTime(arrival_time3).setDisplayFlightId(randomNumber)
-						.setDisplayReturnLocation(arrival).setDisplayReturnDate(arrival_date)
-						.setDisplayReturnTime(return_time3).setDisplayFlightReturnDuration(return_duration3)
-						.setDisplayReturnArrivalTime(return_arrival_time3).setDisplayPassengers(passengers)
-						.setDisplayPrice(price3)
-
-						.setDisplayTicketType(phelper.get(i).getTType()).setDisplaySeatPref(phelper.get(i).getSPref())
-						.setDisplayFirstname(phelper.get(i).getFName()).setDisplaySurname(phelper.get(i).getSName())
-						.build();
-
-				System.out.println("\nDeparture: " + depart);
-				System.out.println("Depart date: " + depart_date);
-				System.out.println("Depart time: " + depart_time3);
-				System.out.println("Depart duration : " + depart_duration3);
-				System.out.println("Arrival time: " + arrival_time3);
-				System.out.println("Flight id: " + randomNumber);
-				System.out.println("Return location: " + arrival);
-				System.out.println("Return date: " + arrival_date);
-				System.out.println("Return departure time: " + return_time3);
-				System.out.println("Return flight duration: " + return_duration3);
-				System.out.println("Return arrival time: " + return_arrival_time3);
-				System.out.println("No. of passengers: " + passengers);
-				System.out.println("Price per passenger: " + price3);
-				System.out.println("Ticket type: " + phelper.get(i).getTType());
-				System.out.println("Seat preference: " + phelper.get(i).getSPref());
-				System.out.println("Firstname: " + phelper.get(i).getFName());
-				System.out.println("Surname: " + phelper.get(i).getSName());
-
-				responseObserver.onNext(reply);
-			}
-			// if there has been no flight number selected previously return an error
-			// message
-			else {
-
-				System.out.println("Error has occured when choosing flight number");
-			}
-
+			System.out.println("\nDisplay Booking Completed... ");
+			responseObserver.onCompleted();
 		}
-
-		System.out.println("\nDisplay Booking Completed... ");
-		responseObserver.onCompleted();
 
 	}
 

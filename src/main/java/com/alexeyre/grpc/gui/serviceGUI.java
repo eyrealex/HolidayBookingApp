@@ -81,6 +81,8 @@ public class serviceGUI {
 	private static String ticket, seat, fname, sname;
 	private int count = 0;
 	private int ticketcount = 0;
+	private int newtemp = 0;
+	private static String hotel_input;
 
 	// variables to create a random flight ID
 	private static String randomNumber1 = Long.toHexString(Double.doubleToLongBits(Math.random()));
@@ -483,20 +485,20 @@ public class serviceGUI {
 						if ((value.equals("Dublin")) || (value.equals("dublin"))) {
 							booking.add(value);
 						} else {
-							JOptionPane.showMessageDialog(jFrame, "Error, enter Dublin as return location");
+							JOptionPane.showMessageDialog(jFrame, "Error, enter Dublin as the return location");
 						}
 
 					}
 					// validate array position 4 to be an integer and less that 6
 					else if (booking.size() == 4) {
 
-						//try to catch when a user inputs a string instead of an integer
+						// try to catch when a user inputs a string instead of an integer
 						try {
-							//parse value to an integer
+							// parse value to an integer
 							int x = Integer.parseInt(value);
 							Boolean size = false;
 							while (x < 6) {
-								//if the value of x is an integer add value to the array
+								// if the value of x is an integer add value to the array
 								if ((x == (int) x)) {
 									booking.add(value);
 									size = true;
@@ -504,7 +506,7 @@ public class serviceGUI {
 								break;
 							}
 
-							//boolean to validate if size is < 6
+							// boolean to validate if size is < 6
 							if (size == false) {
 								JOptionPane.showMessageDialog(jFrame, "Error, 5 passengers or less per booking");
 							}
@@ -515,12 +517,12 @@ public class serviceGUI {
 
 					}
 
-					//add value to array if not validating for specific parameters
+					// add value to array if not validating for specific parameters
 					else {
 						booking.add(value);
 					}
 
-					//reset text field after every input
+					// reset text field after every input
 					location_date_tf.setText("");
 				} else {
 					JOptionPane.showMessageDialog(jFrame, "Error, field(s) cannot be empty");
@@ -553,7 +555,7 @@ public class serviceGUI {
 						e1.printStackTrace();
 					}
 
-				} //end if 
+				} // end if
 
 			}// end btnSubmit action performed
 		}); // end btnSubmit action listener
@@ -584,6 +586,11 @@ public class serviceGUI {
 		btnDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				if (position == 0) {
+					JOptionPane.showMessageDialog(jFrame, "Error, must complete previous services");
+				}
+
+				// set the details values using the static variables
 				DetailsRequest detailsRequest = DetailsRequest.newBuilder().setDetailsValue(depart)
 						.setDetailsValue(depart_date).setDetailsValue(depart_time1).setDetailsValue(depart_duration1)
 						.setDetailsValue(arrival_time1).setDetailsValue(randomNumber1).setDetailsValue(arrival)
@@ -596,6 +603,7 @@ public class serviceGUI {
 					System.out.println("\nGetting flight availability from the GUI");
 					details_ta.append("Flight A, B and C");
 
+					// for all the different flights A,B and C get the static variables
 					while (detailsResponse.hasNext()) {
 						DetailsResponse temp = detailsResponse.next();
 						details_ta.append("\n" + "Destination: " + temp.getDestination() + "\n" + "Departure date: "
@@ -617,6 +625,8 @@ public class serviceGUI {
 								+ "Flight duration: " + temp.getFlightReturnDuration() + "\n" + "Arrival time: "
 								+ temp.getReturnArrivalTime() + "\n" + "Passengers: " + temp.getPassengers() + "\n"
 								+ "Price per person: " + temp.getPrice() + "\n");
+
+						btnDetails.setEnabled(false);
 
 					}
 				} catch (StatusRuntimeException f) {
@@ -661,6 +671,7 @@ public class serviceGUI {
 				String text = letter_tf.getText();
 				option = letter_tf.getText();
 
+				// validate the check if user only enters in either A, B or C
 				if (option.equals("A") || option.equals("a") || option.equals("B") || option.equals("b")
 						|| option.equals("C") || option.equals("c")) {
 
@@ -674,7 +685,7 @@ public class serviceGUI {
 
 				} else {
 					System.out.println("Error, option A, B or C only.");
-					letter_ta.append("Error, option A, B or C only." + "\n");
+					JOptionPane.showMessageDialog(jFrame, "Error, enter A, B or C");
 					letter_tf.setText("");
 				}
 
@@ -763,11 +774,14 @@ public class serviceGUI {
 				fname = fname_tf.getText();
 				sname = sname_tf.getText();
 
+				// validate to all for no empty fields
 				if (!(ticket.equals("") && (!(seat.equals("")))) && (!(fname.equals(""))) && (!(sname.equals("")))) {
 					booking_list.add(ticket);
 
+					// ensure the array list is less than or equal to no of passengers
 					if (booking_list.size() <= position) {
 
+						// create a new instance for passenger model class to include user inputs
 						phelper.add(new PassengerHelper(ticket, seat, fname, sname));
 
 						try {
@@ -775,6 +789,12 @@ public class serviceGUI {
 							requestObserver.onNext(BookingRequest.newBuilder().setTicketType(ticket).setSeatPref(seat)
 									.setFirstname(fname).setSurname(sname).build());
 
+							ticket_tf.setText("");
+							seat_tf.setText("");
+							fname_tf.setText("");
+							sname_tf.setText("");
+
+							// count to record number of passengers
 							count++;
 
 							Thread.sleep(1000);
@@ -828,6 +848,11 @@ public class serviceGUI {
 
 			public void actionPerformed(ActionEvent e) {
 
+				if (count == 0) {
+					JOptionPane.showMessageDialog(jFrame, "Error, must complete previous services");
+				}
+
+				// if user chose flight A print of tickets with necessary deatil
 				if (option.equals("A") || option.equals("a")) {
 					DisplayRequest displayRequest = DisplayRequest.newBuilder().setDisplayRequest(depart)
 							.setDisplayRequest(depart_date).setDisplayRequest(depart_time1)
@@ -875,12 +900,126 @@ public class serviceGUI {
 									+ temp.getDisplayFirstname() + "\n" + "Surname: " + temp.getDisplaySurname()
 									+ "\n");
 
+							btnDisplay.setEnabled(false);
+
 						}
 					} catch (StatusRuntimeException f) {
 
 						f.printStackTrace();
 					} // end catch
 				} // end if option equals A or a
+
+				// if user chose flight B print of tickets with necessary deatil
+				else if (option.equals("B") || option.equals("b")) {
+					DisplayRequest displayRequest = DisplayRequest.newBuilder().setDisplayRequest(depart)
+							.setDisplayRequest(depart_date).setDisplayRequest(depart_time2)
+							.setDisplayRequest(depart_duration2).setDisplayRequest(arrival_time2)
+							.setDisplayRequest(randomNumber2).setDisplayRequest(arrival).setDisplayRequest(arrival_date)
+							.setDisplayRequest(return_time2).setDisplayRequest(return_duration2)
+							.setDisplayRequest(return_arrival_time2).setDisplayRequest(str_passengers)
+							.setDisplayRequest(price2).setDisplayRequest(ticket).setDisplayRequest(seat)
+							.setDisplayRequest(fname).setDisplayRequest(sname).build();
+
+					try {
+						Iterator<DisplayResponse> displayResponse = blockingStub1.flightDisplay(displayRequest);
+						System.out.println("\nDisplaying finalized booking");
+						display_ta.append("Displaying finalized ticket bookings for each passenger.");
+
+						while (displayResponse.hasNext()) {
+							DisplayResponse temp = displayResponse.next();
+							display_ta.append("\nDestination: " + temp.getDisplayDestination() + "\n"
+									+ "Departure date: " + temp.getDisplayDepartureDate() + "\n" + "Departure time: "
+									+ temp.getDisplayDepartureTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayArrivalTime() + "\n" + "Flight ID: " + temp.getDisplayFlightId()
+									+ "\n" + "Return location: " + temp.getDisplayReturnLocation() + "\n"
+									+ "Return date: " + temp.getDisplayReturnDate() + "\n" + "Return time: "
+									+ temp.getDisplayReturnTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightReturnDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayReturnArrivalTime() + "\n" + "Price per person: "
+									+ temp.getDisplayPrice() + "\n" + "Ticket type: " + temp.getDisplayTicketType()
+									+ "\n" + "Seat Preference: " + temp.getDisplaySeatPref() + "\n" + "Firstname: "
+									+ temp.getDisplayFirstname() + "\n" + "Surname: " + temp.getDisplaySurname()
+									+ "\n");
+
+							System.out.println("\nDestination: " + temp.getDisplayDestination() + "\n"
+									+ "Departure date: " + temp.getDisplayDepartureDate() + "\n" + "Departure time: "
+									+ temp.getDisplayDepartureTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayArrivalTime() + "\n" + "Flight ID: " + temp.getDisplayFlightId()
+									+ "\n" + "Return location: " + temp.getDisplayReturnLocation() + "\n"
+									+ "Return date: " + temp.getDisplayReturnDate() + "\n" + "Return time: "
+									+ temp.getDisplayReturnTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightReturnDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayReturnArrivalTime() + "\n" + "Price per person: "
+									+ temp.getDisplayPrice() + "\n" + "Ticket type: " + temp.getDisplayTicketType()
+									+ "\n" + "Seat Preference: " + temp.getDisplaySeatPref() + "\n" + "Firstname: "
+									+ temp.getDisplayFirstname() + "\n" + "Surname: " + temp.getDisplaySurname()
+									+ "\n");
+
+							btnDisplay.setEnabled(false);
+						}
+					} catch (StatusRuntimeException f) {
+
+						f.printStackTrace();
+					} // end catch
+				} // end if option equals B or b
+
+				// if user chose flight C print of tickets with necessary deatil
+				else if (option.equals("C") || option.equals("c")) {
+					DisplayRequest displayRequest = DisplayRequest.newBuilder().setDisplayRequest(depart)
+							.setDisplayRequest(depart_date).setDisplayRequest(depart_time3)
+							.setDisplayRequest(depart_duration3).setDisplayRequest(arrival_time3)
+							.setDisplayRequest(randomNumber3).setDisplayRequest(arrival).setDisplayRequest(arrival_date)
+							.setDisplayRequest(return_time3).setDisplayRequest(return_duration3)
+							.setDisplayRequest(return_arrival_time3).setDisplayRequest(str_passengers)
+							.setDisplayRequest(price3).setDisplayRequest(ticket).setDisplayRequest(seat)
+							.setDisplayRequest(fname).setDisplayRequest(sname).build();
+
+					try {
+						Iterator<DisplayResponse> displayResponse = blockingStub1.flightDisplay(displayRequest);
+						System.out.println("\nDisplaying finalized booking");
+						display_ta.append("Displaying finalized ticket bookings for each passenger.");
+
+						while (displayResponse.hasNext()) {
+							DisplayResponse temp = displayResponse.next();
+							display_ta.append("\nDestination: " + temp.getDisplayDestination() + "\n"
+									+ "Departure date: " + temp.getDisplayDepartureDate() + "\n" + "Departure time: "
+									+ temp.getDisplayDepartureTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayArrivalTime() + "\n" + "Flight ID: " + temp.getDisplayFlightId()
+									+ "\n" + "Return location: " + temp.getDisplayReturnLocation() + "\n"
+									+ "Return date: " + temp.getDisplayReturnDate() + "\n" + "Return time: "
+									+ temp.getDisplayReturnTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightReturnDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayReturnArrivalTime() + "\n" + "Price per person: "
+									+ temp.getDisplayPrice() + "\n" + "Ticket type: " + temp.getDisplayTicketType()
+									+ "\n" + "Seat Preference: " + temp.getDisplaySeatPref() + "\n" + "Firstname: "
+									+ temp.getDisplayFirstname() + "\n" + "Surname: " + temp.getDisplaySurname()
+									+ "\n");
+
+							System.out.println("\nDestination: " + temp.getDisplayDestination() + "\n"
+									+ "Departure date: " + temp.getDisplayDepartureDate() + "\n" + "Departure time: "
+									+ temp.getDisplayDepartureTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayArrivalTime() + "\n" + "Flight ID: " + temp.getDisplayFlightId()
+									+ "\n" + "Return location: " + temp.getDisplayReturnLocation() + "\n"
+									+ "Return date: " + temp.getDisplayReturnDate() + "\n" + "Return time: "
+									+ temp.getDisplayReturnTime() + "\n" + "Flight duration: "
+									+ temp.getDisplayFlightReturnDuration() + "\n" + "Arrival time: "
+									+ temp.getDisplayReturnArrivalTime() + "\n" + "Price per person: "
+									+ temp.getDisplayPrice() + "\n" + "Ticket type: " + temp.getDisplayTicketType()
+									+ "\n" + "Seat Preference: " + temp.getDisplaySeatPref() + "\n" + "Firstname: "
+									+ temp.getDisplayFirstname() + "\n" + "Surname: " + temp.getDisplaySurname()
+									+ "\n");
+
+							btnDisplay.setEnabled(false);
+						}
+					} catch (StatusRuntimeException f) {
+
+						f.printStackTrace();
+					} // end catch
+				} // end if option equals C or c
 			}// end action performed
 
 		});
@@ -1019,10 +1158,37 @@ public class serviceGUI {
 					}// end on completed
 				}; // end Iterating through the stream of responses for hotelBooking
 
-				String value = hotel_booking_tf.getText();
-				if (hotel_booking.add(value)) {
+				String hotel_booking_temp = hotel_booking_tf.getText();
+				if (!(hotel_booking_temp.isEmpty())) {
+					if (hotel_booking.size() == 0) {
+						if (hotel_booking_temp.equals("Marriot International")
+								|| hotel_booking_temp.equals("marriot international")
+								|| hotel_booking_temp.equals("Hilton Hotel")
+								|| hotel_booking_temp.equals("hilton hotel")
+								|| hotel_booking_temp.equals("Wyndham Hotel & Resort")
+								|| hotel_booking_temp.equals("wyndham hotel & resort")
+								|| hotel_booking_temp.equals("Best Western Hotel")
+								|| hotel_booking_temp.equals("best western hotel")) {
+							hotel_booking.add(hotel_booking_temp);
+						} else {
+							JOptionPane.showMessageDialog(jFrame, "Error, enter one of the four hotels listed");
+						}
+
+					} else if (hotel_booking.size() == 1) {
+						if (hotel_booking_temp.equals("Single") || hotel_booking_temp.equals("single")
+								|| hotel_booking_temp.equals("Double") || hotel_booking_temp.equals("double")) {
+							hotel_booking.add(hotel_booking_temp);
+						} else {
+							JOptionPane.showMessageDialog(jFrame, "Error, enter single or double room");
+						}
+					} else {
+						hotel_booking.add(hotel_booking_temp);
+					}
+
 					hotel_booking_tf.setText("");
-				} // end if for removing text from text fields
+				} else {
+					JOptionPane.showMessageDialog(jFrame, "Error, field cannot be empty");
+				}
 
 				// Iterating through the stream of requests for flightBooking
 				StreamObserver<HotelBookingRequest> requestObserver = asyncStub2.hotelBooking(responseObserver);
@@ -1095,8 +1261,14 @@ public class serviceGUI {
 				String breakfast = breakfast_tf.getText();
 				String gym = gym_tf.getText();
 
-				while (!(breakfast.equals("")) && !(gym.equals(""))) {
-					if (breakfast.equals("yes") || breakfast.equals("no") && gym.equals("yes") || gym.equals("no")) {
+				if (!(breakfast.isEmpty()) && (!(gym.isEmpty()))) {
+					if (breakfast.equals("yes") && gym.equals("no") || breakfast.equals("no") && gym.equals("yes")
+							|| (breakfast.equals("yes") && gym.equals("yes")
+									|| (breakfast.equals("no") && gym.equals("no")))
+							|| (breakfast.equals("Yes") && gym.equals("No")
+									|| breakfast.equals("No") && gym.equals("Yes")
+									|| (breakfast.equals("Yes") && gym.equals("Yes")
+											|| (breakfast.equals("No") && gym.equals("No"))))) {
 						HotelAmenitiesRequest AmenitiesReq = HotelAmenitiesRequest.newBuilder().setBreakfast(breakfast)
 								.setGym(gym).build();
 						HotelAmenitiesResponse AmenitiesRes = blockingStub2.hotelAmenities(AmenitiesReq);
@@ -1111,12 +1283,13 @@ public class serviceGUI {
 					} else {
 
 						System.out.println("Error yes or no only");
-						amenities_ta.append("Error yes or no only" + "\n");
+						JOptionPane.showMessageDialog(jFrame,
+								"Error, yes or no options only, both should start with a capital letter or not");
 
 					}
 
-					break;
-
+				} else {
+					JOptionPane.showMessageDialog(jFrame, "Error, field(s) must not be empty");
 				}
 
 			}// end btnAmenities action performed

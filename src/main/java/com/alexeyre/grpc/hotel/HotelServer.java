@@ -129,19 +129,33 @@ public class HotelServer extends HotelServiceImplBase {
 
 			ArrayList<String> hotel_booking_list = new ArrayList();
 			String hotel, room, check_in_date, check_out_date;
+			String input = "";
 
 			@Override
 			public void onNext(HotelBookingRequest value) {
 				HotelBookingResponse.Builder response = HotelBookingResponse.newBuilder();
+				input = value.getValue();
 
 				if (hotel_booking_list.size() == 0) {
-					System.out.println("Hotel booking requested: " + value.getValue());
-					hotel = value.getValue();
-					hotel_booking_list.add(hotel);
+					if (input.equals("Marriot International") || input.equals("marriot international")
+							|| input.equals("Hilton Hotel") || input.equals("hilton hotel")
+							|| input.equals("Wyndham Hotel & Resort") || input.equals("wyndham hotel & resort")
+							|| input.equals("Best Western Hotel") || input.equals("best western hotel")) {
+						System.out.println("Hotel booking requested: " + value.getValue());
+						hotel = value.getValue();
+						hotel_booking_list.add(hotel);
+					} else {
+						System.out.println("\nError, please enter one of the four hotels");
+					}
 				} else if (hotel_booking_list.size() == 1) {
-					System.out.println("Hotel room type requested: " + value.getValue());
-					room = value.getValue();
-					hotel_booking_list.add(room);
+					if (input.equals("Single") || input.equals("single") || input.equals("Double")
+							|| input.equals("double")) {
+						System.out.println("Hotel room type requested: " + value.getValue());
+						room = value.getValue();
+						hotel_booking_list.add(room);
+					} else {
+						System.out.println("\nError, room must be a single or a double");
+					}
 				} else if (hotel_booking_list.size() == 2) {
 					System.out.println("Check in date requested: " + value.getValue());
 					check_in_date = value.getValue();
@@ -192,8 +206,12 @@ public class HotelServer extends HotelServiceImplBase {
 		String breakfast = request.getBreakfast();
 		String gym = request.getGym();
 
-		while (!(breakfast.equals("")) && !(gym.equals(""))) {
-			if (breakfast.equals("yes") || breakfast.equals("no") && gym.equals("yes") || gym.equals("no")) {
+		if (!(breakfast.isEmpty()) && (!(gym.isEmpty()))) {
+			if (breakfast.equals("yes") && gym.equals("no") || breakfast.equals("no") && gym.equals("yes")
+					|| (breakfast.equals("yes") && gym.equals("yes") || (breakfast.equals("no") && gym.equals("no")))
+					|| (breakfast.equals("Yes") && gym.equals("No") || breakfast.equals("No") && gym.equals("Yes")
+							|| (breakfast.equals("Yes") && gym.equals("Yes")
+									|| (breakfast.equals("No") && gym.equals("No"))))) {
 				System.out.println("\nReceiving amenities ... " + "\nDo you want breakfast: " + breakfast
 						+ "\nDo you want to use the gym: " + gym);
 				HotelAmenitiesResponse response = HotelAmenitiesResponse.newBuilder().setBreakfast(breakfast)
@@ -204,10 +222,10 @@ public class HotelServer extends HotelServiceImplBase {
 			} else {
 				System.out.println("Error yes or no only");
 			}
-			break;
-		}
-		
 
-	}
+		}else {
+			System.out.println("Error, field must not be empty");
+		}
+	}//end hotel amenities method
 
 }
